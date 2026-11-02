@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>雾与天空颜色 - UDS 中文文档</title>
+<meta name="description" content="雾的密度、高度衰减与起始距离如何由云量和尘埃推导；体积雾的开启与全局体积材质；以及 Sky Atmosphere 与 Simplified Color 两种配色方式。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Sky · 05</div>
+            <h1>雾与天空颜色</h1>
+            <p class="lede">雾的密度、高度衰减与起始距离如何由云量和尘埃推导；体积雾的开启与全局体积材质；以及 Sky Atmosphere 与 Simplified Color 两种配色方式。</p>
+            <div class="meta-row"><span class="chip">雾与能见度</span><span class="chip">两种配色方案</span></div>
+          </header>
+
+<h2 id="density">雾密度（Fog Density）</h2>
+
+<p>
+  <code>Fog Density</code> 分类决定高度雾的密度、高度衰减和起始距离。其中密度部分不是单一数值，而是
+  “基础值 + 由云量、雾、尘埃各自追加的量”：
+</p>
+
+<ul>
+  <li><strong>Density</strong>：雾随距离变浓的程度，也就是浓淡。</li>
+  <li><strong>Height Falloff</strong>：雾在雾组件高度之上消散得多快。</li>
+</ul>
+
+<p>
+  密度有基础值，另有 <code>Cloud Coverage</code>、<code>Fog</code>、<code>Dust Amount</code> 三项的追加值；
+  高度衰减则是基础值加上“多云 / 有雾 / 有尘”三种状态的取值——这三种是<strong>直接取用，不是相加</strong>。
+</p>
+
+<p>
+  雾的起始距离由密度推导：一个“低密度时的起始距离”加上一个“密度达到多少时起始距离归零”，
+  后者用于让雾能紧贴镜头。
+</p>
+
+<h2 id="color">雾颜色（Fog Color）</h2>
+
+<p>
+  这个分类里是高度雾的颜色设置，但它们实际怎么被使用，取决于项目设置
+  <code>Support Sky Atmosphere Affecting Height Fog</code>：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>项目设置</th><th>雾颜色的来源</th><th>建议</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>开启（新项目默认）</td>
+      <td>雾色直接由天空大气推导。多数情况下 UDS 上的 <code>Fog Color</code> 设置只有一部分会生效。</td>
+      <td>保持开启，通常能得到正确的结果</td>
+    </tr>
+    <tr>
+      <td>关闭</td>
+      <td>雾完全使用 <code>Fog Color</code> 分类里的设置。</td>
+      <td>需要单独、精确控制雾色时使用</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  如果 <code>Color Mode</code> 用的是 <code>Simplified Color</code>，上面这段可以忽略——该模式下根本没有启用天空大气，
+  <code>Fog Color</code> 里的设置会全部生效。
+</p>
+
+<h2 id="volumetric">体积雾（Volumetric Fog）</h2>
+
+<p>
+  体积雾是引擎的渲染特性：在镜头附近渲染更精细的雾，能接收并散射本地光源的光，还能被体积材质或粒子改变颜色与消光。
+  UDS 在 <code>Volumetric Fog</code> 分类里提供了开关与参数。
+</p>
+
+<p>
+  分类顶部是开关、整体消光（extinction）和渲染距离。下面还有太阳与月亮的
+  <code>Volumetric Scattering Intensity</code>，分别控制这两个光源把体积雾照亮的程度。
+</p>
+
+<div class="video-embed" data-bvid="BV1zyoFBkE8f">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：设置体积雾">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>设置体积雾</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1zyoFBkE8f/" target="_blank" rel="noopener">BV1zyoFBkE8f</a></div>
+</div>
+
+<h3 id="全局体积材质-global-volumetric-material">全局体积材质（Global Volumetric Material）</h3>
+
+<p>
+  同一分类里可以开启全局体积材质，从而对消光与颜色做统一的控制。它包含四项，均可在此开关：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>功能</th><th>作用</th><th>前置条件</th></tr></thead>
+  <tbody>
+    <tr><td>基于纹理的 3D 噪声</td><td>给消光叠加噪声，让雾有层次和变化。</td><td>—</td></tr>
+    <tr><td>用天气遮罩笔刷遮住体积雾</td><td>指定哪些区域不生成体积雾。</td><td>使用 UDW 的天气遮罩工具</td></tr>
+    <tr><td>地面雾（Ground Fog）</td><td>在距离场正上方增加额外的雾消光。</td><td>项目需开启生成 Mesh Distance Fields</td></tr>
+    <tr><td>水下雾</td><td>在水位以下使用单独的消光与反照率。</td><td>使用 UDS 的 <code>Water Level</code> 分类</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="dust">尘埃（Dust）</h2>
+
+<p>
+  <code>Dust</code> 分类用来模拟空气里充满灰尘、烟尘或其它悬浮颗粒的状态。
+  <code>Dust Amount</code> 会同时影响雾的密度、高度衰减和雾色；当它为 1 时，雾色取 <code>Dust Color</code>。
+  尘埃对密度的具体影响方式在 <code>Fog Density</code> 分类里设置。
+</p>
+
+<div class="callout note">
+  <div class="co-title">注意</div>
+  <p>关卡里存在 UDW 时，<code>Dust Amount</code> 会由天气状态接管。</p>
+</div>
+
+<h2 id="atmosphere">天空颜色：Sky Atmosphere</h2>
+
+<p>
+  <code>Color Mode</code> 为 <code>Sky Atmosphere</code> 时，配色的主要控制在 <code>Sky Atmosphere</code> 分类里：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>设置</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td>Rayleigh Scattering</td><td>决定天空的主色调，可以按白天、夜晚、晨昏分别调。</td></tr>
+    <tr><td>Sunset / Sunrise / Twilight</td><td>对应天空大气组件的 Absorption 参数，用来加强落日的色彩、或改变暮色的调子。</td></tr>
+    <tr><td>Sky Atmosphere Overcast Luminance</td><td>云量高时，按这个值缩放所有天空颜色的强度，让阴天整体压暗。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="simple-color">天空颜色：Simplified Color</h2>
+
+<p>
+  <code>Color Mode</code> 为 <code>Simplified Color</code> 时，控制在 <code>Simplified Color</code> 分类里：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>设置</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>颜色变量</td>
+      <td>控制天空的基础色，以及 2D 动态云和静态云的亮部、暗部颜色。体积云的颜色不在这里，在 <code>Volumetric Clouds</code> 分类。</td>
+    </tr>
+    <tr>
+      <td><code>Directional Intensity</code> 曲线</td>
+      <td>平行光接近地平线时被压暗多少。</td>
+    </tr>
+    <tr>
+      <td><code>Directional Light Scattering</code> 颜色曲线</td>
+      <td>平行光接近地平线时颜色如何被过滤。</td>
+    </tr>
+    <tr>
+      <td>太阳 / 月亮大气 LUT 体积纹理</td>
+      <td>天空材质据此结合相机方向与光线方向推导大气颜色。默认的 LUT 是经过复杂流程烘焙的，能贴近 Sky Atmosphere 的效果；需要改动时官方建议只对现成纹理做颜色变换，而不是重新制作。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#density" data-toc="density">雾密度（Fog Density）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#color" data-toc="color">雾颜色（Fog Color）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#volumetric" data-toc="volumetric">体积雾（Volumetric Fog）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#全局体积材质-global-volumetric-material" data-toc="全局体积材质-global-volumetric-material">全局体积材质（Global Volumetric Material）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#dust" data-toc="dust">尘埃（Dust）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#atmosphere" data-toc="atmosphere">天空颜色：Sky Atmosphere</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#simple-color" data-toc="simple-color">天空颜色：Simplified Color</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="time-sun.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">时间、日月与模拟</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="night.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">夜空</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

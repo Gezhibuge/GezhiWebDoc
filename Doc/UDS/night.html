@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>夜空 - UDS 中文文档</title>
+<meta name="description" content="星星的两种贴图来源、极光的两种渲染方式、夜间辉光与光污染，以及用太空层在天空中加入行星、卫星和星云。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Sky · 06</div>
+            <h1>夜空</h1>
+            <p class="lede">星星的两种贴图来源、极光的两种渲染方式、夜间辉光与光污染，以及用太空层在天空中加入行星、卫星和星云。</p>
+            <div class="meta-row"><span class="chip">星空与极光</span><span class="chip">太空层需 DBuffer</span></div>
+          </header>
+
+<h2 id="stars">星星（Stars）</h2>
+
+<p>
+  星星默认用一张可平铺的纹理映射到天空材质上，可以在 <code>Stars</code> 分类里通过
+  <code>Tiling Stars</code> 变量替换。
+</p>
+
+<p>
+  如果在 <code>Simulation</code> 分类启用了 <code>Simulate Real Stars</code>，则会改用一张高分辨率 360 度星空图，
+  对应 <code>Real Stars</code> 变量——两张纹理互不影响，可以分别替换。
+</p>
+
+<p>同一个分类里还有星星的颜色、强度，以及模拟大气闪烁（twinkling）程度的参数。</p>
+
+<h2 id="aurora">极光（Aurora）</h2>
+
+<p>UDS 有两种极光表现，共用 <code>Aurora</code> 分类里的大部分颜色与运动参数：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>类型</th><th>开启方式</th><th>特点</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>2D 极光</td>
+      <td>在 <code>Aurora</code> 分类勾选 <code>Use Auroras</code>；Sky Mode 不能是 <code>Volumetric Aurora</code>，且需要是支持 2D 极光的模式。</td>
+      <td>天空材质里用纹理绘制的着色器效果，开销低。绘制方式的细节在分类的 <code>Advanced</code> 折叠区。</td>
+    </tr>
+    <tr>
+      <td>体积极光</td>
+      <td>把 <code>Basic Controls</code> 里的 <code>Sky Mode</code> 改为 <code>Volumetric Aurora</code>。</td>
+      <td>用体积云组件渲染的完整 3D 效果，镜头可以进入其中或飞到上方；代价是放弃云层。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="glow">天空辉光（Sky Glow）</h2>
+
+<p>这个分类提供不依赖日月的夜间补光，用来避免“没有月亮的夜晚一片死黑”。</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>设置</th><th>效果</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Night Sky Glow</code></td>
+      <td>给天空材质加一层均匀的光，并从上方轻微照亮体积云。用来模拟星光与大气自身的微光，也可以调高当作夜间的最低照度。</td>
+    </tr>
+    <tr>
+      <td><code>Light Pollution</code></td>
+      <td>给天空材质加光，并从下方柔和照亮体积云，模拟城市灯光映在天空上的效果。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="space">太空层：行星、卫星与星云</h2>
+
+<p>
+  UDS 可以在天空里额外渲染行星与卫星，合成顺序是正确的：它们会挡住星星，但会被云和极光遮住。
+  相关设置都在 <code>Space Layer</code> 分类。
+</p>
+
+<p>
+  可以直接往 <code>Planets / Moons</code> 数组里手动添加，也可以从
+  <code>Add Planet / Moon Preset</code> 里选一个预设作为起点。数组里每个元素的参数都有提示，几个关键的：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>参数</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Parent</code></td>
+      <td>决定行星跟随谁移动：太阳、月亮，或者不设父级（不动）。不设父级时，也可以在运行时通过操作 UDS 上 <code>Space Roots</code> 数组里组件的变换来手动移动它。</td>
+    </tr>
+    <tr><td><code>Relative Rotation</code></td><td>相对父级的朝向旋转。</td></tr>
+    <tr><td><code>Scale</code></td><td>视觉大小。</td></tr>
+    <tr>
+      <td><code>Terminator</code></td>
+      <td>晨昏线相关设置，即行星被照亮面与暗面的分界。</td>
+    </tr>
+    <tr>
+      <td><code>Light Vector</code></td>
+      <td>决定明暗面的光源方向：来自太阳、月亮，或自定义向量。</td>
+    </tr>
+    <tr>
+      <td><code>Glow</code></td>
+      <td>在行星周围额外渲染一圈弥散的大气辉光。亮度取决于被照亮面朝向相机的比例，整体再由 <code>Space Layer</code> 分类里的 <code>Space Glow Brightness</code> 缩放。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <div class="co-title">前置条件</div>
+  <p>
+    太空层是通过 DBuffer 把行星画进天空材质的，所以项目里必须启用 <code>Dbuffer Decals</code>
+    （移动端渲染器对应 <code>Mobile DBuffer Decals</code>），且目标平台要支持，否则行星不会显示。
+  </p>
+</div>
+
+<p>
+  除了内置的行星设置，也可以用 <code>Custom Space Layer Decals</code> 数组放入自己的贴花材质，
+  直接渲染到太空层里。
+</p>
+
+<p>
+  同一分类里还有星云（Nebula）开关。星云同样通过天空材质渲染，效果基于噪声，
+  噪声参数、颜色与强度都可以调。
+</p>
+
+<div class="video-embed" data-bvid="BV1LyoTBREKQ">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用太空层">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用太空层</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1LyoTBREKQ/" target="_blank" rel="noopener">BV1LyoTBREKQ</a></div>
+</div>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#stars" data-toc="stars">星星（Stars）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#aurora" data-toc="aurora">极光（Aurora）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#glow" data-toc="glow">天空辉光（Sky Glow）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#space" data-toc="space">太空层：行星、卫星与星云</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="fog.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">雾与天空颜色</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="cinematics.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">影视渲染与关卡控制</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

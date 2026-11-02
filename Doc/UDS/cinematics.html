@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>影视渲染与关卡控制 - UDS 中文文档</title>
+<meta name="description" content="用 Sequencer 给天空做关键帧、影片渲染与路径追踪的注意事项、体积云无缝循环的做法，以及让关卡在日落时开灯、在指定时刻触发事件。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Sky · 07</div>
+            <h1>影视渲染与关卡控制</h1>
+            <p class="lede">用 Sequencer 给天空做关键帧、影片渲染与路径追踪的注意事项、体积云无缝循环的做法，以及让关卡在日落时开灯、在指定时刻触发事件。</p>
+            <div class="meta-row"><span class="chip">Sequencer</span><span class="chip">关卡联动</span></div>
+          </header>
+
+<h2 id="sequencer">用 Sequencer 给天空做动画</h2>
+
+<h3 id="给-time-of-day-打关键帧">给 Time of Day 打关键帧</h3>
+
+<p>
+  直接给 <code>Time of Day</code> 做动画时，先关闭 UDS 上的 <code>Animate Time of Day</code>，
+  然后对 <code>Time of Day</code> 变量打关键帧。这个值允许超过 24，系统会理解为进入下一天、继续向前推进。
+</p>
+
+<h3 id="给云量或雾打关键帧">给云量或雾打关键帧</h3>
+
+<p>
+  场景里<strong>没有</strong> UDW 时，可以直接对 UDS 的 <code>Cloud Coverage</code>、<code>Fog</code> 打关键帧。
+  如果场景里有 UDW，则应该改用 UDW 的手动天气状态来给这两项打关键帧，否则会被天气状态覆盖。
+</p>
+
+<h3 id="给云的移动打关键帧">给云的移动打关键帧</h3>
+
+<ol class="steps">
+  <li>把 <code>Cloud Speed</code> 设为 0。</li>
+  <li>关闭 <code>Randomize Cloud Formation on Run</code> 与 <code>Clouds Move with Time of Day</code>。</li>
+  <li>在 Sequencer 里对 <code>Cloud Phase</code> 打关键帧。</li>
+</ol>
+
+<p>这样做的好处是每次回放完全一致，适合需要精确复现的镜头。</p>
+
+<h3 id="其它变量">其它变量</h3>
+
+<p>
+  并不是所有变量都会在运行时动态重算，所以也不是所有变量都能直接做动画。默认情况下，能直接工作的变量都已标记为可被影视引用（Expose to Cinematics）。
+</p>
+
+<p>
+  需要额外暴露某个变量时：在蓝图编辑器里打开 UDS，在 <em>My Blueprint</em> 面板找到该变量，
+  在变量详情中勾选 <code>Expose to Cinematics</code>。不过这样暴露的变量通常不会随关键帧自动更新，
+  需要在动画的每一帧调用对应的 <code>Static Properties</code> 函数强制刷新。
+</p>
+
+<div class="video-embed" data-bvid="BV1zyoFBrEGw">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用 Sequencer 制作天空动画">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用 Sequencer 制作天空动画</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1zyoFBrEGw/" target="_blank" rel="noopener">BV1zyoFBrEGw</a></div>
+</div>
+
+<h2 id="movie">渲染影片</h2>
+
+<p>
+  用 Movie Render Queue 出片前，先把 <code>Project Mode</code> 改成 <code>Cinematic / Offline</code>：
+  这个模式会按最高画质配置天空，并关掉那些只在实时渲染里有意义的优化。
+</p>
+
+<div class="callout warn">
+  <div class="co-title">渲染完记得改回来</div>
+  <p>
+    如果项目本身需要实时性能，渲染结束后务必把 <code>Project Mode</code> 调回
+    <code>Game / Real-time</code>，否则游戏性能会显著下降。
+  </p>
+</div>
+
+<p>
+  UDS 上还有 <code>Cinematic / Offline Mode</code> 分类，用来单独调整该模式下的画质档位。
+</p>
+
+<h2 id="pathtracer">路径追踪（Path Tracer）</h2>
+
+<p>
+  路径追踪不原生渲染天空，而是用天光的立方体贴图代替。所以在启用了 UDS 的场景里打开路径追踪，
+  天空部分会受到这个限制。
+</p>
+
+<p>
+  为此 UDS 提供了一个补偿选项：在 <code>Cinematics / Offline Rendering</code> 分类里勾选
+  <code>Adjust for Path Tracer</code>，它会尽量把天空调整成适合作为路径追踪背景的样子。
+</p>
+
+<p>
+  另外 <code>Fog Color</code> 分类里的 <code>Render Height Fog In Path Tracer Using Post Process</code>
+  默认开启，用后期处理近似渲染远处的高度雾——路径追踪本身不支持高度雾。
+</p>
+
+<h2 id="loop">体积云的无缝循环</h2>
+
+<p>
+  需要让体积云无缝循环（例如渲染一段循环影片）时，可以在一定限制下做到。原理是让云的形成纹理在 UV 上
+  完整走完一个 0–1 周期，因此循环长度天然比较长，云速正常时尤其明显。
+</p>
+
+<p>配置步骤：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>分类</th><th>设置</th><th>值</th></tr></thead>
+  <tbody>
+    <tr><td rowspan="3"><code>Cloud Movement</code></td><td><code>Cloud Speed</code></td><td>0（时间由 Cloud Phase 控制）</td></tr>
+    <tr><td><code>Cloud Direction</code></td><td>沿单一轴向：0、90、180 或 270</td></tr>
+    <tr><td><code>Formation Change Speed</code></td><td>1（用 0.5 也可以，但循环长度要翻倍）</td></tr>
+    <tr><td rowspan="4"><code>Volumetric Clouds</code></td><td><code>3D Noise Scale</code></td><td>1</td></tr>
+    <tr><td><code>Cloud Formation Texture Scale</code></td><td>1</td></tr>
+    <tr><td><code>Macro Variation</code></td><td>0</td></tr>
+    <tr><td><code>3D Noise Vertical Movement</code></td><td>0</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  配置好之后，把 <code>Cloud Phase</code> 从 0 关键帧到 100，就是一段无缝循环的云动画。
+  （若 <code>Formation Change Speed</code> 用了 0.5，则改为 0 到 200。）
+</p>
+
+<h2 id="night-lights">夜晚自动开灯</h2>
+
+<p>
+  资源里带了一个专门的组件 <code>Light Day/Night Toggle</code>，位于 <code>Blueprints/Utilities</code> 文件夹。
+  把它作为子组件加到任意 Actor 的灯光组件下面即可。
+</p>
+
+<figure>
+  <img src="assets/img/night-lights.png" alt="Light Day/Night Toggle 的层级" width="311" height="204">
+  <figcaption>推荐的层级：开关组件挂在灯光组件之下，由它控制灯光。</figcaption>
+</figure>
+
+<ul>
+  <li>运行时，灯光的开关状态由太阳是否在地平线以上决定。默认夜里亮，可以在组件设置里反过来。</li>
+  <li>默认会做一段渐亮的强度动画，模拟灯具启动；可以关掉或调整曲线。</li>
+  <li>灯光状态还可以驱动一组动态材质实例上的 <code>Light Toggle</code> 标量参数（0–1），把材质实例加进组件的数组即可。</li>
+</ul>
+
+<p>
+  如果某些“灯”只是材质上的自发光、没有灯光组件，用材质函数代替蓝图：
+  <code>Day to Night Color</code> 与 <code>Day to Night Float</code> 会根据太阳是否升起在两个输入之间切换。
+</p>
+
+<div class="video-embed" data-bvid="BV1LyoTBREK9">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用昼夜光照切换组件">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用昼夜光照切换组件</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1LyoTBREK9/" target="_blank" rel="noopener">BV1LyoTBREK9</a></div>
+</div>
+
+<h2 id="events">按时间触发事件</h2>
+
+<p>
+  UDS 内置了一组事件分发器，分别在日落、日出、午夜、每小时、每分钟以及自定义时刻触发。
+  用法是先拿到 UDS 引用——用共享函数 <code>Get Ultra Dynamic Sky</code> 最方便——再绑定对应事件，例如
+  <code>Bind to Sunrise</code>、<code>Bind to Sunset</code>。
+</p>
+
+<figure>
+  <img src="assets/img/timed-events.png" alt="绑定日出事件" width="530" height="418">
+  <figcaption>一个最基本的绑定：拿到有效的 UDS 引用后绑定事件，太阳升起时自定义事件就会执行。</figcaption>
+</figure>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>分发器</th><th>触发时机</th><th>输出</th></tr></thead>
+  <tbody>
+    <tr><td><code>Sunrise</code> / <code>Sunset</code></td><td>太阳越过地平线的那一分钟。可用 <code>Sunrise Event Offset</code>、<code>Sunset Event Offset</code> 提前或延后。</td><td>—</td></tr>
+    <tr><td><code>Midnight</code></td><td>午夜。</td><td>—</td></tr>
+    <tr><td><code>Hourly</code></td><td>每个经过的整点<strong>都会</strong>触发。时间被瞬间跳过多少小时，就补触发多少次。</td><td>当前小时（整数）</td></tr>
+    <tr><td><code>Current Hour Changed</code></td><td>时间变化后只触发一次，对应新的当前小时。</td><td>当前小时（整数）</td></tr>
+    <tr><td><code>Every Minute</code></td><td>每分钟一次，行为类似 Current Hour Changed。</td><td>当前分钟（0–59）</td></tr>
+    <tr><td>自定义时刻</td><td>默认不触发。需要在 <code>Animate Time of Day</code> 分类的 <code>Custom Time Dispatchers</code> 数组里填入时间点。</td><td>触发的数组索引</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  <code>Animate Time of Day</code> 分类里还有一个 <code>Time Event Dispatcher Check Period</code>，
+  决定这些事件多久检查一次。默认在 <code>Time of Day</code> 正在变化时每秒检查一次。
+  自定义时刻触发时会输出数组索引，方便你在同一个事件里区分是哪个时间点到了。
+</p>
+
+<h2 id="material-functions">天空工具材质函数</h2>
+
+<p>材质面板里可以搜到两个由 UDS 状态自动驱动的工具函数：</p>
+
+<ul>
+  <li>
+    <code>Day to Night Float</code> / <code>Day to Night Color</code>：接收两个值，按太阳是否在地平线以上在两者之间插值。
+    可以设置阈值偏移（高于或低于地平线多少算切换），以及过渡区间的宽窄。
+  </li>
+  <li>
+    <code>Active Sun or Moon Vector</code>：太阳在地平线上时输出太阳方向的单位向量，只有月亮时输出月亮方向。
+    同时输出一个 0–1 的遮罩值，在日月切换的瞬间降到 0，用来掩盖依赖该向量的效果突变。
+  </li>
+</ul>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#sequencer" data-toc="sequencer">用 Sequencer 给天空做动画</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#给-time-of-day-打关键帧" data-toc="给-time-of-day-打关键帧">给 Time of Day 打关键帧</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#给云量或雾打关键帧" data-toc="给云量或雾打关键帧">给云量或雾打关键帧</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#给云的移动打关键帧" data-toc="给云的移动打关键帧">给云的移动打关键帧</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#其它变量" data-toc="其它变量">其它变量</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#movie" data-toc="movie">渲染影片</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#pathtracer" data-toc="pathtracer">路径追踪（Path Tracer）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#loop" data-toc="loop">体积云的无缝循环</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#night-lights" data-toc="night-lights">夜晚自动开灯</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#events" data-toc="events">按时间触发事件</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#material-functions" data-toc="material-functions">天空工具材质函数</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="night.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">夜空</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="sky-extra.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">天空的其他功能</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

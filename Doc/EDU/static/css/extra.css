@@ -1,0 +1,361 @@
+﻿/* Global grid size to 1800px max */
+.md-grid {
+    max-width: 1800px; 
+}
+.md-main__inner {
+    margin-top: 0;
+}
+
+/* Banner image styling */
+[data-md-color-scheme="default"] {
+  --bg-overlay: rgba(255, 255, 255, 0.7);
+}
+
+[data-md-color-scheme="slate"] {
+  --bg-overlay: rgba(0, 0, 0, 0.6);
+}
+
+.banner-img {
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-height: 100dvh;
+  width: 100%;
+  z-index: -99;
+  
+  background: 
+    linear-gradient(var(--bg-overlay)), 
+    url("../main-content/EasyGameUIBackground.webp");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* More visible background on cards */
+.md-typeset .grid.cards>ol>li, .md-typeset .grid.cards>ul>li, .md-typeset .grid>.card {
+  /* -webkit-backdrop-filter: blur(.4rem);
+  backdrop-filter: blur(.4rem); */
+  background-color: var(--md-default-bg-color--lighter);
+}
+
+/* Prevent code blocks from being too tall and scrolling on x */
+code { 
+    max-height: 200px !important; 
+}
+.md-code__content {
+    max-height: 200px;
+    overflow-x: hidden !important;
+}
+
+/* Increase spacing around copy code button and make it more visible */
+.md-code__nav{
+    padding: 8px;
+    margin: 5px;
+    left: 0;
+    top: inherit;
+    right: inherit;
+    border-radius: 9.6px;
+    box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.2);
+	transition: 0.2s box-shadow;
+    background-color: var(--md-code-bg-color);
+}
+:hover>.md-code__nav{
+    box-shadow: 0 0 10px 0px black;
+    background-color: var(--md-code-bg-color);
+	transition: 0.2s box-shadow;
+}
+
+.md-code__button {
+    color: var(--md-default-fg-color--light);
+    width: 2em;
+    height: 2em;
+}
+
+.md-code__button:after {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+/* Remove spacing beside the search box */
+.md-header__source {
+    width: 0;
+}
+
+/* More visible dividers */
+.md-typeset hr {
+    border-bottom: 0.05rem solid var(--md-default-fg-color--lighter)
+}
+
+/* Set code blocks text to the accent color */
+.md-typeset code{
+    color: var(--md-typeset-a-color);
+}
+
+[dir=ltr] .md-typeset ol li, [dir=ltr] .md-typeset ul li {
+    padding-left: 0.33em;
+}
+
+/* PLace adomnition arrow to the left of the box and hide icon */
+.md-typeset summary:before {
+    width: 0 !important;
+}
+.md-typeset summary:after {
+    left: 0 !important;
+}
+
+
+.hidden-title {
+    visibility: collapse !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Hide entirely disabled gallery arrows */
+.gnext.disabled, .gprev.disabled {
+    height: 0 !important;
+}
+.glightbox-clean .gnext, .glightbox-clean .gprev {
+    height: 0 !important;
+}
+
+/* Force admonition without title to properly center vertically */
+html .md-typeset .admonition>:first-child, html .md-typeset details>:first-child{
+  margin-top: .8rem;
+}
+html .md-typeset .admonition>:last-child, html .md-typeset details>:last-child {
+  margin-bottom: .8rem;
+}
+
+/* -------- FONTS -------- */
+@font-face {
+  font-display: swap; 
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../../static/font/rubik-v31-latin-300.woff2') format('woff2'); 
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Rubik';
+  font-style: italic;
+  font-weight: 300;
+  src: url('../../static/font/rubik-v31-latin-300italic.woff2') format('woff2'); 
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../static/font/rubik-v31-latin-regular.woff2') format('woff2'); 
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Rubik';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../../static/font/rubik-v31-latin-italic.woff2') format('woff2'); 
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../../static/font/rubik-v31-latin-500.woff2') format('woff2'); 
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Rubik';
+  font-style: italic;
+  font-weight: 500;
+  src: url('../../static/font/rubik-v31-latin-500italic.woff2') format('woff2'); 
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../static/font/rubik-v31-latin-700.woff2') format('woff2'); 
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Rubik';
+  font-style: italic;
+  font-weight: 700;
+  src: url('../../static/font/rubik-v31-latin-700italic.woff2') format('woff2'); 
+}
+
+
+@font-face {
+  font-display: swap;
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../static/font/jetbrains-mono-v24-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'JetBrains Mono';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../../static/font/jetbrains-mono-v24-latin-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../static/font/jetbrains-mono-v24-latin-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'JetBrains Mono';
+  font-style: italic;
+  font-weight: 700;
+  src: url('../../static/font/jetbrains-mono-v24-latin-700italic.woff2') format('woff2');
+}
+
+:root {
+  --md-text-font: 'Rubik'; 
+  --md-code-font: 'JetBrains Mono'; 
+}
+/* ============================================================
+   纸张主题（浅色）
+   ============================================================ */
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #f2eee5;
+  --md-default-bg-color--light: #f7f3ea;
+  --md-default-bg-color--lighter: #faf7f0;
+  --md-default-bg-color--lightest: #efe9dc;
+  --md-default-fg-color: #29251f;
+  --md-default-fg-color--light: #6b6153;
+  --md-default-fg-color--lighter: #948977;
+  --md-default-fg-color--lightest: #ded5c3;
+  --md-code-bg-color: #ece5d6;
+  --md-code-fg-color: #3a332a;
+  --md-typeset-color: #29251f;
+  --md-typeset-a-color: #8a4f2a;
+  --md-typeset-table-color: #ded5c3;
+  --md-typeset-table-color--light: #e8e1d2;
+  --md-accent-fg-color: #8a4f2a;
+  --md-typeset-mark-color: #f3e2c2;
+  --md-typeset-kbd-color: #f7f2e7;
+  --md-typeset-kbd-accent-color: #fdfbf6;
+  --md-typeset-kbd-border-color: #cfc4b0;
+  --bg-overlay: rgba(242, 238, 229, 0.9);
+  --md-primary-fg-color: #8a4f2a;
+  --md-primary-fg-color--light: #a4693f;
+  --md-primary-fg-color--dark: #6d3c1f;
+  --md-primary-bg-color: #fdfbf6;
+}
+
+/* 纸张纹理与页头 */
+[data-md-color-scheme="default"] body {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+[data-md-color-scheme="default"] .md-header,
+[data-md-color-scheme="default"] .md-tabs {
+  background-color: #f2eee5;
+  color: #29251f;
+  border-bottom: 1px solid #ded5c3;
+}
+[data-md-color-scheme="default"] .md-header__title,
+[data-md-color-scheme="default"] .md-header__button {
+  color: #29251f;
+}
+[data-md-color-scheme="default"] .md-search__form,
+[data-md-color-scheme="default"] .md-search__input {
+  background-color: #e9e2d3;
+  color: #29251f;
+}
+
+/* ============================================================
+   搜索按钮与弹层
+   ============================================================ */
+.egui-search-btn {
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+}
+.egui-search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(25, 22, 18, 0.45);
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 16px 16px;
+}
+.egui-search-overlay.open { display: flex; }
+.egui-search-box {
+  width: 100%;
+  max-width: 640px;
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, #222);
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(0,0,0,.15));
+  border-radius: 10px;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+.egui-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest, rgba(0,0,0,.12));
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+  padding: 14px 16px;
+  outline: none;
+}
+.egui-search-list {
+  max-height: 52vh;
+  overflow-y: auto;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+}
+.egui-search-list li { margin: 0; }
+.egui-search-list a {
+  display: block;
+  padding: 8px 16px;
+  color: inherit;
+  text-decoration: none;
+  line-height: 1.5;
+}
+.egui-search-list a:hover,
+.egui-search-list a.active {
+  background: var(--md-default-fg-color--lightest, rgba(0,0,0,.08));
+}
+.egui-search-list .s-title { font-weight: 600; }
+.egui-search-list .s-page {
+  font-size: .72rem;
+  color: var(--md-default-fg-color--light, #888);
+}
+.egui-search-list .s-snippet {
+  font-size: .78rem;
+  color: var(--md-default-fg-color--light, #888);
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.egui-search-empty { padding: 14px 16px; color: var(--md-default-fg-color--light, #888); font-size: .85rem; }
+.egui-search-hint {
+  padding: 8px 16px;
+  font-size: .72rem;
+  color: var(--md-default-fg-color--light, #999);
+  border-top: 1px solid var(--md-default-fg-color--lightest, rgba(0,0,0,.1));
+}

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>速查表与资源清单 - Story Framework 中文手册</title>
+<meta name="description" content="资产路径、函数与节点、数据表、术语中英对照、官方视频清单。做东西卡住时来这里翻，不用回头读全文。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="Story Framework 中文手册">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">Story Framework 中文手册</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">SF 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读 · 从这里开始</span></a></li>
+            <li><a class="md-nav__link" href="quickstart.html"><span class="md-nav__num">1</span><span>快速开始</span></a></li>
+            <li><a class="md-nav__link" href="concepts.html"><span class="md-nav__num">2</span><span>核心概念</span></a></li>
+            <li><a class="md-nav__link" href="interaction.html"><span class="md-nav__num">3</span><span>交互系统</span></a></li>
+            <li><a class="md-nav__link" href="inventory.html"><span class="md-nav__num">4</span><span>背包与叙事容器</span></a></li>
+            <li><a class="md-nav__link" href="dialogue.html"><span class="md-nav__num">5</span><span>对话与叙事</span></a></li>
+            <li><a class="md-nav__link" href="ui.html"><span class="md-nav__num">6</span><span>界面与输入提示</span></a></li>
+            <li><a class="md-nav__link" href="camera.html"><span class="md-nav__num">7</span><span>相机与场景</span></a></li>
+            <li><a class="md-nav__link" href="save.html"><span class="md-nav__num">8</span><span>存档与集成</span></a></li>
+            <li><a class="md-nav__link" href="faq.html"><span class="md-nav__num">9</span><span>排错手册</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="reference.html"><span class="md-nav__num">10</span><span>速查表</span></a></li>
+            <li><a class="md-nav__link" href="workshop.html"><span class="md-nav__num">11</span><span>实操工作坊</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">12</span><span>视频课程</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据官方文档 5.0+ / Fab 5.2 整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">第 10 章 · 附录</div>
+            <h1>速查表与资源清单</h1>
+            <p class="lede">资产路径、函数与节点、数据表、术语中英对照、官方视频清单。做东西卡住时来这里翻，不用回头读全文。</p>
+            <div class="meta-row"><span class="chip accent">可收藏</span><span class="chip">资产路径</span><span class="chip">术语对照</span></div>
+          </header>
+
+<p class="lede">
+  这一页不打算“教会”你什么，只想让你<strong>少翻几次内容浏览器</strong>。
+  建议直接收藏本页，用 <kbd>Ctrl</kbd>+<kbd>F</kbd> 或左侧搜索找关键词。
+</p>
+
+<h2 id="paths">资产路径速查</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>要找的东西</th><th>路径</th></tr></thead>
+  <tbody>
+    <tr><td>五大管理器组件</td><td><code>StoryFramework → Core → Blueprint → Components → Core</code></td></tr>
+    <tr><td>相机组件 <code>SFDefaultCamera_CC</code></td><td><code>StoryFramework → Core → Blueprint → Components → Other</code></td></tr>
+    <tr><td>数据表（全部）</td><td><code>StoryFramework → Core → Blueprints → Data Tables</code></td></tr>
+    <tr><td>结构体（<code>TaskInfo_S</code> 等）</td><td><code>StoryFramework → Core → Blueprints → Structures</code></td></tr>
+    <tr><td>函数库（BFL）</td><td><code>StoryFramework → Core → Blueprints → Function Libraries</code></td></tr>
+    <tr><td>输入映射（IMC）</td><td><code>StoryFramework → Core → Input</code></td></tr>
+    <tr><td>UI 控件（提示、按键、菜单）</td><td><code>StoryFramework → Core → User Interface → Widgets</code></td></tr>
+    <tr><td>玩家相机管理器类</td><td><code>StoryFramework → Core → Blueprints</code></td></tr>
+    <tr><td>触发器 Actor</td><td><code>StoryFramework → Core → Example → Level → LevelActors → Triggers</code></td></tr>
+    <tr><td>设置数据资产 SFV</td><td>搜索 <code>StoryFrameworkValues</code>（也可从顶部 <code>Story Framework</code> 菜单进）</td></tr>
+    <tr><td>存档对象 / GameInstance</td><td><code>StoryFramework → Core → Blueprints</code>（搜索 <code>SaveGame</code> / <code>SFGameInstance_BP</code>）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="functions">节点 / 函数速查</h2>
+
+<p>除了「引用」一栏，其余都需要先拿到对应管理器。</p>
+
+<h3 id="交互管理器">交互管理器</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>节点</th><th>用途</th></tr></thead>
+  <tbody>
+    <tr><td><code>Perform Action</code></td><td>开始一段带进度条的动作</td></tr>
+    <tr><td><code>Stop Current Action</code></td><td>中断当前动作</td></tr>
+    <tr><td><code>OnPerformActionFinished</code> / <code>OnPerformActionStopped</code></td><td>动作结束 / 被打断的事件</td></tr>
+    <tr><td><code>Create Quick Time Event</code></td><td>创建一次 QTE</td></tr>
+    <tr><td><code>Spawn Interactable Saved</code></td><td>生成可交互物并立刻存入存档</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="背包管理器">背包管理器</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>节点</th><th>用途</th></tr></thead>
+  <tbody>
+    <tr><td><code>Add Item to Inventory</code></td><td>加道具（可同时销毁地上的物体）</td></tr>
+    <tr><td><code>Remove Selected Item From Inventory</code></td><td>删道具（可选掉到地上）</td></tr>
+    <tr><td><code>Find Item in Inventory by Name</code></td><td>查某个道具的数量</td></tr>
+    <tr><td><code>DoItemsArrayExistInInventory</code></td><td>批量检查是否齐全</td></tr>
+    <tr><td><code>EditItemInInventoryByName</code></td><td>运行时修改道具数据</td></tr>
+    <tr><td><code>Add Journal Entry</code> / <code>Remove Journal Entry</code></td><td>增删日志</td></tr>
+    <tr><td><code>Edit Consequential Tags</code></td><td>增删剧情标记（回忆录 / 对话分支的总开关）</td></tr>
+    <tr><td><code>Add Main Task to Queue</code></td><td>加主线任务</td></tr>
+    <tr><td><code>Complete Current Main Task</code></td><td>完成当前主线</td></tr>
+    <tr><td><code>Edit Target Main Task in Queue</code></td><td>修改进行中的任务</td></tr>
+    <tr><td><code>Find Task in Queue by Header</code></td><td>按标题查任务</td></tr>
+    <tr><td><code>OnTaskInitialized</code></td><td>任务初始化事件</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="相机-序列-存档">相机 / 序列 / 存档</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>节点</th><th>所属</th><th>用途</th></tr></thead>
+  <tbody>
+    <tr><td><code>Soft Focus Camera</code></td><td>相机组件</td><td>视野缩放</td></tr>
+    <tr><td><code>Update Camera Preset</code></td><td>相机组件</td><td>第一/第三人称切换</td></tr>
+    <tr><td><code>Lock Focus On Target</code></td><td>相机管理器</td><td>强制锁定视角</td></tr>
+    <tr><td><code>Look At Target Once</code></td><td>相机管理器</td><td>平滑看向某处</td></tr>
+    <tr><td><code>Play Level Sequence</code></td><td>序列管理器</td><td>播过场</td></tr>
+    <tr><td><code>Play Sound With Subtitles</code></td><td>序列管理器</td><td>声音 + 字幕</td></tr>
+    <tr><td><code>Create Story Choice</code></td><td>序列管理器</td><td>全屏二选一</td></tr>
+    <tr><td><code>Save Game</code> / <code>Auto-Save</code> / <code>Load Game</code></td><td>存档管理器</td><td>存 / 自动存 / 读</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="tables">数据表清单</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>数据表</th><th>存什么</th><th>什么时候改</th></tr></thead>
+  <tbody>
+    <tr><td><code>ItemCombinations_DT</code></td><td>道具组合配方（按顺序匹配）</td><td>加组合玩法时</td></tr>
+    <tr><td><code>MemoirEntry_DT</code><br><span style="color:var(--text-faint);font-size:12px">社区也写作 MemoirEntryList_DT</span></td><td>回忆录条目（标记 → 回忆）</td><td>加剧情选择后果时</td></tr>
+    <tr><td><code>NPCGrunts_DT</code></td><td>NPC 的“咕哝”音效</td><td>加氛围音时</td></tr>
+    <tr><td><code>InputMap_DT</code></td><td>按键的显示文字 / 图标 / 背景</td><td>改按键提示样式时</td></tr>
+    <tr><td>MoreItemOptions（SF5 起）</td><td>道具的扩展选项</td><td>需要更多道具属性时</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="glossary">术语中英对照</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>英文</th><th>本手册译法</th><th>一句话说明</th></tr></thead>
+  <tbody>
+    <tr><td>Interaction Method</td><td>交互方式</td><td>物体被交互时的行为类型，共 5 种</td></tr>
+    <tr><td>Primary / Secondary Interaction Method</td><td>主 / 次交互方式</td><td>PIM 五选一，SIM 只能 None 或 Inspect</td></tr>
+    <tr><td>Interactable</td><td>可交互物</td><td>继承 InteractableBase_BP 或实现交互接口的 Actor</td></tr>
+    <tr><td>Inspect</td><td>检视</td><td>把物体拿到镜头前查看</td></tr>
+    <tr><td>Quick-Inventory</td><td>快捷背包</td><td>底部工具栏式背包</td></tr>
+    <tr><td>Journal Entry</td><td>日志条目</td><td>记录“见过但没带走”的东西</td></tr>
+    <tr><td>Memoir</td><td>回忆录</td><td>玩家做过的关键决定的记录</td></tr>
+    <tr><td>Consequential Tag</td><td>剧情标记</td><td>全局的布尔记忆，驱动对话分支与回忆录</td></tr>
+    <tr><td>Task / Quest</td><td>任务</td><td>主线（Main）与支线（Side/Optional）</td></tr>
+    <tr><td>Sequence</td><td>关卡序列</td><td>过场动画</td></tr>
+    <tr><td>Subtitle</td><td>字幕</td><td>可独立使用的文本演出</td></tr>
+    <tr><td>Story Choice</td><td>故事选择</td><td>全屏二选一的重要抉择</td></tr>
+    <tr><td>Quick Time Event (QTE)</td><td>快速反应事件</td><td>限时按键</td></tr>
+    <tr><td>Unified Menu Container (UMC)</td><td>统一菜单容器</td><td>把背包/日志/任务收在一个界面</td></tr>
+    <tr><td>SFV (StoryFrameworkValues)</td><td>框架设置资产</td><td>全局配置数据资产</td></tr>
+    <tr><td>Actor Component</td><td>Actor 组件</td><td>挂在 Actor 上的功能模块</td></tr>
+    <tr><td>Blueprint Interface (BPI)</td><td>蓝图接口</td><td>让不同类被统一调用的“函数名单”</td></tr>
+    <tr><td>Input Mapping Context (IMC)</td><td>输入映射上下文</td><td>一套按键方案，按场景切换</td></tr>
+    <tr><td>Data Table / Data Asset</td><td>数据表 / 数据资产</td><td>把数据从蓝图里分离出来的资产</td></tr>
+    <tr><td>Event Dispatcher</td><td>事件分发器</td><td>广播机制，用于解耦</td></tr>
+    <tr><td>Soft Lock</td><td>软锁 / 卡关</td><td>玩家陷入无法继续的状态（设计失误）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="videos">官方视频清单</h2>
+
+<p>
+  官方文档里很多页面只有一句“看视频”。这里把这些视频集中列出，方便你按需查看（英文，建议开自动字幕）。
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>主题</th><th>链接</th><th>对应章节</th></tr></thead>
+  <tbody>
+    <tr><td>工程内容总览</td><td><a href="https://youtu.be/Hi8mDlpqazE" target="_blank" rel="noopener">youtu.be/Hi8mDlpqazE</a></td><td>第 1 章</td></tr>
+    <tr><td>编辑器工具（SFEditor）</td><td><a href="https://youtu.be/hoYEmRqU3hU" target="_blank" rel="noopener">youtu.be/hoYEmRqU3hU</a></td><td>第 2 章</td></tr>
+    <tr><td>任务系统</td><td><a href="https://youtu.be/L9E236f6tG0" target="_blank" rel="noopener">youtu.be/L9E236f6tG0</a></td><td>第 4 章</td></tr>
+    <tr><td>NPC 对话</td><td><a href="https://youtu.be/iT95RxS4Gc8" target="_blank" rel="noopener">youtu.be/iT95RxS4Gc8</a></td><td>第 5 章</td></tr>
+    <tr><td>保存自定义变量</td><td><a href="https://youtu.be/H9OXqD4okAc" target="_blank" rel="noopener">youtu.be/H9OXqD4okAc</a></td><td>第 8 章</td></tr>
+    <tr><td>统一菜单容器（UMC）</td><td><a href="https://youtu.be/1jhe4gUtL2M" target="_blank" rel="noopener">youtu.be/1jhe4gUtL2M</a></td><td>第 6 章</td></tr>
+    <tr><td>动画检视（5.2 新功能）</td><td><a href="https://youtu.be/cCyeP-NeUt8" target="_blank" rel="noopener">youtu.be/cCyeP-NeUt8</a></td><td>第 3 / 8 章</td></tr>
+    <tr><td>5.1 → 5.2 升级指南</td><td><a href="https://youtu.be/r2PtnI4wajY" target="_blank" rel="noopener">youtu.be/r2PtnI4wajY</a></td><td>第 8 章</td></tr>
+    <tr><td>5.0 → 5.1 升级指南</td><td><a href="https://youtu.be/jw0J19qCARU" target="_blank" rel="noopener">youtu.be/jw0J19qCARU</a></td><td>第 8 章</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout note">
+  <div class="co-title">官方文档里“缺”的那段视频</div>
+  <p>
+    「SF Menu's」页面的视频链接在原文里是一个占位符（“Video Link”），并没有真的填上。
+    如果你需要学这块，目前只能看 UMC 的视频 + 直接读 <code>MenuMaster_W</code> 的实现。
+  </p>
+</div>
+
+<h2 id="sources">资料来源与致谢</h2>
+
+<ul>
+  <li>
+    <strong>官方文档</strong>（36 页，约 1.3 万词）：
+    <a href="https://visualonecompany.gitbook.io/home" target="_blank" rel="noopener">visualonecompany.gitbook.io/home</a>
+    —— 本手册正文的主要来源，已翻译并按学习顺序重排。
+  </li>
+  <li>
+    <strong>Fab 商品页</strong>：
+    <a href="https://www.fab.com/listings/108a7e42-a307-42fb-b1e9-e21a4c1905d7" target="_blank" rel="noopener">Story Framework 5.2 – Interactive Template</a>
+    —— 版本信息与产品定位。
+  </li>
+  <li>
+    <strong>Jay Versluis 的实战教程</strong>（14 篇）：
+    <a href="https://www.versluis.com/story-framework/" target="_blank" rel="noopener">versluis.com/story-framework</a>
+    —— 任务、对话、日志、回忆录、通知等具体节点做法，本手册已标注引用。
+  </li>
+  <li>
+    <strong>Epic 开发者社区论坛</strong>：
+    <a href="https://forums.unrealengine.com/t/visualone-projects-story-framework-5-interactive-template/2467039" target="_blank" rel="noopener">产品讨论帖</a>
+    —— 作者答疑与用户反馈，帮助校准了一些细节。
+  </li>
+</ul>
+
+<div class="callout info">
+  <div class="co-title">关于准确性</div>
+  <p>
+    这份手册是<strong>二次整理</strong>，不是官方出版物。以下几类内容请以引擎内实际资产为准：
+    资产的确切路径、参数默认值、节点名（版本间可能重命名）。
+    若发现错误，建议直接对照官方文档原文核实。
+  </p>
+</div>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#paths" data-toc="paths">资产路径速查</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#functions" data-toc="functions">节点 / 函数速查</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#交互管理器" data-toc="交互管理器">交互管理器</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#背包管理器" data-toc="背包管理器">背包管理器</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#相机-序列-存档" data-toc="相机-序列-存档">相机 / 序列 / 存档</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#tables" data-toc="tables">数据表清单</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#glossary" data-toc="glossary">术语中英对照</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#videos" data-toc="videos">官方视频清单</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#sources" data-toc="sources">资料来源与致谢</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="faq.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">常见问题与排错手册</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="workshop.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">实操工作坊：三个小时做出可玩的片段</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页由官方英文文档（<a href="https://visualonecompany.gitbook.io/home" target="_blank" rel="noopener">visualonecompany.gitbook.io</a>）整理翻译而成。产品版权归 Visual One Company 所有；本手册为非官方中文资料。</p>
+        <p>如有疑问，官方支持渠道：<a href="https://discord.gg/SNwgyAjQPs" target="_blank" rel="noopener">Discord</a> · 配套视频：<a href="https://www.bilibili.com/video/BV1J582zsEQy/" target="_blank" rel="noopener">B 站 · 帕可模型库</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

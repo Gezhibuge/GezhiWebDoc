@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>材质效果 - UDS 中文文档</title>
+<meta name="description" content="雨雪如何“长”在材质上：表面湿润与积雪、地形积雪与踩踏痕迹、植被风动、玻璃雨滴、水面涟漪，以及用遮罩控制效果范围。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Weather · 12</div>
+            <h1>材质效果</h1>
+            <p class="lede">雨雪如何“长”在材质上：表面湿润与积雪、地形积雪与踩踏痕迹、植被风动、玻璃雨滴、水面涟漪，以及用遮罩控制效果范围。</p>
+            <div class="meta-row"><span class="chip">六个材质函数</span><span class="chip">含 Nanite 细分</span></div>
+          </header>
+
+<p>
+  UDW 提供一组材质函数，让你的材质响应“材质状态”（material state）——积雪覆盖、湿润度、积尘覆盖。
+  这些函数都从材质面板搜索 <code>Weather</code> 找到。
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>函数</th><th>用途</th></tr></thead>
+  <tbody>
+    <tr><td><code>Surface Weather Effects</code></td><td>给实体表面加湿润、积雪、积尘，并可做流淌与挂珠。适合道具与建筑，不适合大范围地面。</td></tr>
+    <tr><td><code>Dynamic Landscape Weather Effects</code></td><td>给地形/地面加动态积雪与积尘、湿润与水坑，并支持物体在雪上留下痕迹。</td></tr>
+    <tr><td><code>Foliage Weather Effects</code></td><td>给叶片、草这类薄片材质加湿润、积雪与积尘。</td></tr>
+    <tr><td><code>Glass Window Rain Drips</code></td><td>平面透明玻璃上的雨水流痕。</td></tr>
+    <tr><td><code>Foliage Wind Movement</code></td><td>基于噪声与风强度输出世界位置偏移，让植被摆动。</td></tr>
+    <tr><td><code>Water Surface Rain Ripples</code></td><td>给水面法线叠加雨滴涟漪。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="simulate">材质状态是“渐变”还是“直给”</h2>
+
+<p>
+  <code>Material Effects</code> 分类里有一个关键开关 <code>Simulate Changing Material State Over Time</code>：
+</p>
+
+<ul>
+  <li><strong>开启（默认）</strong>：材质状态随时间缓慢变化。例如开始下雪后，积雪覆盖是慢慢涨上去的。每种天气对应的过渡时长也在该分类里设置。</li>
+  <li><strong>关闭</strong>：材质状态直接取当前天气状态的值。此时从 Snow 切到 Partly Cloudy，积雪会瞬间消失，因为后者的材质积雪值就是 0。</li>
+</ul>
+
+<h2 id="surface">表面效果</h2>
+
+<h3 id="接入">接入</h3>
+
+<ol class="steps">
+  <li>在材质面板搜索 <code>Weather</code>，选 <code>Surface Weather Effects</code>。</li>
+  <li>把它放在材质图表末尾、材质结果节点之前。</li>
+  <li>它使用 <code>Material Attributes</code> 引脚（把材质所有属性合并成一个）。如果你的材质结果不是用这个引脚，就在函数前后各加一个
+    <code>Make Material Attributes</code> 与 <code>Break Material Attributes</code>。</li>
+  <li>用 <code>Static Bool</code> 节点给 <code>Apply Wetness</code> 与 <code>Apply Snow / Dust</code> 传 True/False。
+    只做湿润、不做积雪的项目，把后者设 False 可以省一点材质复杂度。</li>
+</ol>
+
+<h3 id="坐标空间">坐标空间</h3>
+
+<p>
+  效果纹理默认用世界坐标映射，适合静态建筑。用在会移动的物体或骨骼网格上时，
+  把 <code>Local Space</code> 或 <code>For Skeletal Mesh</code> 设为 True。
+</p>
+
+<h3 id="流淌与挂珠">流淌与挂珠</h3>
+
+<p>
+  <code>Dripping</code> 开启水痕沿表面向下流动；<code>Droplets</code> 开启细小的水珠挂在光滑表面上。
+  两者都受 <code>Porosity</code> 影响：0 类似车漆、光面塑料，1 类似粗糙混凝土或沙地。
+  不接这个输入时，函数会用粗糙度推导。
+</p>
+
+<h3 id="旋转模型上的积雪方向">旋转模型上的积雪方向</h3>
+
+<p>
+  用 Local Space / For Skeletal Mesh 时，积雪方向会跟着模型转——因为局部空间用的是局部法线。
+  资源里提供了一个组件 <code>Material Snow Dust Reorient</code>：挂到网格下，
+  在 Begin Play 时把使用该效果的动态材质实例加入组件的 <code>Dynamic Material Instances</code> 数组。
+  它会周期性检查模型旋转，必要时把积雪方向缓慢校正到世界向上。速度与更新周期都可以调。
+</p>
+
+<div class="callout note">
+  <div class="co-title">注意</div>
+  <p>
+    这个函数是给“实体表面”的。大面积地形请用下面的动态景观效果，否则贴图密度和性能都不合适。
+  </p>
+</div>
+
+<div class="video-embed" data-bvid="BV1LyoTBREMY">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用材质积雪 / 灰尘重定向组件 、 将表面天气效果添加到材质">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用材质积雪 / 灰尘重定向组件 、 将表面天气效果添加到材质</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1LyoTBREMY/" target="_blank" rel="noopener">BV1LyoTBREMY</a></div>
+</div>
+
+<h2 id="dlwe">动态景观效果（DLWE）</h2>
+
+<p>
+  <code>Dynamic Landscape Weather Effects V3</code> 为地形或地面网格提供动态积雪/积尘与湿润/水坑，
+  还支持运行时在雪上留下痕迹。
+</p>
+
+<h3 id="接入">接入</h3>
+
+<p>
+  同样放在材质图表末尾、材质结果之前，用 <code>Material Attributes</code> 引脚穿过它；
+  材质没用这个引脚时，前后加 Make / Break Material Attributes。
+  然后用 <code>Static Bool</code> 给 <code>Apply Snow/Dust</code> 与 <code>Apply Wetness/Puddles</code> 传值。
+</p>
+
+<h3 id="交互痕迹">交互痕迹</h3>
+
+<p>
+  要产生脚印、车辙这类痕迹，用 <code>DLWE Interaction</code> 场景组件：把它挂在 Actor 上会移动的组件下，
+  或骨骼网格的骨骼上。例如角色两只脚各挂一个，分别父级到左右脚的 Socket。
+</p>
+
+<ul>
+  <li><code>Size</code>：决定影响范围与痕迹大小，应接近所代表物体的直径。</li>
+  <li>组件引用一个 <code>DLWE Interaction Settings</code> 资产，里面配置交互行为与使用哪些效果。可以用默认资产，也可以新建。</li>
+</ul>
+
+<p>
+  痕迹只能画在玩家周围那块渲染目标覆盖的范围内，范围大小由 UDW 的
+  <code>Snow / Dust Interaction Render Target Area</code> 设置。渲染目标会随玩家移动自动重新居中；
+  想换基准位置（例如改用相机位置或手动向量），改 UDW <code>Basic Controls</code> 里的
+  <code>Control Point Location Source</code>——它同时也影响天气覆盖体积的判定位置。
+</p>
+
+<h3 id="nanite-细分">Nanite 细分</h3>
+
+<p>
+  DLWE 支持用 Nanite 细分表现积雪厚度：
+</p>
+
+<ol class="steps">
+  <li>项目开启 Nanite 细分，材质里勾选 <code>Enable Tessellation</code>；地形 Actor 也要启用 Nanite 并构建 Nanite 网格。</li>
+  <li>DLWE 节点的 <code>For Nanite Tessellation</code> 接 True。</li>
+  <li><code>Nanite Tessellation Magnitude</code> 与 <code>Nanite Tessellation Center</code> 要与材质的细分设置一致。没有现成置换的地形材质，建议 Magnitude = 1、Center = 0。</li>
+  <li>如果底层表面本来就有置换，用 <code>Displacement Input is World Scale</code> 控制输入的解释方式：默认 True 会按世界尺度缩放偏移以保持比例；已有满意的置换时接 False，让函数不去改它。</li>
+</ol>
+
+<h3 id="几个实用细节">几个实用细节</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>问题</th><th>做法</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>某些表面不该产生交互音效/粒子</td>
+      <td>在 DLWE 分类高级选项里有两个数组：<code>Physical Materials Which Disable Snow/Dust Sounds And Particles</code> 与
+        <code>Physical Materials Which Disable Puddle Sounds And Particles</code>，把物理材质加进去即可。</td>
+    </tr>
+    <tr>
+      <td>在非地形网格上用 DLWE</td>
+      <td>把该网格使用的物理材质加入 <code>DLWE Interaction Settings</code> 资产的
+        <code>Physical Materials which Enable DLWE Interactions on Non-Landscapes</code> 数组。</td>
+    </tr>
+    <tr>
+      <td>虚拟阴影贴图频繁失效</td>
+      <td>把地形的 <code>Shadow Cache Invalidation Behavior</code> 设为 <code>Rigid</code>，避免积雪用的 WPO 与 Pixel Depth Offset 不断让阴影缓存失效。</td>
+    </tr>
+    <tr>
+      <td>想让泥土/沙地等自定义图层也有痕迹</td>
+      <td>给 DLWE 的 <code>Custom Trail Surface Mask</code> 输入一个 0–1 遮罩（通常来自地形图层采样），
+        并把对应物理材质加入 Interaction Settings 的 <code>Custom Trail Surface Physical Materials</code>。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  自定义图层的痕迹深度会在 0 到 <code>Snow Depth</code> 之间按遮罩缩放。想让痕迹最自然，建议配 Nanite 细分——
+  它会真正变形网格；非 Nanite 的深度效果是视差遮蔽，改不动地形底层贴图（那些贴图在进入 DLWE 之前就已经采样完了）。
+</p>
+
+<div class="video-embed" data-bvid="BV1iyoTBRENW">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：设置动态景观天气效果">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>设置动态景观天气效果</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1iyoTBRENW/" target="_blank" rel="noopener">BV1iyoTBRENW</a></div>
+</div>
+
+<h2 id="foliage">植被效果</h2>
+
+<p>
+  <code>Foliage Weather Effects</code> 与表面效果类似，但针对叶片、草、针叶这类薄片材质。
+  树干这类厚实不透明的部分仍建议用 Surface Weather Effects。
+</p>
+
+<p>接入方式与表面效果一致。它多两个选项：</p>
+
+<ul>
+  <li><code>Push Mesh Underground With Snow</code>：按当前积雪覆盖把整个网格往下压，可以很省事地把贴地小草“埋”进雪里。</li>
+  <li><code>Map Snow Textures With UVs</code> + <code>Snow Texture UVs</code>：使用 Nanite 植被时建议开启，
+    避免植被自身的风动（非材质实现）造成贴图滑动。</li>
+</ul>
+
+<p>注意：让植被随风吹动的函数是另一个（<code>Foliage Wind Movement</code>），不在这个函数里。</p>
+
+<h2 id="glass">玻璃雨滴</h2>
+
+<p>
+  <code>Glass Window Rain Drips</code> 只用于<strong>半透明材质</strong>：在薄玻璃表面渲染折射的雨水流痕。
+  它修改 Base Color 与 Opacity，输出 Base Color、Emissive Color、Opacity 三个值，
+  三个输出都要接到材质结果上。
+</p>
+
+<p>
+  纹理默认用世界坐标 UV，会移动的表面必须通过 <code>UVs</code> 输入换成自己的 UV，否则雨痕不会跟着玻璃走。
+</p>
+
+<h2 id="wind">植被风动</h2>
+
+<p>
+  <code>Foliage Wind Movement</code> 按 UDW 的风向与风强度输出世界位置偏移。运动分三层：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>层</th><th>频率</th><th>影响对象</th></tr></thead>
+  <tbody>
+    <tr><td>Small Movement</td><td>高频</td><td>叶片、草尖、枝条末端</td></tr>
+    <tr><td>Medium Movement</td><td>中频</td><td>整根枝条</td></tr>
+    <tr><td>Large Movement</td><td>低频</td><td>整棵树的整体摆动（随阵风弯曲）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  三层默认都开，可以分别用 <code>Apply</code> 输入关掉。每层都有一个 0–1 的遮罩输入，乘在该层强度上。
+  植被资产通常用顶点色通道来标定哪部分该动多少，但通道约定并不统一——用别人的模型时要自己看顶点色。
+</p>
+
+<p>
+  Small 层的遮罩是必填的；Medium / Large 没给遮罩时会用“相对网格轴心的位置”自动生成一个粗略遮罩，
+  但它不知道模型结构，效果不如手工绘制的顶点色。
+</p>
+
+<p>
+  如果模型本身已经有一套风动逻辑，更简单的做法是不要重复叠加：用 <code>Sample UDW Wind</code>
+  取到风的状态参数，替换掉原有风动里的参数即可。
+</p>
+
+<h2 id="ripples">水面涟漪</h2>
+
+<p>
+  <code>Water Surface Rain Ripples</code> 只改法线：把材质的法线接进函数，再把输出的法线接到材质结果。
+  另外两个输入控制涟漪纹理的缩放与对法线的影响强度。
+</p>
+
+<h2 id="own">用自己的逻辑读取天气状态</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>函数</th><th>输出</th></tr></thead>
+  <tbody>
+    <tr><td><code>Sample UDW Material State</code></td><td>材质积雪、积尘、湿润三个值，并且已经像天气效果函数那样叠加了覆盖体积与天气遮罩的影响。</td></tr>
+    <tr><td><code>Sample UDW Seasons</code></td><td>四个季节各自的 0–1 权重，总和恒为 1；配合 <code>Season Color Blend</code> 可混合四组颜色。</td></tr>
+    <tr><td><code>Sample UDW Wind</code></td><td>风的方向与强度的各种值与向量。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  也可以直接引用 UDW 使用的材质参数集合 <code>Ultra Dynamic Weather Parameters</code>，
+  位置在 <code>Materials/Weather</code> 文件夹。
+</p>
+
+<h2 id="mask">遮罩：控制效果出现在哪</h2>
+
+<p>
+  默认情况下，积雪、积尘、湿润是<strong>全局</strong>生效的。要限定在特定区域，它们会采样一张“天气遮罩”渲染目标，
+  由两类组件绘制：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>组件</th><th>做法</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Weather Mask Brush</code></td>
+      <td>绘制简单形状或自绘纹理（由 <code>Brush</code> 变量选择）。可以非等比缩放、绕 Z 轴旋转。因为本质是往渲染目标里画形状，形状始终沿 Z 轴垂直投影。</td>
+    </tr>
+    <tr>
+      <td><code>Weather Mask Projection Box</code></td>
+      <td>捕获盒子内的网格，用它们的形状垂直向下投影遮罩。适合给建筑这类复杂结构在下方留出“不下雪”的区域。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<figure>
+  <img src="assets/img/mask-effects.png" alt="投影盒的摆放" width="624" height="573">
+  <figcaption>投影盒的基本摆法：只包住需要向下投影的那部分几何体。</figcaption>
+</figure>
+
+<p>笔刷的常用参数：</p>
+
+<ul>
+  <li><code>Mask Wetness</code>、<code>Mask Snow/Dust</code>：分别控制对湿润与积雪/积尘的遮蔽程度。</li>
+  <li><code>Cancel Masks Above</code>：以 Actor 高度为界，禁用其上方整个矩形范围内的遮罩。</li>
+</ul>
+
+<p>
+  需要更自由的笔刷形状时，用 <code>Weather Mask Brush Painter</code>（工具栏下拉菜单或 <code>Blueprints/Tools</code>）
+  手绘一张遮罩纹理：右键平移、中键缩放、左键绘制，完成后务必点 <code>Save</code>，
+  纹理会存到关卡目录下的 <code>UDS_LevelData</code>。
+</p>
+
+<p>
+  投影盒的细节面板里可以调积雪/积尘与湿润的遮蔽量，以及画进遮罩时边缘的模糊程度。
+  摆放时尽量让盒子只包住需要遮挡的部分，并让长宽尽量紧凑——渲染目标的分辨率是全局共享的，浪费空间会降低精度。
+</p>
+
+<p>
+  想让某个材质忽略遮罩，用静态开关参数 <code>Apply Weather Mask Brushes to Wetness</code> 与
+  <code>Apply Weather Mask Brushes to Snow</code> 在材质层面关掉。
+</p>
+
+<p>
+  遮罩效果在离相机一定距离后会停止，这个距离由遮罩渲染目标的覆盖宽度决定，
+  可在 UDW 的 <code>Weather Mask Target</code> 分类里调整。
+</p>
+
+<p>
+  需要让某个遮罩组件的影响随时间淡出时，在组件上调用 <code>Fade Mask Over Time</code>。
+  默认每秒更新 20 次，由 UDW 的 <code>Weather Mask Update Period</code> 决定。
+</p>
+
+<div class="video-embed" data-bvid="BV1LyoTBREjP">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用天气遮罩 Actor 和组件">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用天气遮罩 Actor 和组件</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1LyoTBREjP/" target="_blank" rel="noopener">BV1LyoTBREjP</a></div>
+</div>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#simulate" data-toc="simulate">材质状态是“渐变”还是“直给”</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#surface" data-toc="surface">表面效果</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#接入" data-toc="接入">接入</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#坐标空间" data-toc="坐标空间">坐标空间</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#流淌与挂珠" data-toc="流淌与挂珠">流淌与挂珠</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#旋转模型上的积雪方向" data-toc="旋转模型上的积雪方向">旋转模型上的积雪方向</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#dlwe" data-toc="dlwe">动态景观效果（DLWE）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#接入" data-toc="接入">接入</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#交互痕迹" data-toc="交互痕迹">交互痕迹</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#nanite-细分" data-toc="nanite-细分">Nanite 细分</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#几个实用细节" data-toc="几个实用细节">几个实用细节</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#foliage" data-toc="foliage">植被效果</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#glass" data-toc="glass">玻璃雨滴</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#wind" data-toc="wind">植被风动</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#ripples" data-toc="ripples">水面涟漪</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#own" data-toc="own">用自己的逻辑读取天气状态</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#mask" data-toc="mask">遮罩：控制效果出现在哪</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="weather-fx.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">天气粒子与闪电</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="sound-wind.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">声音、采样与风</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

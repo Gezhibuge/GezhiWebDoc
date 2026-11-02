@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>云 - UDS 中文文档</title>
+<meta name="description" content="四种云的渲染方式与各自的参数：体积云的分层与采样、2D 动态云的分布、静态云纹理与体素云的复用关系，以及云的移动与高空云丝。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Sky · 02</div>
+            <h1>云</h1>
+            <p class="lede">四种云的渲染方式与各自的参数：体积云的分层与采样、2D 动态云的分布、静态云纹理与体素云的复用关系，以及云的移动与高空云丝。</p>
+            <div class="meta-row"><span class="chip">四种 Sky Mode</span><span class="chip">体积云为主</span></div>
+          </header>
+
+<p>
+  UDS 里“云”不是一个整体，而是由 <code>Sky Mode</code> 决定用哪套渲染方式，再各自有独立的参数分类。
+  这一页按四种模式分别说明，最后是它们共用的云移动与高空云丝。
+</p>
+
+<h2 id="volumetric">体积云（Volumetric Clouds）</h2>
+
+<p><code>Volumetric Clouds</code> 分类下的主要设置：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>设置</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Volumetric Cloud Rendering Mode</code></td>
+      <td>决定引擎如何把体积云画到屏幕上，本质是渲染器 cvar <code>r.volumetricrendertarget.mode</code> 的封装。各模式按它们优先保障的渲染环节命名，性能与画质取舍不同，具体差别见每个模式的悬停提示。</td>
+    </tr>
+    <tr>
+      <td><code>Bottom Altitude</code></td>
+      <td>云层底部的高度。<strong>要改云的高度请用这一项，不要移动 UDS Actor</strong>——它只影响云层，不会连带改变大气与雾。</td>
+    </tr>
+    <tr>
+      <td><code>Volumetric Clouds Scale</code></td>
+      <td>整体缩放云场。想让云“更大片”时调它，而不是逐个改噪声。</td>
+    </tr>
+    <tr>
+      <td><code>View Sample Scale</code></td>
+      <td>决定云的采样次数。云看起来噪点重、有颗粒感时提高它可以让云更平滑，代价是性能。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  如果需要在关卡的特定区域直接控制云量——例如让某座山周围始终没有云——用
+  <code>Volumetric Cloud Painter</code>（体积云绘制器），详见
+  <a href="sky-extra.html#painter">其他功能 · 云绘制</a>。
+</p>
+
+<p>
+  云的具体形状来自一张 <code>Cloud Profile LUT</code> 纹理。想自己雕刻云型，可以用
+  <code>Cloud Profile Authoring Tool</code>：在关卡编辑器工具栏的 <code>Ultra Dynamic Sky</code> 下拉菜单里启动，
+  或直接运行 <code>Blueprints/Tools</code> 下的编辑器工具。
+</p>
+
+<h3 id="附加云层-additional-cloud-layers">附加云层（Additional Cloud Layers）</h3>
+
+<p>
+  同一个分类里还有一个 <code>Additional Cloud Layers</code> 数组，可以在主云层之上或之下增加额外云层。
+  每加一层都会增加 GPU 开销。每一层的外观参数都是相对主云层来设置的。
+</p>
+
+<div class="callout warn">
+  <div class="co-title">注意</div>
+  <p>
+    附加云层<strong>只是视觉层</strong>：云影只由主云层投射；需要在云层高度发生的事情（例如 UDW 的闪电闪光）也都发生在主云层的高度。
+  </p>
+</div>
+
+<p>
+  每条附加层默认 <code>Inherited Cloud Coverage = 1</code>、<code>Independent Cloud Coverage = 0</code>，
+  也就是完全跟随主云层的云量变化。如果改用 <code>Independent Cloud Coverage</code> 让该层使用自己的云量，
+  可以在运行时调用 UDS 上的 <code>Set Additional Cloud Layer Coverage</code> 来改。
+</p>
+
+<h2 id="2d">2D 动态云</h2>
+
+<p>
+  这个分类里是从柔化、明暗到噪声纹理的全部 2D 云参数。需要先理解一点：
+  <strong>2D 云是画在天空球上的材质效果，并不存在于关卡的三维空间里</strong>。
+  因此 <code>Cloud Height</code> 之类的参数只是在控制天空材质里的透视畸变，不会真的把云“抬高”。
+</p>
+
+<p>
+  分类的 <code>Advanced</code> 折叠区里还有分布控制，例如加大地平线附近的云量、或减少月亮周围的云量。
+</p>
+
+<h2 id="static">静态云（Static Clouds）</h2>
+
+<p>
+  静态云是一种省性能的云：把云画成一张静态纹理，纹理里预先烘焙了不同光照角度，
+  从而在日月改变方向时仍能近似出简单的受光变化。这个分类里可以更换纹理、控制旋转。
+</p>
+
+<p>
+  资源里自带三张静态云纹理。也可以自己做：<code>Static Clouds Authoring Tool</code> 能把 UDS 当前的体积云渲染成一张新的静态云纹理，
+  入口同样在工具栏的 <code>Ultra Dynamic Sky</code> 下拉菜单，或 <code>Blueprints/Tools</code> 下。
+</p>
+
+<h2 id="voxel">体素云（Voxel Clouds）</h2>
+
+<p>
+  体素云是把云渲染成硬边立方体的另一种表现方式，适合体素风格的项目。它并不是独立的云系统——
+  本质上只是体积云的一种渲染样式，因此<strong>沿用体积云分类里的大部分设置</strong>（云纹理、高度、颜色等），
+  <code>Voxel Clouds</code> 分类里只放它独有的参数。
+</p>
+
+<p>
+  也因为它建立在体积云之上，体积云绘制器和径向风暴的局部云量同样会作用于体素云。
+</p>
+
+<h2 id="movement">云的移动（Cloud Movement）</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>设置</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Cloud Speed</code>、<code>Cloud Direction</code></td>
+      <td>云的速度与方向。若关卡里存在 UDW，方向会完全由 UDW 的风向接管。</td>
+    </tr>
+    <tr>
+      <td><code>Cloud Phase</code></td>
+      <td>云的“相位”。当 <code>Cloud Speed</code> 为 0 时特别有用：云静止，你可以用相位一点点试出想要的云形。</td>
+    </tr>
+    <tr>
+      <td><code>Randomize Cloud Formation On Run</code></td>
+      <td>每次运行时随机生成初始云形，与其他移动设置相互独立。</td>
+    </tr>
+    <tr>
+      <td><code>Clouds Move With Time of Day</code></td>
+      <td>让云的移动与时间流逝绑定。适合时间倍率会变化的场景，例如做一段延时摄影时保持云与时间同步。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="wisps">高空云丝（Cloud Wisps）</h2>
+
+<p>
+  云丝是天空最上层那圈轻薄的高空云，除了 <code>Space</code> 模式之外，所有 Sky Mode 下都会渲染。
+  它的做法是采样一张灰度纹理，用采样到的值给天空叠一层随昼夜变化的云丝颜色。
+</p>
+
+<p>
+  不透明度由两个值控制：云量低时用一个，云量高时用另一个，中间自动过渡。
+  纹理可以在 <code>Cloud Wisps Texture</code> 里换成自己的图——注意必须是灰度图，因为只采样 R 通道。
+</p>
+
+<p>
+  云丝默认带一点流动效果：随时间与动态云一起对纹理做偏移扭曲，并用渐隐加偏移映射的方式做成无缝循环。
+  效果强度可以在分类里调整或直接关闭。
+</p>
+
+<div class="video-embed" data-bvid="BV1ByoFBrES9">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用体积云绘制器">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用体积云绘制器</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1ByoFBrES9/" target="_blank" rel="noopener">BV1ByoFBrES9</a></div>
+</div>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#volumetric" data-toc="volumetric">体积云（Volumetric Clouds）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#附加云层-additional-cloud-layers" data-toc="附加云层-additional-cloud-layers">附加云层（Additional Cloud Layers）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#2d" data-toc="2d">2D 动态云</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#static" data-toc="static">静态云（Static Clouds）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#voxel" data-toc="voxel">体素云（Voxel Clouds）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#movement" data-toc="movement">云的移动（Cloud Movement）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#wisps" data-toc="wisps">高空云丝（Cloud Wisps）</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="sky-setup.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">安装与基础设置</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="lighting.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">光照与曝光</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

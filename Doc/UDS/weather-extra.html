@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天气的其他功能 - UDS 中文文档</title>
+<meta name="description" content="水坑与雪堆、彩虹与屏幕效果、热扭曲、天气显示控件，以及车辆车窗、滴水粒子、雨滴样条等成品组件。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Weather · 14</div>
+            <h1>天气的其他功能</h1>
+            <p class="lede">水坑与雪堆、彩虹与屏幕效果、热扭曲、天气显示控件，以及车辆车窗、滴水粒子、雨滴样条等成品组件。</p>
+            <div class="meta-row"><span class="chip">成品 Actor 与组件</span><span class="chip">按需选用</span></div>
+          </header>
+
+<h2 id="sequencer">用 Sequencer 做天气动画</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>要动画的对象</th><th>做法</th></tr></thead>
+  <tbody>
+    <tr><td>天气状态</td><td>使用手动天气状态，对 <code>Manual Weather State</code> 分类里的变量打关键帧。</td></tr>
+    <tr>
+      <td>材质状态（湿润/积雪/积尘）</td>
+      <td>先在 <code>Material Effects</code> 分类里关闭 <code>Simulate Changing Material State Over Time</code>，
+        否则运行时材质状态会随天气渐变，而不是按关键帧走。</td>
+    </tr>
+    <tr>
+      <td>云的移动</td>
+      <td>UDS 上把 <code>Cloud Speed</code> 设为 0、关闭 <code>Randomize Cloud Formation On Run</code>，
+        然后在 Sequencer 里给 <code>Cloud Phase</code> 打关键帧。</td>
+    </tr>
+    <tr>
+      <td>闪电</td>
+      <td>把 UDW 加进序列，在它上面建 <code>Event → Trigger</code> 轨道；给轨道加关键帧，右键属性里把 Endpoint 的
+        Quick Bind 指向 <code>Flash Lightning</code>，即可在关键帧上配置位置、随机种子等参数。勾选 <code>Call in Editor</code>
+        可以在序列编辑器里预览闪电。</td>
+    </tr>
+    <tr>
+      <td>离线渲染影片</td>
+      <td>UDS 的 <code>Project Mode</code> 改为 <code>Cinematic / Offline</code>，强制最高画质并让两个蓝图每帧完整更新。
+        用路径追踪出片时，另见天空部分关于 <code>Adjust for Path Tracer</code> 的说明。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="video-embed" data-bvid="BV1vyoTBREcn">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用 Sequencer 为天气制作动画">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用 Sequencer 为天气制作动画</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1vyoTBREcn/" target="_blank" rel="noopener">BV1vyoTBREcn</a></div>
+</div>
+
+<h2 id="puddle">水坑流体体积（Puddle Fluid Volume）</h2>
+
+<p>
+  这是把水坑做成<strong>真实水面</strong>的 Actor：天气状态变化时水面会升降，适合地面上本来就有凹坑、需要被水填满的地方。
+  材质效果做出来的水坑只是改变粗糙度与法线的平面效果，两者用途不同。
+</p>
+
+<ul>
+  <li>可以选择用 <code>Puddle Fluid Interactions</code> 把水面渲染成模拟涟漪的网格——DLWE 交互组件碰到水面时会产生波纹。
+    注意这套模拟是密集粒子网格，面积越大开销越高，建议只用于单个小水坑。</li>
+  <li>摆放时注意：干涸状态下水面应完全藏在地面以下。编辑器里即使干涸也会显示网格方便摆放，运行时则会隐藏。</li>
+  <li>面积用 <code>Puddle Area</code> 调，也可以缩放 Actor；只能绕 Z 轴旋转。</li>
+  <li>水面默认是半透明材质，用 Lumen 想要好的反射效果，需要在项目设置里开启
+    <code>High Quality Translucency Reflections</code>。</li>
+  <li>填充/干涸的时机在 <code>Puddle State</code> 分类；与 DLWE 交互相关的开关在 <code>Fluid Interactions</code> 分类。</li>
+</ul>
+
+<div class="video-embed" data-bvid="BV1vyoTBREtv">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用水坑流体体积">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用水坑流体体积</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1vyoTBREtv/" target="_blank" rel="noopener">BV1vyoTBREtv</a></div>
+</div>
+
+<h2 id="snow-pile">雪堆样条（Snow Pile Spline）</h2>
+
+<p>
+  靠墙堆积的厚雪需要真实的几何体与碰撞，材质效果做不到，这时用
+  <code>Blueprints/Weather Effects</code> 下的 <code>Snow Pile Spline</code>。
+</p>
+
+<figure>
+  <img src="assets/img/snow-spline.jpg" alt="靠墙的雪堆样条" width="842" height="768">
+  <figcaption>靠墙的雪堆：每个样条点的 Z 缩放决定该处的积雪高度。</figcaption>
+</figure>
+
+<ul>
+  <li>默认只在 UDW 的材质积雪覆盖大于 0 时出现，晴天看不到。</li>
+  <li>编辑样条改变长度与形状；右键样条可加控制点。每个点的 Z 缩放对应那一处的堆雪高度，超过 2 米效果通常就不自然了。</li>
+  <li>地形起伏时可以开启 <code>Allow Vertical Curve</code>，此时隐藏方式会从“缩放”改为“整体下移”。</li>
+  <li>出现/消退的速度由 <code>Snow Form Duration</code>、<code>Snow Clear Duration</code> 控制；
+    也可以用 <code>Manual Visibility</code> 完全手动控制。</li>
+  <li>网格由若干样条网格段拼成，两端用静态网格封口（<code>Cap Start</code> / <code>Cap End</code> 可关）。
+    <code>Two Sided</code> 用于栅栏这类两侧都受天气影响的对象。</li>
+  <li>默认带碰撞，<code>Collision Enabled</code> 与坡度可行走性覆盖都可调。</li>
+</ul>
+
+<h2 id="water-level">把水位应用到天气</h2>
+
+<p>
+  UDW 的 <code>Water Level</code> 分类里有 <code>Use UDS Water Level</code>，开启后天气相关功能会感知水位。
+  水位本身在 UDS 的 <code>Water Level</code> 分类里配置。
+</p>
+
+<p>受影响的项：</p>
+
+<ul>
+  <li>天气粒子不会在水面以下生成或进入水下；</li>
+  <li>相机没入水面以下时，声音遮挡按完全遮挡处理；</li>
+  <li>屏幕水珠在水下自动关闭，出水后屏幕是湿的；</li>
+  <li>彩虹在水面以下会被遮掉（需开启对应选项）；</li>
+  <li>Surface / DLWE 材质函数有输入项，可遮蔽水位以下的覆盖效果。</li>
+</ul>
+
+<h2 id="wind-fog">后期处理风雨雾</h2>
+
+<p>
+  <code>Post Process Wind Fog</code> 在相机附近叠加一层随风与天气粒子移动的雾噪声。
+  它是后期效果，比用体积雾实现类似效果便宜得多；强度随当前天气状态里的雾、雨、雪、尘缩放。
+</p>
+
+<p>
+  遮挡方式有两种：默认使用 <code>Weather Occlusion Volume</code>——一张缓存相机周围“受天气影响程度”的体积纹理，
+  基于全局距离场计算，效果最好；也可以改为用玩家遮挡（Player Occlusion）来遮罩。
+</p>
+
+<h2 id="rainbow">彩虹</h2>
+
+<p>彩虹只会在以下条件同时满足时出现：</p>
+
+<ul>
+  <li>有雨或雾（两者各自的贡献比例可在 <code>Rainbow</code> 分类里调）；</li>
+  <li>相机直接受阳光照射（受云量影响），处在阴云之下时不会出现；</li>
+  <li>太阳足够低、彩虹能出现在地平线以上，或者相机足够高、能俯视彩虹。</li>
+</ul>
+
+<p>
+  分类里还有额外的选项，控制云层之上、以及水位以下（启用 UDS 水位时）彩虹的可见性。
+</p>
+
+<h2 id="screen">屏幕效果</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>效果</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Screen Droplets</code></td>
+      <td>相机淋雨时屏幕上出现水珠。可调水珠纹理大小、强度，以及“正对雨的程度”对效果的影响。</td>
+    </tr>
+    <tr>
+      <td><code>Screen Frost</code></td>
+      <td>雪天在“镜头”上结霜结冰。可由降雪、材质积雪与手动值触发，按 <code>Form Duration</code> /
+        <code>Clear Duration</code> 逐渐形成与消退。默认在室内不会结霜，判定用 UDS 的玩家遮挡。</td>
+    </tr>
+    <tr>
+      <td><code>Heat Distortion</code></td>
+      <td>热浪扭曲：后期处理让远处景物产生对流状抖动。默认由当前计算出的温度驱动，也可以用
+        <code>Manual Heat Distortion</code> 手动施加。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="display-widget">天气显示控件</h2>
+
+<p>
+  <code>UDW_Current_Weather_Display</code>（控件设计器的 <code>Ultra Dynamic Sky Widgets</code> 分类）
+  用来显示当前天气。默认显示为图标，取值来自 <code>Get Display Name for Current Weather</code>；
+  控件设置里可以改成文字显示，或改为取当前的天气预设资产。
+</p>
+
+<h2 id="custom-weather">自定义天气行为</h2>
+
+<p>
+  天气预设可以附加自己的蓝图逻辑。做法是给 <code>UDS_Weather_Settings</code> 数据资产类建一个子类，
+  覆盖它的 <code>Custom Weather Behavior</code> 函数，然后用该子类创建你自己的预设资产。
+</p>
+
+<p>
+  函数有一个 <code>Alpha</code> 输入，表示该预设当前对本地天气状态的影响程度（0–1）。
+  UDW 在天气状态发生变化、且涉及该资产时调用它。
+</p>
+
+<div class="callout warn">
+  <div class="co-title">别丢掉父类逻辑</div>
+  <p>
+    父类的实现负责应用预设上选中的 Sky Modifier。如果你覆盖函数后需要这个功能，记得在函数里调用 Parent。
+  </p>
+</div>
+
+<h2 id="drips">滴水与呼吸粒子</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>效果</th><th>用法</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Dripping Static Mesh</code> / <code>Dripping Skeletal Mesh</code></td>
+      <td>Niagara 系统（<code>Particles/Standalone</code>），挂在静态网格或骨骼网格下，按降雨量或材质湿润度在表面产生滴水。
+        粒子外观沿用 UDW 的雨滴设置；如果 Actor 上有 Actor Weather Status 组件，则改用该 Actor 的本地状态驱动。</td>
+    </tr>
+    <tr>
+      <td><code>Freezing Breath</code></td>
+      <td>角色呼出白气。组件放在嘴前，X 轴朝向呼出方向。默认按 UDW 计算的本地温度在冰点以下时出现；
+        角色有 Actor Weather Status 组件时，改用该组件的温度。参数可调外观与出现条件。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="vehicle">车辆车窗天气（Vehicle Window Weather）</h2>
+
+<p>
+  第一人称坐在车内、或相机贴着行驶中的车辆时，用 <code>Vehicle Window Weather</code> 组件：
+  它把雨滴与雪花渲染成独立粒子，雨滴会随车速与风在玻璃上滑动，也可以让雨刷把粒子推开。
+</p>
+
+<h3 id="准备车窗网格">准备车窗网格</h3>
+
+<ol class="steps">
+  <li>车窗玻璃要是<strong>独立于车身的静态网格</strong>，效果以它为采样与渲染对象。多个车窗放在一个网格里也可以，
+    但拆成多个网格时，每个都需要自己的组件。</li>
+  <li>UV 不能重叠、不能非等比缩放，UV 岛之间要留一点间距。同时记下 UV 空间对应的实际尺寸（米），
+    例如整张 UV 只给 1.5 米宽的挡风玻璃用，UV Scale 就是 1.5。</li>
+  <li>确认法线朝向：如果朝车内，组件上要勾选 <code>Window Normal Points Inside</code>。</li>
+  <li>在静态网格资产上开启 <code>Allow CPU Access</code>，Niagara 才能重建 UV 来驱动粒子。</li>
+</ol>
+
+<h3 id="接入">接入</h3>
+
+<p>
+  在车辆 Actor 里把组件挂在车窗网格下，细节面板里把 <code>UV Channel</code> 与 <code>UV Scale</code> 设成与网格一致。
+  这里还有粒子生成率、精灵缩放，以及“是否用碰撞判断车窗是否暴露在天气中”的开关。
+</p>
+
+<h3 id="让雨刷推开粒子">让雨刷推开粒子</h3>
+
+<ol class="steps">
+  <li>给每个雨刷网格加一个 <code>Vehicle Window Wiper Marker</code> 组件，摆放并缩放，使方形端在转轴、尖端在雨刷末端。</li>
+  <li>在雨刷启停的逻辑里调用车窗组件的 <code>Set Wipers Active</code>，
+    这样系统只在雨刷工作时计算，不浪费性能。</li>
+</ol>
+
+<h2 id="rain-spline">雨滴样条与冰柱</h2>
+
+<p>
+  <code>Rain Drip Spline</code>（<code>Blueprints/Weather_Effects</code>）沿一条线或曲线按降雨量滴落雨滴，
+  适合做屋檐滴水。拖进场景时是一条短线，编辑样条即可改长度与形状。
+  粒子的碰撞与外观沿用 UDW 的雨滴设置。
+</p>
+
+<p>
+  这条样条还可以额外开启冰柱网格，用于寒冷天气——这就是“冰柱”功能的入口。
+</p>
+
+<h2 id="weather-occlusion">天气遮挡体积</h2>
+
+<p>
+  <code>Weather Occlusion Volume</code> 是一张体积纹理，以低分辨率缓存相机周围每个点“被遮挡多少”，
+  通过采样全局距离场计算，因此需要项目支持距离场。
+  <code>Post Process Wind Fog</code> 用它来在室内等被遮挡的空间里屏蔽雾效。
+</p>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#sequencer" data-toc="sequencer">用 Sequencer 做天气动画</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#puddle" data-toc="puddle">水坑流体体积（Puddle Fluid Volume）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#snow-pile" data-toc="snow-pile">雪堆样条（Snow Pile Spline）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#water-level" data-toc="water-level">把水位应用到天气</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#wind-fog" data-toc="wind-fog">后期处理风雨雾</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#rainbow" data-toc="rainbow">彩虹</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#screen" data-toc="screen">屏幕效果</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#display-widget" data-toc="display-widget">天气显示控件</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#custom-weather" data-toc="custom-weather">自定义天气行为</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#drips" data-toc="drips">滴水与呼吸粒子</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#vehicle" data-toc="vehicle">车辆车窗天气（Vehicle Window Weather）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#准备车窗网格" data-toc="准备车窗网格">准备车窗网格</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#接入" data-toc="接入">接入</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#让雨刷推开粒子" data-toc="让雨刷推开粒子">让雨刷推开粒子</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#rain-spline" data-toc="rain-spline">雨滴样条与冰柱</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#weather-occlusion" data-toc="weather-occlusion">天气遮挡体积</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="sound-wind.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">声音、采样与风</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="issues.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">常见问题</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

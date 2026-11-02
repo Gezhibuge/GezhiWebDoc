@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>时间、日月与模拟 - UDS 中文文档</title>
+<meta name="description" content="Time of Day 的驱动方式与蓝图函数、日月轨迹参数的调整、手动摆位，以及基于经纬度和日期的真实天文模拟。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Sky · 04</div>
+            <h1>时间、日月与模拟</h1>
+            <p class="lede">Time of Day 的驱动方式与蓝图函数、日月轨迹参数的调整、手动摆位，以及基于经纬度和日期的真实天文模拟。</p>
+            <div class="meta-row"><span class="chip">昼夜循环的核心</span><span class="chip">可接入真实天文数据</span></div>
+          </header>
+
+<h2 id="time">时间控制</h2>
+
+<p>
+  起始时间由 <code>Basic Controls</code> 里的 <code>Time of Day</code> 决定。也可以直接往
+  <code>Time of Day String</code> 里输入 <code>3PM</code>、<code>15:45</code> 这样的字符串来设置。
+</p>
+
+<p>
+  要让时间自己走起来，打开 <code>Animate Time of Day</code> 分类里的同名开关。开启后关卡运行期间时间会向前推进，
+  速度由 <code>Day Length</code> 与 <code>Night Length</code> 决定——两者单位是<strong>分钟</strong>，
+  表示从日出到日落、从日落到日出分别要经过多少真实时间。
+</p>
+
+<div class="callout note">
+  <div class="co-title">注意</div>
+  <p>
+    如果 <code>Simulation</code> 分类里启用了 <code>Simulate Real Sun</code>，时间速度改由那里的
+    <code>Simulation Speed</code> 决定，上面两个时长不再生效。
+  </p>
+</div>
+
+<h3 id="运行时设置时间的四个函数">运行时设置时间的四个函数</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>函数</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>直接设置 <code>Time of Day</code> 变量</td><td>立刻跳到该时间。</td></tr>
+    <tr><td><code>Set Time with Time Code</code> / <code>Set Date and Time</code></td><td>用引擎的 Time Code / Date Time 结构设置，按时、分、秒传值。</td></tr>
+    <tr><td><code>Set Time of Day With String</code></td><td>用字符串设置，支持 <code>12:34 PM</code>、<code>18:30</code>、<code>5AM</code> 等常见写法，完整格式见函数说明。</td></tr>
+    <tr><td><code>Transition Time of Day</code></td><td>让时间在指定时长内平滑过渡到目标值。适合“快速推进到某个时刻”的演出。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<figure>
+  <img src="assets/img/time-control.png" alt="设置时间的四个函数" width="1058" height="658">
+  <figcaption>四个设置时间的函数节点。</figcaption>
+</figure>
+
+<div class="video-embed" data-bvid="BV1RxdpBFEpS">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：控制昼夜时间">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>控制昼夜时间</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1RxdpBFEpS/" target="_blank" rel="noopener">BV1RxdpBFEpS</a></div>
+</div>
+
+<h2 id="get-time">读取与显示时间</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>函数</th><th>输出</th></tr></thead>
+  <tbody>
+    <tr><td><code>Get Time of Day</code></td><td>直接给出时间浮点值，范围 0–2400。</td></tr>
+    <tr><td><code>Get Time Code</code></td><td>Time Code 结构，含时、分、秒。</td></tr>
+    <tr><td><code>Get Date Time</code></td><td>Date Time 结构，含时间与模拟日期。</td></tr>
+    <tr><td><code>Is It Daytime?</code></td><td>布尔值，太阳在地平线以上时为真。只关心“白天还是晚上”时用它最省事。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<figure>
+  <img src="assets/img/time-display.png" alt="读取时间的四个函数" width="708" height="324">
+  <figcaption>读取时间的四个函数节点。</figcaption>
+</figure>
+
+<p>
+  想在界面上显示时间，UDS 自带两个时钟控件，在控件设计器的面板里搜索
+  <code>Ultra Dynamic Sky Widgets</code> 分类即可找到。
+</p>
+
+<h2 id="movement">日月轨迹</h2>
+
+<p>
+  不使用天文模拟时，日月在天空中的位置由下面几个参数推导而来，<code>Sun</code> 与 <code>Moon</code> 分类里各有一套：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>参数</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>Sun Yaw</code> / <code>Moon Yaw</code></td><td>旋转整条环形轨迹，决定从哪个方向升起、落下。单位为度，顺时针为正。</td></tr>
+    <tr><td><code>Sun Pitch</code> / <code>Moon Pitch</code></td><td>俯仰整条轨迹，让天体的最高点变低、偏离天顶。0 表示最高点会到达头顶。</td></tr>
+    <tr><td><code>Vertical Offset</code></td><td>不考虑时间，直接把日月整体抬高或压低，可正可负。</td></tr>
+    <tr><td><code>Moon Orbit Offset</code></td><td>仅月亮。控制月亮相对太阳的时间偏移。0 表示月亮与太阳轨迹相反：夜里升起、白天落下。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout note">
+  <div class="co-title">注意</div>
+  <p>
+    启用天文模拟后，上述参数全部失效（<code>Manually Position</code> 除外，它的优先级高于模拟）。
+  </p>
+</div>
+
+<h2 id="manual">手动定位日月</h2>
+
+<p>
+  也可以完全脱离时间，手动摆放日月的位置：
+</p>
+
+<ol class="steps">
+  <li>在 <code>Sun</code> 分类勾选 <code>Manually Position Sun Target</code>（月亮对应 <code>Manually Position Moon Target</code>）。</li>
+  <li>选中 UDS，视口里会出现一个蓝色菱形的控件，标注为 <code>Sun Target</code> 或 <code>Moon Target</code>。</li>
+  <li>拖动这个控件即可改变日月方向——方向由 UDS Actor 指向该控件的位置决定。</li>
+</ol>
+
+<p>
+  控件背后控制的是两个向量变量 <code>Sun Target</code> 与 <code>Moon Target</code>，
+  在 <code>Sun</code>、<code>Moon</code> 分类的 <code>Advanced</code> 折叠区里可以找到，也可以直接用蓝图设置。
+</p>
+
+<figure>
+  <img src="assets/img/sun-manual.png" alt="Sun Target 控件" width="726" height="564">
+  <figcaption>勾选后出现在 UDS 上的 Sun Target 控件。</figcaption>
+</figure>
+
+<div class="video-embed" data-bvid="BV1exdpBFEmJ">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：手动调整太阳与月亮位置">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>手动调整太阳与月亮位置</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1exdpBFEmJ/" target="_blank" rel="noopener">BV1exdpBFEmJ</a></div>
+</div>
+
+<h2 id="sun">太阳外观</h2>
+
+<p>
+  太阳是一张径向渐变，所以它的参数就是缩放、柔和度、颜色和强度。
+  <code>Sun Scale</code> 除了改变视觉大小，还会用来推导太阳平行光的<strong>光源角度</strong>，
+  从而让阴影的柔和度、高光的大小与太阳在天空中的尺寸匹配。想在这个计算值上再缩放，用
+  <code>Sun Source Angle Scale</code>。
+</p>
+
+<p>
+  太阳分类里还有 <code>Solar Eclipse</code> 相关设置，用来控制月亮或太空层里的天体挡在太阳前面时的表现。
+</p>
+
+<h2 id="moon">月亮与月相</h2>
+
+<p>
+  月亮默认支持月相渲染，用 <code>Moon Phase</code> 调整当前相位；也可以打开分类里的选项让月相随时间变化。
+  启用 <code>Simulate Real Moon</code> 时，月相由模拟计算。
+</p>
+
+<p>月亮用两张纹理：</p>
+
+<ul>
+  <li><code>Moon Texture</code>：月亮的 RGB 颜色与 alpha。</li>
+  <li><code>Moon Phase Normal</code>：包含月亮局部法线的 RGB 纹理，用于计算月相明暗。</li>
+</ul>
+
+<p>
+  如果想换成一张不需要月相的贴图（例如风格化的圆盘），把 <code>Render Moon Phases</code> 关掉即可。
+</p>
+
+<h2 id="simulation">真实天文模拟</h2>
+
+<p>
+  <code>Simulation</code> 分类可以让日月星按真实世界坐标与日期定位。三个开关相互独立：
+  <code>Simulate Real Sun</code>、<code>Simulate Real Moon</code>、<code>Simulate Real Stars</code>。
+</p>
+
+<ul>
+  <li>
+    开启日月模拟后，<code>Sun</code>、<code>Moon</code> 分类里所有定位与轨迹参数都会被覆盖（手动定位除外），
+    并且会根据真实角直径自动设置 <code>Sun Scale</code> 与 <code>Moon Scale</code>——这个联动可以在
+    <code>Simulation</code> 分类的高级选项里关掉。月相也由模拟控制。
+  </li>
+  <li>
+    开启星空模拟后，星星纹理从默认的可平铺星空贴图换成一张 360 度星空图。两张纹理都可以在
+    <code>Stars</code> 分类里替换。
+  </li>
+</ul>
+
+<p>
+  模拟位置由 <code>Latitude</code>、<code>Longitude</code> 决定；<code>Time Zone</code> 要填该地点正确的 UTC 偏移，
+  否则 <code>Time of Day</code> 会被按错误的地方时解释。也可以直接选一个城市预设，一次性套用纬度、经度、时区与夏令时设置。
+</p>
+
+<p>
+  年、月、日决定模拟日期。运行过程中，日期会在每天午夜自动前进一天。<code>North Yaw</code>
+  用来指定世界空间里哪个方向算“北”，单位为度、顺时针旋转，默认北方是 +X 方向。
+</p>
+
+<h3 id="关于精度">关于精度</h3>
+
+<p>
+  模拟公式主要参考 Jean Meeus《Astronomical Algorithms》中的常用算法。用天文年历数据对照测试，
+  太阳与月亮的误差约在 <strong>0.03 度</strong>。
+</p>
+
+<p>
+  月亮位置的精度取决于参与计算的项数，这项以 <code>Moon Simulation Terms</code> 暴露给用户，默认 10 项——
+  前几项已经能覆盖绝大多数实用场景，需要更高精度或更低开销时再自行调整。
+</p>
+
+<h2 id="sim-time">模拟模式下的时间行为</h2>
+
+<ul>
+  <li>启用 <code>Animate Time of Day</code> 时，时间速度由 <code>Simulation Speed</code> 决定，1 大约是真实速度。</li>
+  <li>夏令时选项在 <code>Simulation</code> 分类里，开启后会在高级设置指定的起止日期区间内按 DST 解释时间。</li>
+  <li><code>Use System Time</code> 会用系统时钟的 UTC 时间结合所选时区来设置时间与日期。这个功能不依赖其他模拟开关，单独也能用。</li>
+</ul>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#time" data-toc="time">时间控制</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#运行时设置时间的四个函数" data-toc="运行时设置时间的四个函数">运行时设置时间的四个函数</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#get-time" data-toc="get-time">读取与显示时间</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#movement" data-toc="movement">日月轨迹</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#manual" data-toc="manual">手动定位日月</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#sun" data-toc="sun">太阳外观</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#moon" data-toc="moon">月亮与月相</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#simulation" data-toc="simulation">真实天文模拟</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#关于精度" data-toc="关于精度">关于精度</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#sim-time" data-toc="sim-time">模拟模式下的时间行为</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="lighting.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">光照与曝光</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="fog.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">雾与天空颜色</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

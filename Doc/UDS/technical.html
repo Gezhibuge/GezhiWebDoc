@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>技术说明 - UDS 中文文档</title>
+<meta name="description" content="UDS 与 UDW 的蓝图结构：启动流程、静态与动态属性、缓存系统、时间与光照的推导、云移动、材质状态管理，以及多人复制方式。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Reference · 16</div>
+            <h1>技术说明</h1>
+            <p class="lede">UDS 与 UDW 的蓝图结构：启动流程、静态与动态属性、缓存系统、时间与光照的推导、云移动、材质状态管理，以及多人复制方式。</p>
+            <div class="meta-row"><span class="chip">给改源码的人</span><span class="chip">结构说明</span></div>
+          </header>
+
+<p>
+  这一页面向需要改蓝图、或想弄清“为什么改了这个值要等一下才生效”的人。
+  不理解也不影响正常使用。
+</p>
+
+<h2 id="uds-overview">UDS 的蓝图结构</h2>
+
+<h3 id="启动">启动</h3>
+
+<p>
+  <code>Startup Sky</code> 函数包含全部启动逻辑：编辑器里由 Construction Script 调用，
+  运行时由 Begin Play 调用，另外在运行时重启天空（套用配置、切换 Sky Mode）时也会调用。
+  它负责一次性设置，并执行一遍 Update 函数。
+</p>
+
+<h3 id="两个-update-函数">两个 Update 函数</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>函数</th><th>职责</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Update Active Variables</code></td>
+      <td>应用随时间、天气等经常变化的属性。运行时频繁调用。</td>
+    </tr>
+    <tr>
+      <td><code>Update Static Variables</code></td>
+      <td>应用不预期在运行时变化的属性。只在 Construction Script 与 Begin Play 各跑一次，
+        之后除非手动调用，否则不再执行。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  这也是“改静态属性没反应”的根源：它们属于 <code>Update Static Variables</code> 的管辖范围，
+  改完要调对应的 <code>Static Properties - XXX</code> 函数。
+</p>
+
+<p>
+  函数按功能分类命名，例如镜头光晕的静态属性函数就叫 <code>Static Properties - Lens Flare</code>，
+  放在 Lens Flare 分类下。几乎每个函数都有说明。
+</p>
+
+<h2 id="cache">缓存系统</h2>
+
+<p>
+  Project Mode 为 <code>Game / Real-Time</code> 时，UDS 用一套缓存把复杂计算摊开：
+  <code>Cache Properties</code> 把不同类型的数据缓存成“新旧两组值”的数组，两次缓存更新之间在新旧值之间插值。
+</p>
+
+<ul>
+  <li><strong>更新周期不是固定的</strong>：变化越快，缓存刷新越频繁。</li>
+  <li><code>Monitor for Changes</code> 每帧观察时间与天气变量的变化速度，必要时立刻调整缓存节奏；
+    节奏本身由 <code>Increment Cache Timer</code> 管理。</li>
+  <li>缓存独立于 Update 函数运行，因此它自己有 <code>Cached Sun Vector</code>、<code>Cached Moon Phase</code>
+    这类变量——这些值需要被多处共享，但不一定等于当前的真实值。</li>
+  <li>应用缓存值的函数统一以 <code>AP</code>（Apply Properties）开头，由 <code>Update Active Variables</code>
+    触发的事件分发器调用。</li>
+</ul>
+
+<h2 id="time-lighting">时间与光照的实现</h2>
+
+<p>
+  时间由 <code>Time of Day</code> 与 <code>Date</code> 两个变量驱动。日月旋转由时间推导（除非启用手动定位），
+  而它们的旋转又被缓存系统与 Update 函数用来推导雾色、光照强度等。
+</p>
+
+<ul>
+  <li><code>Time of Day</code> 在 Tick 里由 <code>Time of Day Animation</code> 与 <code>Apply System Time</code> 推进（对应功能开启时）。</li>
+  <li><code>Date</code> 只在午夜由 <code>Offset Date</code> 推进一天。</li>
+  <li>日月旋转是缓存值，在 <code>Cache Sun and Moon Orientation</code> 里计算；启用模拟时改由
+    <code>Approximate Real Sun Moon and Stars</code> 依据时间、日期与经纬度计算。</li>
+  <li>缓存出来的朝向只写入 <code>Sun World Rotation</code> 与 <code>Moon World Rotation</code> 两个“视觉用”变量。
+    灯光本体有自己的 <code>Lights Update</code> 设置，可以只按周期改变朝向——这两个变量就是中间层。</li>
+  <li><code>Update Active Variables</code> 再用这两个旋转的前向量推导各种随光照朝向变化的属性。</li>
+</ul>
+
+<h2 id="cloud-move">云移动的实现</h2>
+
+<p>
+  云的移动单独处理，不在 Update 函数里：
+</p>
+
+<ul>
+  <li><code>Increment Cloud Movement Cache</code> 默认每秒执行几次，算出当前位置应按什么速度、朝什么方向偏移，缓存新旧位置。</li>
+  <li><code>Update Cloud Movement</code> 每帧把缓存值写进材质参数。</li>
+</ul>
+
+<p>
+  体积云相关属性写入共享材质参数集合 <code>UDS_VolumetricClouds_MPC</code>，
+  这样云雾、云影等其它材质也能用同一批参数近似云量。
+</p>
+
+<h2 id="fog-color">雾色与环境光色</h2>
+
+<p>
+  雾与环境光的颜色主要由 <code>Get Current Base Fog Colors</code> 计算，输出环境雾色、方向雾色，
+  以及太阳与月亮各自的贡献。这些颜色既写进雾组件，也被其它逻辑复用——例如天光模式为
+  <code>Cubemap with Dynamic Color Tinting</code> 时，环境雾色会参与天光的颜色与强度计算。
+</p>
+
+<h2 id="uds-replication">UDS 的复制（Replication）</h2>
+
+<p>
+  多人环境下 <code>Time of Day</code> 与 <code>Date</code> 会复制。做法不是每帧同步时间，而是：
+</p>
+
+<ul>
+  <li>服务端周期性更新 <code>Replicated Time of Day</code> 变量，通知客户端用这个值校正；</li>
+  <li><code>Day Length</code>、<code>Night Length</code>、<code>Time Speed</code>、<code>Simulation Speed</code>
+    这些“决定时间走多快”的参数本身也复制。</li>
+</ul>
+
+<p>
+  这样客户端大多数时候可以像服务端一样本地推进时间，只在收到新值时重新对齐。
+</p>
+
+<h2 id="udw-overview">UDW 的蓝图结构</h2>
+
+<p>UDW 的结构参照 UDS 设计。</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>函数</th><th>职责</th></tr></thead>
+  <tbody>
+    <tr><td><code>Start Weather System</code></td><td>对应 UDS 的 Startup Sky：创建天气设置对象等必要对象、启动随机天气等系统，并跑一遍 Update。</td></tr>
+    <tr><td><code>Update Current Global and Local Weather State</code></td><td>每帧构造全局状态，以及（需要时）局部状态。</td></tr>
+    <tr><td><code>Monitor Local Weather Changes</code></td><td>局部状态生成后检查各项是否越过阈值，越过的项会把相应函数绑定到
+      <code>Update Active Variables</code> 里的分发器上，以驱动所有响应这些值的系统。</td></tr>
+    <tr><td><code>Update Active Variables</code></td><td>把变化应用到 Niagara、声音组件与材质效果。</td></tr>
+    <tr><td><code>Update Static Variables</code></td><td>应用不随天气变化的属性，例如粒子的最大生成距离。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="weather-state-tech">天气状态的构造</h2>
+
+<p>天气状态分两级构造：</p>
+
+<h3 id="全局状态-global-weather-state">全局状态（Global Weather State）</h3>
+
+<p>
+  由 UDW 自身的设置决定：天气预设、<code>Change Weather</code> 函数、随机天气变化。
+  当影响全局状态的东西发生变化（例如开始一次过渡）时，<code>Bind Global State Update Functions</code>
+  会把需要的更新函数绑定到 <code>Construct Global Weather</code> 分发器，该分发器由
+  <code>Update Current Global and Local Weather State</code> 调用。
+</p>
+
+<p>
+  可绑定的函数负责：应用预设、处理过渡、应用随机状态、推进全局材质状态模拟等。
+</p>
+
+<h3 id="局部状态-local-weather-state">局部状态（Local Weather State）</h3>
+
+<p>
+  构造方式一致：按需绑定函数到 <code>Construct Local Weather</code>。局部绑定处理
+  天气覆盖体积、径向风暴、云层之上的调整等。
+</p>
+
+<p>
+  <code>Update Active Variables</code> 里设置的属性几乎都在读取 Local Weather State 对象的值——
+  因为它代表玩家所在位置的天气。
+</p>
+
+<h2 id="niagara">Niagara 系统</h2>
+
+<p>
+  UDW 使用的 Niagara 系统都在 <code>Particles</code> 文件夹。Rain、Dust、Snow、Wind Debris
+  共享大量模块与父发射器，行为大体相同。
+</p>
+
+<p>
+  它们都包含一个 CPU 碰撞发射器与一个 GPU 碰撞发射器，用来把有效的粒子路径填进 Niagara 数组；
+  UDW 在构造系统时按 <code>Particle Collision Mode</code> 关掉其中一个。
+  其余发射器从数组里随机取一条有效路径，据此决定位置、速度与寿命。
+</p>
+
+<p>
+  闪电方面：<code>Lightning Strike</code> 系统负责有可见闪电柱的落雷，
+  <code>Obscured Lightning</code> 负责只在云层里闪一下的被动效果。
+  天气粒子与云中闪电的 Niagara 组件主要由 Update 函数控制，落雷则由
+  <code>Lightning Flash</code> 图表生成。
+</p>
+
+<h2 id="sound-tech">声音的实现</h2>
+
+<p>
+  大部分音效逻辑在 MetaSound 资产里（<code>Sound/MetaSounds</code>）。UDW 只负责周期性把天气状态值、
+  遮挡值与音量写进音频组件，插值在 MetaSound 图里按更新周期完成。
+</p>
+
+<ul>
+  <li>天气声分 <strong>Global</strong> 与 <strong>Directional</strong> 两路：Global 不做声像/空间化，
+    Directional 会空间化，并且按方向应用遮挡（+X 方向被挡，则来自该方向的定向声衰减）。</li>
+  <li>两路都输出到音频总线 <code>UDS_Weather_AudioBus</code>，再由 UDW 上的 Sound Mixer 统一做立体声像与遮挡处理，
+    输出到 Base Submix。</li>
+  <li>遮挡值由 UDS 的 Player Occlusion 组件计算。</li>
+</ul>
+
+<h2 id="material-state-tech">材质状态管理</h2>
+
+<p>
+  <code>Material State Manager</code>（<code>Blueprints/Weather_Effects/System</code>）负责在开启
+  “Simulate Changing Material State Over Time” 时随时间推进全局材质状态。
+  关闭该选项时，材质状态直接取自参与构造全局状态的天气对象。
+</p>
+
+<h2 id="udw-replication">UDW 的复制</h2>
+
+<p>
+  UDW 复制的是<strong>全局天气状态</strong>，以及天气覆盖体积与径向风暴各自的状态。
+  客户端据此各自计算自己的局部天气——所以每个玩家的“身边天气”可以不同，
+  但体积/风暴内外的状态是一致的。
+</p>
+
+<p>
+  全局状态本身不是逐值同步，而是同步“过渡系统使用的天气预设资产、随机天气变化、覆盖体积”这些输入。
+  这样客户端只在某个来源开始变化时收到更新，其余时间按与服务端相同的逻辑本地推算。
+</p>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#uds-overview" data-toc="uds-overview">UDS 的蓝图结构</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#启动" data-toc="启动">启动</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#两个-update-函数" data-toc="两个-update-函数">两个 Update 函数</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#cache" data-toc="cache">缓存系统</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#time-lighting" data-toc="time-lighting">时间与光照的实现</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#cloud-move" data-toc="cloud-move">云移动的实现</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#fog-color" data-toc="fog-color">雾色与环境光色</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#uds-replication" data-toc="uds-replication">UDS 的复制（Replication）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#udw-overview" data-toc="udw-overview">UDW 的蓝图结构</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#weather-state-tech" data-toc="weather-state-tech">天气状态的构造</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#全局状态-global-weather-state" data-toc="全局状态-global-weather-state">全局状态（Global Weather State）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#局部状态-local-weather-state" data-toc="局部状态-local-weather-state">局部状态（Local Weather State）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#niagara" data-toc="niagara">Niagara 系统</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#sound-tech" data-toc="sound-tech">声音的实现</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#material-state-tech" data-toc="material-state-tech">材质状态管理</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#udw-replication" data-toc="udw-replication">UDW 的复制</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="issues.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">常见问题</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="videos.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">视频索引</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

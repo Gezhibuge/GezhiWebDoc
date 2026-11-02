@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Introduction to the Global Config &amp; Global Styling systems that can be used to configure all systems of the asset">
+      
+      
+        <meta name="author" content="Nerwy">
+      
+      
+        <link rel="canonical" href="https://www.nerwy-ue.com/docs/easy-game-ui-3-0/global-config-styling-system/">
+      
+      
+        <link rel="prev" href="index-6.html">
+      
+      
+        <link rel="next" href="index-8.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="main-content/Logo.webp">
+      <meta name="generator" content="zensical-0.0.42">
+    
+    
+      
+        <title>全局配置与样式系统 - Easy Game UI 3.0 文档</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="static/css/main.fba56155.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="static/css/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="static/css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#global-config-styling-system" class="md-skip">跳到正文</a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="./.." title="Easy Game UI 3.0 文档" class="md-header__button md-logo" aria-label="Easy Game UI 3.0 文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewbox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewbox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Easy Game UI 3.0 文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">全局配置与样式系统</span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="pink" aria-label="切换到浅色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="pink" aria-label="切换到深色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewbox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="搜索">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewbox="0 0 24 24"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="搜索">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Easy Game UI 3.0 文档" class="md-nav__button md-logo" aria-label="Easy Game UI 3.0 文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewbox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+
+    </a>
+    Easy Game UI 3.0 文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-rocket" viewbox="0 0 24 24"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"></path><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"></path></svg>
+  
+  <span class="md-ellipsis">欢迎！</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-1.html" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-scroll-text" viewbox="0 0 24 24"><path d="M15 12h-5M15 8h-5M19 17V5a2 2 0 0 0-2-2H4"></path><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"></path></svg>
+  
+  <span class="md-ellipsis">更新日志</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">1. 快速上手</span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>1. 快速上手</label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">项目设置</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">资源安装</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">Game Instance 设置</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">游戏 HUD 设置</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">额外设置与系统测试</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Global Config &amp; Styling System
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index-7.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">全局配置与样式系统</span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="本页目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>本页目录</label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#global-config-system" class="md-nav__link"><span class="md-ellipsis">全局配置系统</span></a>
+  
+    <nav class="md-nav" aria-label="Global Config System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global" class="md-nav__link"><span class="md-ellipsis">全局</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link"><span class="md-ellipsis">输入</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-menus" class="md-nav__link"><span class="md-ellipsis">系统菜单</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-menu" class="md-nav__link"><span class="md-ellipsis">选项菜单</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-game" class="md-nav__link"><span class="md-ellipsis">存档</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#photo-mode" class="md-nav__link"><span class="md-ellipsis">拍照模式</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#game-benchmark" class="md-nav__link"><span class="md-ellipsis">游戏基准测试</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#game-credits" class="md-nav__link"><span class="md-ellipsis">游戏制作人员名单</span></a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-styling-system" class="md-nav__link"><span class="md-ellipsis">全局样式系统</span></a>
+  
+    <nav class="md-nav" aria-label="Global Styling System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#colors" class="md-nav__link"><span class="md-ellipsis">颜色</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-prompts" class="md-nav__link"><span class="md-ellipsis">输入提示</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text" class="md-nav__link"><span class="md-ellipsis">文本</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buttons" class="md-nav__link"><span class="md-ellipsis">按钮</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-background" class="md-nav__link"><span class="md-ellipsis">通用背景</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-scrollbox" class="md-nav__link"><span class="md-ellipsis">通用滚动框</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#game-credits-styling" class="md-nav__link"><span class="md-ellipsis">游戏制作人员名单样式设置</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link"><span class="md-ellipsis">设置</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global_1" class="md-nav__link"><span class="md-ellipsis">全局</span></a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-exporter-tool" class="md-nav__link"><span class="md-ellipsis">配置导出工具</span></a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index-8.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">2. 全局用法</span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>2. 全局用法</label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-9.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">主菜单与开场画面</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-10.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">暂停菜单</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-11.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">选项菜单</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">存档系统</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">拍照模式</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-14.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">游戏制作人员名单</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">3. 核心系统用法</span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>3. 核心系统用法</label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-15.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">设置系统</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-16.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">UI 导航系统</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-17.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">模块化控件系统</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-18.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">输入提示系统</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-19.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">移除演示内容</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="本页目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>本页目录</label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#global-config-system" class="md-nav__link"><span class="md-ellipsis">全局配置系统</span></a>
+  
+    <nav class="md-nav" aria-label="Global Config System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global" class="md-nav__link"><span class="md-ellipsis">全局</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link"><span class="md-ellipsis">输入</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-menus" class="md-nav__link"><span class="md-ellipsis">系统菜单</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-menu" class="md-nav__link"><span class="md-ellipsis">选项菜单</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-game" class="md-nav__link"><span class="md-ellipsis">存档</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#photo-mode" class="md-nav__link"><span class="md-ellipsis">拍照模式</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#game-benchmark" class="md-nav__link"><span class="md-ellipsis">游戏基准测试</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#game-credits" class="md-nav__link"><span class="md-ellipsis">游戏制作人员名单</span></a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-styling-system" class="md-nav__link"><span class="md-ellipsis">全局样式系统</span></a>
+  
+    <nav class="md-nav" aria-label="Global Styling System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#colors" class="md-nav__link"><span class="md-ellipsis">颜色</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-prompts" class="md-nav__link"><span class="md-ellipsis">输入提示</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text" class="md-nav__link"><span class="md-ellipsis">文本</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buttons" class="md-nav__link"><span class="md-ellipsis">按钮</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-background" class="md-nav__link"><span class="md-ellipsis">通用背景</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-scrollbox" class="md-nav__link"><span class="md-ellipsis">通用滚动框</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#game-credits-styling" class="md-nav__link"><span class="md-ellipsis">游戏制作人员名单样式设置</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link"><span class="md-ellipsis">设置</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global_1" class="md-nav__link"><span class="md-ellipsis">全局</span></a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-exporter-tool" class="md-nav__link"><span class="md-ellipsis">配置导出工具</span></a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="global-config-styling-system">全局配置与样式系统<a class="headerlink" href="#global-config-styling-system" title="本页锚点">¶</a></h1>
+<p>本资源包含一套全局配置与样式系统，可轻松配置任意系统的所有功能与视觉设置。</p>
+<p><strong>在文档中我会多次提到这些系统，因此请阅读以下细节，了解它们的工作方式和使用方法。</strong></p>
+<h2 id="global-config-system">全局配置系统<a class="headerlink" href="#global-config-system" title="本页锚点">¶</a></h2>
+<p>全局配置数据资源（Global Config Data Asset）让你可以快速更改资源包正常工作所需的各项设置。<br> 系统使用的默认配置数据资源（<code>DA_EGUI_DemoGlobalConfig</code>）位于 <code>EasyGameUI/Core/GlobalConfig</code> 文件夹中 <br> <a class="glightbox" data-type="image" href="static/image/image-7.webp"><img alt="" height="273" loading="lazy" src="static/image/image-7.webp" width="620"></a></p>
+<p>强烈建议你新建一个配置数据资源，或复制演示配置来设置自己的配置，详情请查看下方的下拉菜单。</p>
+<details class="abstract">
+<summary>如何创建新的配置数据资源</summary>
+<ol>
+<li>
+<p>要创建新的配置数据资源，请在内容浏览器（Content Browser）窗口内任意位置右键单击，然后搜索“Data Asset”。</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-2-3.webp"><img alt="" height="516" loading="lazy" src="static/image/image-2-3.webp" width="903"></a></p>
+</li>
+<li>
+<p>在出现的窗口中搜索 <code>GlobalConfig</code>，并选择 <code>PDA_EGUI_GlobalConfigSystem</code></p>
+<p><a class="glightbox" data-type="image" href="static/image/image-3-3.webp"><img alt="" height="202" loading="lazy" src="static/image/image-3-3.webp" width="676"></a></p>
+</li>
+<li>
+<p>为这个新资源命名，然后只需选择该数据资源供系统使用即可（说明见下文）</p>
+</li>
+</ol>
+</details>
+<details class="abstract">
+<summary>如何选择系统使用的数据资源</summary>
+<ol>
+<li>
+<p>要更改系统使用的数据资源，请进入 <code>EasyGameUI/Core/GlobalConfig</code>，并打开蓝图 <code>BP_EGUI_GlobalConfigSelector</code></p>
+<p><a class="glightbox" data-type="image" href="static/image/image-4-4.webp"><img alt="" height="273" loading="lazy" src="static/image/image-4-4.webp" width="635"></a></p>
+</li>
+<li>
+<p>在此蓝图中，只需将 <code>Global Config Data Asset</code> 变量的值改为你新建的数据资源</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-5-2.webp"><img alt="" height="528" loading="lazy" src="static/image/image-5-2.webp" width="627"></a></p>
+</li>
+<li>
+<p>你的新数据资源现在已完全可以使用了！</p>
+</li>
+</ol>
+</details>
+<details class="abstract">
+<summary>如何在任意蓝图中获取全局配置变量</summary>
+<p>你可以使用 <code>Get Global Config Data Asset</code> 函数从全局配置中获取任意变量。该函数会返回系统使用的配置数据资源对象，让你可以访问其中的所有变量。</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-1-3.webp"><img alt="" height="140" loading="lazy" src="static/image/image-1-3.webp" width="422"></a></p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>此对象仅用于只读访问，请勿在游戏过程中尝试修改变量，否则很可能会导致意外结果。</p>
+</div>
+</details>
+<p><br> 在配置数据资源中，你可以看到许多用于控制资源包各方面的选项，它们被分为几个部分，我将在下面详细介绍。 <br> <em>请注意，部分设置目前未必全部适用，因为它们可能需要额外配置，相关内容将在文档的后续章节中说明。</em> <br> <a class="glightbox" data-type="image" href="static/image/2026-05-26_174703_318.webp"><img alt="" height="457" loading="lazy" src="static/image/2026-05-26_174703_318.webp" width="884"></a></p>
+<!-- *All these variable descriptions are also visible when hovering the name of any variable inside the data asset* -->
+
+<details class="abstract">
+<summary>全局类别</summary>
+<h3 id="global">全局<a class="headerlink" href="#global" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/image-11.webp"><img alt="" height="154" loading="lazy" src="static/image/image-11.webp" width="829"></a></p>
+<ul>
+<li>
+<p id="StylingDataAsset"><code>Styling Data Asset</code></p>
+<p>将应用于所有控件的全局样式数据资源</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="ScreenShotCaptureMethod"><code>Screenshots Capture Method</code></p>
+<p>定义应使用哪种方法捕获截图（拍照模式和存档缩略图）</p>
+<div class="admonition warning">
+<p class="admonition-title"><u>仅在 UE5.5 中</u>，发行构建必须使用 <code>Render Target</code> 方法，因为引擎中的高分辨率截图捕获存在缺陷，会使其无法正常工作。这不影响其他任何 UE5 版本。</p>
+</div>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="DisableInitMessages"><code>Disable Initialization Messages?</code></p>
+<p>如果为 True，资源的所有常规初始化消息都将被禁用（错误和警告仍会显示）</p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>输入类别</summary>
+<h3 id="inputs">输入<a class="headerlink" href="#inputs" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/image-12.webp"><img alt="" height="425" loading="lazy" src="static/image/image-12.webp" width="826"></a></p>
+<ul>
+<li>
+<p id="GameplayIMC"><code>Gameplay Input Mapping Contexts</code></p>
+<p>所有可在游戏过程中激活、并在需要时由 UI 系统移除的输入映射上下文（Input Mapping Context）。<br> 你还可以选择为该 IMC 定义优先级，如果 <code>Add Mapping Context on Game Load?</code> 为 True，系统将在加载时负责添加这个特定的 IMC。</p>
+<p>在此数组中，你应引用所有预计会在游戏过程中某个时刻使用的 IMC，即使它们不应默认添加（将布尔值设为 False）。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="ApplyDefaultConfigOnBeginPlay"><code>Apply Default Input Config On Begin Play?</code></p>
+<p>如果为 True，所定义的默认输入配置将在开始游戏时应用。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="DefaultInputConfig"><code>Default Input Config</code></p>
+<p>当系统中没有任何控件能够提供新的输入配置时，默认应用的输入配置。</p>
+<p>此外，如果 <code>Apply Default Input Config On Begin Play?</code> 为 True，也可以在开始游戏时强制应用该配置。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="HideMouseWhenUsingKeyboard"><code>Hide Mouse Cursor When Using Keyboard?</code></p>
+<p>如果为 True，使用键盘导航 UI 系统时将隐藏鼠标光标。默认情况下，只有使用游戏手柄才能隐藏鼠标光标。</p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>系统菜单类别</summary>
+<h3 id="system-menus">系统菜单<a class="headerlink" href="#system-menus" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/image-13.webp"><img alt="" height="543" loading="lazy" src="static/image/image-13.webp" width="828"></a></p>
+<ul>
+<li>
+<p id="PlayCreditsOnGameLaunch"><code>Play Intro Credits On Game Launch?</code></p>
+<p>如果为 True，且已在本配置的 Game Credits Contexts 中定义，系统将在游戏启动时加载制作人员名单上下文（Credits Context）<code>Intro Credits</code>。<br> 这可用于显示公司标志、警告等开场制作人员名单。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="IntroScreenWidget"><code>Intro Screen Widget</code></p>
+<p>主菜单关卡加载时立即显示的控件；若启用，它将负责播放开场制作人员名单，然后显示“按任意键”提示。如果此控件引用为空，系统将跳过该环节，直接显示主菜单。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="MainMenuWidget"><code>Main Menu Widget</code></p>
+<p>开场界面关闭后（若已定义）作为主菜单显示的控件</p>
+<div class="admonition note">
+<p class="admonition-title">关于切换系统控件类的说明</p>
+<p>从系统切换控件时，理想情况下它们应是 <code>WBP_EasyMasterWidget</code> 的子级，除非你确信自己所做修改的影响。更多细节请参阅 <a data-preview="" href="index-16.html">UI 导航系统章节</a></p>
+</div>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="PauseMenuWidget"><code>Pause Menu Widget</code></p>
+<p>从 HUD 调用“打开暂停菜单”函数时显示的控件</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="MainMenuLevel"><code>Main Menu Level</code></p>
+<p>主菜单关卡的引用，用于“返回主菜单”按钮以及退出基准测试系统/游戏制作人员名单。有关如何设置主菜单的更多细节，请参阅其专属章节。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="NewGameLevel"><code>New Game Level</code></p>
+<p>从主菜单点击“新游戏”按钮时将加载的关卡的引用</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="PauseGameInPauseMenu"><code>Pause Game In Pause Menu?</code></p>
+<p>如果为 True，进入暂停菜单时游戏将暂停 <br> 如果为 False，暂停菜单打开时游戏将实时运行</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="DisplayVersionInMenus"><code>Display Game Version in Menus?</code></p>
+<p>是否应在暂停菜单和主菜单等菜单中显示“当前游戏版本”？</p>
+<p>即使已禁用存档文件版本控制，此项也可设为 true</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="CurrentVersion"><code>Current Game Version</code></p>
+<p>游戏的当前版本，可用于在 UI 上显示，或用于存档文件版本控制</p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>选项菜单分类</summary>
+<h3 id="options-menu">选项菜单<a class="headerlink" href="#options-menu" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-07-09_085225_629.webp"><img alt="" height="801" loading="lazy" src="static/image/2026-07-09_085225_629.webp" width="832"></a></p>
+<ul>
+<li>
+<p id="OptionsMenuWidget"><code>Options Menu Widget</code></p>
+<p>从 HUD 调用“Open Options Menu”函数时显示的控件（默认用作暂停菜单/主菜单中的选项菜单）</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="SettingsList"><code>Settings List</code></p>
+<p>所有设置管理器的列表，这些管理器应在 Begin Play 时初始化，之后可供选项菜单使用，或由任何其他系统全局使用</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="KeybindingsIMCs"><code>Keybinding Mapping Contexts</code></p>
+<p>该变量定义了一个输入映射上下文（Input Mapping Context）列表，其中包含所有可重新绑定的输入，并希望在按键重绑定系统中使用。有关如何设置这些输入映射上下文的更多细节，请参阅专门介绍选项菜单的章节。 <br> 当按映射上下文分组时，每个上下文关联的文本将用作分类名称</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="KeybindingsGrouping"><code>Keybinding Mappings Grouping Type</code></p>
+<p>定义按键绑定在选项菜单中的分组方式。</p>
+<ul>
+<li><strong><code>Group by Mapping Context</code></strong> 将所有按键绑定归入上一个变量中定义的分类下</li>
+<li><strong><code>Group by Input Category</code></strong> 将按输入映射上下文中定义的按键<code>Display Category</code>对所有按键绑定进行分组，而不考虑其原本所属的映射上下文 <em>请注意，按键冲突管理仅会处理同一映射上下文内的按键；若按输入分类分组，该系统仍会工作，但可能给用户带来一些困惑</em></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="KeybindingsConflict"><code>Keybinding Mappings Conflict Method</code></p>
+<p>定义系统应如何处理按键绑定冲突</p>
+<ul>
+<li><strong><code>Conflicts by Input Mapping Context</code></strong> 仅同一输入映射上下文内的按键才会冲突（不考虑显示分类）</li>
+<li><strong><code>Conflicts by Category</code></strong> 仅同一显示分类内的按键才会冲突（不考虑输入映射上下文）- <em>请注意，根据你的输入设置，这可能会在 IMC 内产生非预期行为，如适用可考虑使用“Conflicts All”</em></li>
+<li><strong><code>Conflicts All</code></strong> 所有按键都会被纳入冲突检测（不考虑分类或 IMC），这意味着在所有可用按键映射之间完全不允许冲突</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="GraphicPresetOnFirstLaunch"><code>Graphic Preset To Apply On First Game Launch</code></p>
+<p>如果你希望在游戏首次启动时强制应用某个画质预设，请将此值设置为高于 <code>-1</code> 的任意值</p>
+<p><code>-1</code> = 无/引擎默认；<code>0</code> = 低；<code>1</code> = 中；<code>2</code> = 高；<code>3</code> = 极高</p>
+<p>通常，引擎会默认使用极高预设，修改此项有助于确保所有硬件在启动时即获得良好体验</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="GameAudioClasses"><code>Game Audio Classes</code></p>
+<p>游戏用于对各类声音进行分组的音频分类。此处定义的分类将由其各自的“key”（Master、UI、Music 等）对应的音量由选项菜单控制。</p>
+<p>如果你没有这些相应的音频分类，可以使用演示配置数据资源中所列资源包提供的分类。</p>
+<p>有关音频分类设置的更多细节，请参阅专门介绍选项菜单的章节。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="OptionsMenuToggles"><code>Toggles</code></p>
+<ul>
+<li>
+<p id="OptionsMenuHiddenBackgroundTabs"><code>Tabs With Hidden Background</code></p>
+<p>选项菜单中应使用透明背景的标签页。</p>
+<p>这有助于让玩家在后台看到渲染的世界，同时进行画质设置等更改。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="VsyncInputLagMitigation"><code>Use High Compatibility Settings Saving?</code></p>
+<p>若为 True，设置将以标准 Unreal 存档文件而非 JSON 文件的形式保存到磁盘，代价是不再保持人类可读。</p>
+<p>在某些无法正确支持存储 JSON 文件的平台（如主机）上，这可能是必需的。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="VsyncInputLagMitigation"><code>Enable VSync Input Lag Mitigation?</code></p>
+<p>启用后，游戏会尝试通过将帧率限制在垂直同步阈值以下，来尽量减小垂直同步可能导致的输入延迟。结果可能因显示器配置而异。</p>
+<p>此输入延迟缓解仅在玩家启用垂直同步时生效。</p>
+</li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>存档分类</summary>
+<h3 id="save-game">存档<a class="headerlink" href="#save-game" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_181556_50.webp"><img alt="" height="685" loading="lazy" src="static/image/2026-05-07_181556_50.webp" width="832"></a></p>
+<ul>
+<li>
+<p id="SaveOperationsAllowed"><code>Save Operations Allowed?</code></p>
+<p>若为 False，所有存档操作都将被阻止，只能通过代码或存档触发器手动触发存档</p>
+<p>暂停菜单也将不再显示存档游戏按钮</p>
+</li>
+<li>
+<p id="LoadOperationsAllowed"><code>Load Operations Allowed?</code></p>
+<p>若为 False，所有读取存档操作都将被阻止，只能通过代码手动触发读取</p>
+<p>暂停菜单和主菜单也将不再显示读取游戏按钮</p>
+</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">提示</p>
+<p>你可以在游戏过程中的任意时刻，通过从 Game Instance 调用 <code>Set Save Game Operations Allowed</code> 函数来更新这两个变量</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%209-1.webp"><img alt="" height="260" loading="lazy" src="static/image/image%209-1.webp" width="562"></a></p>
+</div>
+<hr>
+<ul>
+<li>
+<p id="SaveManagerWidget"><code>Save Manager Widget</code></p>
+<p>作为存档管理器显示的控件，用于创建新存档或读取现有存档</p>
+</li>
+<li>
+<p id="OperationsManagerDelay"><code>Operations Manager Init Delay</code></p>
+<p>此延迟定义存档管理器在加载关卡时（若可用）启动初始读取操作前应等待多久</p>
+<p>建议设置较小到中等程度的延迟，以确保在执行任何操作前世界和所有 Actor 都已正确加载。如果你希望确保读取开始时所有系统都已就绪，可以增大此延迟</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="SavePlayerTransform"><code>Save Player Tranform?</code></p>
+<p>若为 True，玩家的变换（位置、旋转、缩放）将被自动保存，并在读取时针对每个持久关卡恢复。</p>
+<p>启用此项后，你不应在玩家角色或玩家控制器中的任何 Save Game Component 上将 <code>Save Transform</code> 变量设为 True。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="CaptureSaveThumbnails"><code>Capture Thumbnail For Saves?</code></p>
+<p>若为 true，存档系统将为每个存档文件截取一张缩略图。</p>
+<p><em>请注意，由于 Unreal 处理这些截图的方式，截取缩略图可能会在存档过程开始时造成轻微卡顿</em></p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="SaveFilesVersioning"><code>Enable Save Files Versioning?</code></p>
+<p>若为 true，存档文件将与当前游戏版本关联（当前游戏版本必须为有效值）。若尝试用未列在“Compatible Game Versions”中的其他游戏版本加载这些存档，会向玩家显示一条警告信息</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="CompatibleSaveGameVersions"><code>Compatible Game Versions</code></p>
+<p>若启用了存档版本管理，你可以在此定义与当前游戏版本不同但相互兼容的任意游戏版本，使用这些版本加载存档时不会显示任何警告信息</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="LoadingScreenConfiguration"><code>Loading Screen</code></p>
+<ul>
+<li>
+<p><code>Loading Screen Hide Delay</code></p>
+<p>存档完全加载完成后，加载画面需要等待多久才隐藏</p>
+<hr>
+</li>
+<li>
+<p><code>Loading Screen Backgrounds</code></p>
+<p>在加载画面背景中随机显示的图片</p>
+<hr>
+</li>
+<li>
+<p><code>Loading Screen Tips</code></p>
+<p>在加载画面上随机显示的提示。留空则不显示任何提示</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="AutoSaves"><code>Auto Saves</code></p>
+<ul>
+<li>
+<p><code>Enable Auto Saves?</code></p>
+<p>若为 True，则对所有未被禁用的关卡启用自动存档</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><code>Auto Saves Interval</code></p>
+<p>两次自动存档之间的间隔时间（秒）</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><code>Trigger Auto Save On Game Quit?</code></p>
+<p>若为 true，当用户从暂停菜单退回主菜单或完全退出游戏时，将触发一次自动存档</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><code>Max Slots For Auto Saves</code></p>
+<p>定义自动存档在覆盖较旧的自动存档之前可以创建多少个槽位（即自动存档总共可使用的槽位数）</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><code>Disallowed Levels For Auto Saves</code></p>
+<p>如果想在特定地图（例如主菜单）上禁用自动存档，可以在此数组中引用这些地图</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="SaveBatchSizes"><code>Slow Batch Size</code> / <code>Medium Batch Size</code> / <code>Expensive Batch Size</code></p>
+<p>每个变量定义在单帧内，针对特定的存档或读档操作允许处理多少个 Actor</p>
+<ul>
+<li>慢速操作指自动存档与重要存档（触发器/检查点）</li>
+<li>中速操作指快速存档</li>
+<li>高开销操作指手动存档以及所有读档</li>
+</ul>
+<p>更多细节请参见专门介绍存档系统的章节</p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>拍照模式分类</summary>
+<h3 id="photo-mode">拍照模式<a class="headerlink" href="#photo-mode" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_185545_51.webp"><img alt="" height="239" loading="lazy" src="static/image/2026-05-07_185545_51.webp" width="832"></a></p>
+<ul>
+<li>
+<p id="EnablePhotoMode"><code>Enable Photo Mode in Game?</code></p>
+<p>若为 True，拍照模式系统在游戏中启用，玩家在允许时可以打开。若为 False，拍照模式在游戏中完全禁用</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="PhotoModeWidget"><code>Photo Mode Widget</code></p>
+<p>打开拍照模式时显示的控件</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="PhotoGalleryWidget"><code>Photo Gallery Widget</code></p>
+<p>从拍照模式中请求相册时显示的控件</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="PhotoModePauseGame"><code>Pause Game for Photo Mode?</code></p>
+<p>若为 True，进入拍照模式时游戏将暂停。若为 False，拍照模式打开期间游戏会实时运行</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="PhotoModeThumbnails"><code>Capture Thumbnail</code></p>
+<p>若为 True，在拍照模式中拍摄主照片的同时还会捕获一张缩略图</p>
+<p>缩略图用于在相册中更高效地显示截图，无需预先加载完整分辨率的图片</p>
+</li>
+<li>
+<p id="MaxPhotoModeRange"><code>Max Camera Range</code></p>
+<p>相机可以离开其原始位置的最大范围（以 Unreal 单位——厘米为单位）。</p>
+<p>小于 0 的值将禁用最大范围，允许无限范围</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><code>Screenshot Directory Type</code></p>
+<p>定义系统保存截图的位置</p>
+<ul>
+<li><strong><code>Default Engine Screenshot Location</code></strong> 会将截图保存到 <code>[Project Folder]/Saved/Screenshots/[OSType]/</code> 下。对于打包版本，路径相同，但“Project Folder”位于 Windows 系统的 <code>[User]/Appdata/Local</code> 文件夹中</li>
+<li><strong><code>Save In Document Folder</code></strong> 会将截图保存到 <code>[User]/Documents/My Games/[Project Name]/</code> 下</li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>游戏基准测试分类</summary>
+<h3 id="game-benchmark">游戏基准测试<a class="headerlink" href="#game-benchmark" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_190701_53.webp"><img alt="" height="183" loading="lazy" src="static/image/2026-05-07_190701_53.webp" width="832"></a></p>
+<ul>
+<li>
+<p id="EnableGameBenchmark"><code>Enable Game Benchmarking Tool?</code></p>
+<p>是否应启用游戏基准测试工具，并使其可在选项菜单中访问？</p>
+<p>在启用此功能之前，请确保已按照选项菜单章节中关于游戏基准测试的说明正确完成设置</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="EnableGameBenchmarkShipping"><code>Enable Game Benchmarking Tool in Shipping Build?</code></p>
+<p>如果游戏基准测试工具已启用，是否也应在 Shipping 构建（面向玩家）中启用？</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="GameBenchmarkLevel"><code>Game Benchmarking Level</code></p>
+<p>包含游戏基准测试设置的关卡引用，具体设置如该功能专属章节所述</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="DedicatedGameBenchmarkInput"><code>Use Dedicated Input for Game Benchmark?</code></p>
+<p>若为 False，游戏基准测试按钮将作为一项设置显示在选项菜单的“图形设置”标签页中。若为 True，游戏基准测试按钮将拥有独立的输入项，并作为独立按钮显示在选项菜单的页脚中</p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>游戏制作人员名单分类</summary>
+<h3 id="game-credits">游戏制作人员名单<a class="headerlink" href="#game-credits" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_190930_54.webp"><img alt="" height="276" loading="lazy" src="static/image/2026-05-07_190930_54.webp" width="832"></a></p>
+<ul>
+<li>
+<p id="CreditsInMenus"><code>Display Game Credits Button in Menus?</code></p>
+<p>若为 True，可通过 <code>Menus</code> Credits Context 在主菜单/暂停菜单中访问制作人员名单。若为 False，菜单中用于触发制作人员名单的按钮将被隐藏</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="GameCreditsWidget"><code>Game Credits Widget</code></p>
+<p>通过菜单或游戏内请求显示制作人员名单时所用的控件</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="CreditsContexts"><code>Game Credits Contexts</code></p>
+<p>一组上下文，可根据不同场景用于触发游戏制作人员名单。默认情况下，暂停菜单/主菜单会使用 <code>Menus</code> 和 <code>Intro Credits</code> 这两个上下文。</p>
+<p>有关如何设置游戏制作人员名单的更多细节，请参阅其专属章节</p>
+</li>
+</ul>
+</details>
+<hr>
+<h2 id="global-styling-system">全局样式系统<a class="headerlink" href="#global-styling-system" title="本页锚点">¶</a></h2>
+<p>全局样式数据资源（Global Styling Data Asset）可让您快速自定义资源包中所有控件的大量视觉元素。 <br> 要更改这些样式，请前往 <code>EasyGameUI/Core/GlobalConfig/GlobalStyling</code> 文件夹。在这里，您可以找到默认使用的样式数据资源（<code>DA_EGUI_DefaultStyling</code>），以及其他用于演示的预设。 <br> <a class="glightbox" data-type="image" href="static/image/image-6-2.webp"><img alt="" height="277" loading="lazy" src="static/image/image-6-2.webp" width="609"></a></p>
+<details class="abstract">
+<summary>如何选择系统所使用的样式数据资源</summary>
+<ol>
+<li>要选择系统使用的样式数据资源，请打开您的全局配置数据资源（如果您使用的是演示版本，则打开 <code>EasyGameUI/Core/GlobalConfig</code> 文件夹中的演示资源）</li>
+<li>
+<p>然后，在 <code>Global</code> 分类中，直接在 <code>Styling Data Asset</code> 变量中更换数据资源即可</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-7-1.webp"><img alt="" height="102" loading="lazy" src="static/image/image-7-1.webp" width="664"></a></p>
+</li>
+<li>
+<p>重新编译任意蓝图，使更改生效</p>
+</li>
+</ol>
+</details>
+<p><br> 打开样式数据资源后，您会看到许多用于控制各类样式元素的选项，它们被划分为几个分类，我将在下面逐一详细说明。<br> <a class="glightbox" data-type="image" href="static/image/2026-05-07_191300_55.webp"><img alt="" height="483" loading="lazy" src="static/image/2026-05-07_191300_55.webp" width="890"></a></p>
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>要让更改生效并在编辑器中的控件上可见，您可能需要触发资源包中任意控件或蓝图的编译</p>
+</div>
+<!-- *All these variable descriptions are also visible when hovering the name of any variable inside the data asset* -->
+
+<details class="abstract">
+<summary>颜色分类</summary>
+<h3 id="colors">颜色<a class="headerlink" href="#colors" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_192022_57.webp"><img alt="" height="61" loading="lazy" src="static/image/2026-05-07_192022_57.webp" width="832"></a></p>
+<ul>
+<li>
+<p id="AccentColor"><code>Accent Color</code></p>
+<p>用于突出显示 UI 部分元素的颜色，例如分隔线、按钮和未保存状态指示器</p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>输入提示分类</summary>
+<h3 id="input-prompts">输入提示<a class="headerlink" href="#input-prompts" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_192041_58.webp"><img alt="" height="153" loading="lazy" src="static/image/2026-05-07_192041_58.webp" width="833"></a></p>
+<ul>
+<li>
+<p id="InputPromptIconColor"><code>Input Prompt Icon Color</code></p>
+<p>应用于所有使用输入提示控件的输入提示的颜色</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="InputPromptOverlayMat"><code>Input Prompt Overlay Material</code></p>
+<p>可用于为输入提示设计样式的叠加材质</p>
+<p>您可以查看 <code>M_InputPrompts_DemoOverlay</code> 以了解叠加材质的示例</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="InputPromptOverlayMatParam"><code>Input Prompt Overlay Material Parameter Name</code></p>
+<p>叠加材质中定义的基础纹理的参数名称</p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>文本分类</summary>
+<h3 id="text">文本<a class="headerlink" href="#text" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_192111_59.webp"><img alt="" height="399" loading="lazy" src="static/image/2026-05-07_192111_59.webp" width="832"></a></p>
+<ul>
+<li>
+<p id="PrimaryTextColor"><code>Primary Text Color</code></p>
+<p>Common Text（资源包中的所有文本）默认使用的颜色</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="InvertedTextColor"><code>Inverted Text Color</code></p>
+<p>在可能与主文本颜色相同的背景（例如按钮）上需要时使用的颜色</p>
+<p>可以在任意 Common Text 控件上使用 <code>Switch Text Color</code> 函数来反转颜色</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="FontsSetting"><code>Fonts</code></p>
+<p>字体相关的所有设置，使用 5 个预设：Regular、Medium、Bold、Black 和 Light。每个预设都可以选择一种字体及其斜体变体，并可控制字体使用的阴影。</p>
+<p>所有使用 Common Text 的控件，其配置中都会有选项用于控制使用哪种字体以及字体大小</p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%201-2.webp"><img alt="" height="108" loading="lazy" src="static/image/Untitled%201-2.webp" width="422"></a></p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>按钮分类</summary>
+<h3 id="buttons">按钮<a class="headerlink" href="#buttons" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_192140_60.webp"><img alt="" height="595" loading="lazy" src="static/image/2026-05-07_192140_60.webp" width="832"></a></p>
+<ul>
+<li>
+<p id="UseGlobalRoundingForButtons"><code>Use Global Rounding Parameter For Buttons?</code></p>
+<p>若为 True，所有按钮样式都会被覆盖，统一使用样式设置中定义的全局圆角半径和圆角类型值</p>
+<p>若为 False，每个按钮样式将完全自行负责设置其自身样式，包括圆角参数</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="ButtonsGlobalRoundingCornerRadii"><code>Buttons Globa lRounding Corner Radii</code></p>
+<p>启用全局圆角参数时，应用于所有按钮的圆角半径</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="ButtonsGlobalRoundingType"><code>Buttons Global Rounding Type</code></p>
+<p>当 <code>Use Global Rounding Parameter For Buttons?</code> 为 True 时，应用于所有按钮的圆角类型</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="ButtonStyles"><code>Common Button Styles</code></p>
+<p>Common Button 控件根据控件中所选的样式而使用的标准按钮样式列表</p>
+<p>所有 Common Button 控件的配置中都会有选项用于控制按钮使用的样式</p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%202-1.webp"><img alt="" height="28" loading="lazy" src="static/image/Untitled%202-1.webp" width="373"></a></p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="SelectorArrowTexture"><code>Selector Arrow Texture</code></p>
+<p>用于通用选择器按钮控件上的箭头图像。为获得最佳效果，纹理必须为正方形且箭头朝左。该图像可在所有设置选择器中以及图库内看到</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2024-1.webp"><img alt="" height="155" loading="lazy" src="static/image/image%2024-1.webp" width="763"></a></p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="AccentColorOnSelectorArrow"><code>Use Accent Color on Selector Arrow?</code></p>
+<p>若为 true，选择器箭头纹理将使用强调色，此时纹理必须为白色，颜色才能正确应用。若为 false，将保留纹理自身的颜色</p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>通用背景分类</summary>
+<h3 id="common-background">通用背景<a class="headerlink" href="#common-background" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_192159_61.webp"><img alt="" height="380" loading="lazy" src="static/image/2026-05-07_192159_61.webp" width="833"></a></p>
+<p><code>Common Background Styles</code> 变量包含一个标准边框样式列表，Common Background 控件根据控件中所选的样式使用对应的样式。</p>
+<p>Normal Style 选择器是默认可见的样式，而 Active Style 选择器可通过在任意 Common Background 控件上调用 <code>Set Background Active</code> 函数来显示 <br> <a class="glightbox" data-type="image" href="static/image/image%2026.webp"><img alt="" height="111" loading="lazy" src="static/image/image%2026.webp" width="370"></a></p>
+<p><code>Corner Rounding Type</code> 定义该特定背景应使用哪种圆角类型，不受样式中设置的内容影响</p>
+</details>
+<details class="abstract">
+<summary>通用滚动框类别</summary>
+<h3 id="common-scrollbox">通用滚动框<a class="headerlink" href="#common-scrollbox" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_192230_62.webp"><img alt="" height="596" loading="lazy" src="static/image/2026-05-07_192230_62.webp" width="833"></a></p>
+<p>这两个设置都用于为通用滚动框（Common Scroll Box）控件应用样式</p>
+<ul>
+<li>
+<p id="CommonScrollBoxStyle"><code>Common Scroll Box Style</code></p>
+<p>虚幻中滚动框的标准样式定义</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="CommonScrollBarStyle"><code>Common Scroll Bar Style</code></p>
+<p>滚动条的标准样式定义</p>
+<p><em>注意：滚动条的“滑块”（即可选中部分）始终使用强调色，与此处设置的样式颜色无关</em></p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>游戏制作人员名单类别</summary>
+<h3 id="game-credits-styling">游戏制作人员名单样式设置<a class="headerlink" href="#game-credits-styling" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_192303_63.webp"><img alt="" height="508" loading="lazy" src="static/image/2026-05-07_192303_63.webp" width="832"></a></p>
+<ul>
+<li>
+<p id="CreditsSectionTitleStyle"><code>Section Title Style</code></p>
+<p>所有分区标题文本默认使用的文本样式（字体、字号、颜色、内边距）</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="CreditsSectionRoleStyle"><code>Text Section Role Style</code></p>
+<p>默认用于显示角色名称的文本样式（字体、字号、颜色、内边距）</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="CreditsSectionNamesStyle"><code>Text Section Names Style</code></p>
+<p>默认用于显示成员姓名的文本样式（字体、字号、颜色、内边距）</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="CreditsSectionOuterMargin"><code>Text Section Outer Margin</code></p>
+<p>角色与姓名文本四周的外边距，用于将它们与分区标题和/或任何图片分区隔开</p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>设置类别</summary>
+<h3 id="settings">设置<a class="headerlink" href="#settings" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_192715_67.webp"><img alt="" height="842" loading="lazy" src="static/image/2026-05-07_192715_67.webp" width="832"></a></p>
+<ul>
+<li>
+<p id="SettingLayoutPresets"><code>Setting Layout Presets</code></p>
+<p>在不同场景中使用的预设，用于为设置控件应用基础样式规则。每个预设可定义多种参数，例如设置项的高度、使用的字体、重置按钮的样式等。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="SettingBackgroundStyles"><code>Settings Background Styles</code> 所有设置项所使用的背景的各种样式选项</p>
+<ul>
+<li>
+<p><code>Setting Background Style</code></p>
+<p>设置项未处于聚焦/悬停状态时，用于整个设置项背景/边框的样式</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2029.webp"><img alt="" height="116" loading="lazy" src="static/image/image%2029.webp" width="1043"></a></p>
+</li>
+<li>
+<p><code>Setting Background Active Style</code></p>
+<p>设置项处于聚焦或悬停状态时，用于整个设置项背景/边框的样式</p>
+</li>
+<li>
+<p><code>Options Selectors Background Style</code></p>
+<p>用于设置项取值部分背景/边框的样式</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2030.webp"><img alt="" height="80" loading="lazy" src="static/image/image%2030.webp" width="1265"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="SettingButtonsStyles"><code>Setting Button Styles</code></p>
+<ul>
+<li>
+<p><code>Setting Toggle Buttons Style</code></p>
+<p>设置开关控件按钮应使用的按钮样式</p>
+</li>
+<li>
+<p><code>Reset Setting Button Style</code></p>
+<p>每个设置项上的重置按钮应使用的按钮样式</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="SettingSliderStyling"><code>Setting Slider</code> 汇总设置滑块控件的各种样式选项</p>
+<ul>
+<li>
+<p><code>Slider Style</code> 应用于设置项中滑块部分的样式</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-15.webp"><img alt="" height="158" loading="lazy" src="static/image/image-15.webp" width="2000"></a></p>
+</li>
+<li>
+<p><code>Settings Spin Box Style</code> 控件中数值输入框（spinbox）所使用的样式</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-17.webp"><img alt="" height="173" loading="lazy" src="static/image/image-17.webp" width="2000"></a></p>
+</li>
+<li>
+<p><code>Use Inverted Text Color in Spin Box</code> 如果数值输入框内的文本应使用反转的文本颜色（例如你希望数值输入框使用浅色背景），请勾选此框</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="SettingKeybindingStyling"><code>Setting Keybinding</code></p>
+<p>设置按键绑定控件中按键选择器的普通与激活样式</p>
+<p>当用户聚焦某个按键选择器以更改按键绑定时，将使用激活样式</p>
+</li>
+</ul>
+</details>
+<details class="abstract">
+<summary>全局类别</summary>
+<h3 id="global_1">全局<a class="headerlink" href="#global_1" title="本页锚点">¶</a></h3>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-07_192333_64.webp"><img alt="" height="280" loading="lazy" src="static/image/2026-05-07_192333_64.webp" width="832"></a></p>
+<ul>
+<li>
+<p id="GameLogo"><code>Game Logo</code></p>
+<p>在系统菜单（如主菜单、暂停菜单和开场画面）中显示的游戏 Logo</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="UIAudioSFX"><code>UI Audio SFX</code></p>
+<p>一组音效，会在系统的通用控件中播放（主要涉及按钮、设置项等）</p>
+<p>这些音效也可以通过全局函数 <code>Play UI Audio SFX</code> 从任意位置调用 <br> <a class="glightbox" data-type="image" href="static/image/2026-05-07_201858_68.webp"><img alt="" height="172" loading="lazy" src="static/image/2026-05-07_201858_68.webp" width="361"></a></p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="CursorStyling"><code>Global Cursor Styling</code></p>
+<p>一组光标控件，可自动应用于鼠标光标的多种状态</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-16.webp"><img alt="" height="91" loading="lazy" src="static/image/image-16.webp" width="1249"></a></p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p id="DefaultGamepadBrand"><code>Default Gamepad Keys Brand</code></p>
+<p>在可用的三种手柄按键类型中选择默认值。手柄按键品牌之后可在游戏过程中的选项菜单里修改</p>
+<p><strong><code>X</code></strong> = Xbox 手柄 <br> <strong><code>P</code></strong> = Playstation 手柄 <br> <strong><code>S</code></strong> = Nintendo Switch 手柄</p>
+</li>
+</ul>
+</details>
+<hr>
+<h2 id="config-exporter-tool">配置导出工具<a class="headerlink" href="#config-exporter-tool" title="本页锚点">¶</a></h2>
+<p>全局配置导出工具是一个实用工具，可帮助你以文本格式导出或导入资源包中的任意配置（Global Config 与 Global Styling）</p>
+<details class="abstract">
+<summary>如何使用配置导出工具</summary>
+<ol>
+<li>
+<p>你可以在 <code>EasyGameUI/Core/GlobalConfig</code> 文件夹中找到此工具，右键单击并选择 <code>Run Editor Utility Widget</code> 即可打开它</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-8.webp"><img alt="" height="325" loading="lazy" src="static/image/image-8.webp" width="726"></a></p>
+</li>
+<li>
+<p>打开后，你将看到以下界面</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2036.webp"><img alt="" height="573" loading="lazy" src="static/image/image%2036.webp" width="796"></a></p>
+</li>
+<li>
+<p>在这里，你可以先选择要从哪种数据资源导出数据/向哪种数据资源导入数据：Global Config Data Asset 或 Global Styling Data Asset</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2037.webp"><img alt="" height="51" loading="lazy" src="static/image/image%2037.webp" width="595"></a></p>
+</li>
+<li>
+<p>在 <code>Config Data Asset</code>/<code>Styling Data Asset</code> 字段内，选择目标数据资源</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2038.webp"><img alt="" height="92" loading="lazy" src="static/image/image%2038.webp" width="789"></a></p>
+</li>
+<li>
+<p>接下来，你可以通过以下步骤导出或导入数据</p>
+<ul>
+<li>
+<p>要导出数据，只需点击 <code>Export Config</code> 按钮，随后会出现一段可复制的文本，其中包含该数据资源的全部信息</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2039.webp"><img alt="" height="295" loading="lazy" src="static/image/image%2039.webp" width="801"></a></p>
+</li>
+<li>
+<p>要导入数据，先将配置文本粘贴到灰色输入框中，然后点击 <code>Import Config</code> 按钮</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2040.webp"><img alt="" height="92" loading="lazy" src="static/image/image%2040.webp" width="808"></a></p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>导入配置会覆盖数据资源中先前存储的所有数据。请确保已选择正确的数据资源以及正确的类型。<br> 如果配置文本与数据资源类型不匹配，则不会执行任何操作。</p>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m16 12-4-4-4 4M12 16V8"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="index-6.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Additional Setup &amp;amp; System Testing">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewbox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Additional Setup &amp; System Testing
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="index-8.html" class="md-footer__link md-footer__link--next" aria-label="Next: Global Usage Index">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Global Usage Index
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewbox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Nerwy
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.com/invite/sWZ2E7jcm4" target="_blank" rel="noopener" title="discord.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 576 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.expand","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.top","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="static/js/bundle.6e5f0216.min.js"></script>
+      
+    
+  <script src="static/js/egui-search-data.js"></script>
+<script src="static/js/egui-search.js" defer></script>
+</body>
+</html>

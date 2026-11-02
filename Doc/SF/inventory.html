@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>背包、日志、回忆录与任务 - Story Framework 中文手册</title>
+<meta name="description" content="Inventory Manager 一个人管四件事：快捷背包、日志、回忆录、任务队列。这一章讲清它们各自的数据从哪来、怎么增删，并给出一条「捡东西 → 更新任务 → 交任务」的完整链路。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="Story Framework 中文手册">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">Story Framework 中文手册</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">SF 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读 · 从这里开始</span></a></li>
+            <li><a class="md-nav__link" href="quickstart.html"><span class="md-nav__num">1</span><span>快速开始</span></a></li>
+            <li><a class="md-nav__link" href="concepts.html"><span class="md-nav__num">2</span><span>核心概念</span></a></li>
+            <li><a class="md-nav__link" href="interaction.html"><span class="md-nav__num">3</span><span>交互系统</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="inventory.html"><span class="md-nav__num">4</span><span>背包与叙事容器</span></a></li>
+            <li><a class="md-nav__link" href="dialogue.html"><span class="md-nav__num">5</span><span>对话与叙事</span></a></li>
+            <li><a class="md-nav__link" href="ui.html"><span class="md-nav__num">6</span><span>界面与输入提示</span></a></li>
+            <li><a class="md-nav__link" href="camera.html"><span class="md-nav__num">7</span><span>相机与场景</span></a></li>
+            <li><a class="md-nav__link" href="save.html"><span class="md-nav__num">8</span><span>存档与集成</span></a></li>
+            <li><a class="md-nav__link" href="faq.html"><span class="md-nav__num">9</span><span>排错手册</span></a></li>
+            <li><a class="md-nav__link" href="reference.html"><span class="md-nav__num">10</span><span>速查表</span></a></li>
+            <li><a class="md-nav__link" href="workshop.html"><span class="md-nav__num">11</span><span>实操工作坊</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">12</span><span>视频课程</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据官方文档 5.0+ / Fab 5.2 整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">第 4 章 · 核心系统</div>
+            <h1>背包、日志、回忆录与任务</h1>
+            <p class="lede">Inventory Manager 一个人管四件事：快捷背包、日志、回忆录、任务队列。这一章讲清它们各自的数据从哪来、怎么增删，并给出一条「捡东西 → 更新任务 → 交任务」的完整链路。</p>
+            <div class="meta-row"><span class="chip accent">4 个子系统</span><span class="chip cyan">含任务节点清单</span><span class="chip">含完整案例</span></div>
+          </header>
+
+<p class="lede">
+  官方把这个组件叫 “Inventory Manager”，但它其实是一组<strong>容器</strong>的总管：背包是容器，日志是容器，
+  回忆录和任务队列也是容器。它们共享同一套“增、删、改”的接口风格，学会一个就会四个。
+</p>
+
+<h2 id="map">四个容器，一张地图</h2>
+
+<figure>
+<svg viewBox="0 0 760 230" width="100%" role="img" aria-label="Inventory Manager 下的四个子系统">
+  <defs>
+    <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--text-faint)"/>
+    </marker>
+  </defs>
+  <rect x="250" y="12" width="260" height="56" rx="8" fill="var(--accent-2-soft)" stroke="var(--accent-2)" stroke-opacity="0.45"/>
+  <text x="380" y="38" text-anchor="middle" font-size="14" font-weight="600" fill="var(--accent-2)">SFInventoryManager_AC</text>
+  <text x="380" y="56" text-anchor="middle" font-size="11.5" fill="var(--text-dim)">挂在玩家控制器上，负责所有「容器」</text>
+
+  <g font-size="12.5">
+    <rect x="18" y="112" width="170" height="86" rx="8" fill="var(--panel)" stroke="var(--border-strong)"/>
+    <text x="34" y="138" fill="var(--text)" font-weight="600">快捷背包</text>
+    <text x="34" y="158" fill="var(--text-dim)" font-size="11.5">玩家带着的东西</text>
+    <text x="34" y="176" fill="var(--text-faint)" font-size="11">可 使用 / 组合 / 丢弃</text>
+
+    <rect x="204" y="112" width="170" height="86" rx="8" fill="var(--panel)" stroke="var(--border-strong)"/>
+    <text x="220" y="138" fill="var(--text)" font-weight="600">日志 Journal</text>
+    <text x="220" y="158" fill="var(--text-dim)" font-size="11.5">见过、但没拿走的东西</text>
+    <text x="220" y="176" fill="var(--text-faint)" font-size="11">3D 检视 + 段落描述</text>
+
+    <rect x="390" y="112" width="170" height="86" rx="8" fill="var(--panel)" stroke="var(--border-strong)"/>
+    <text x="406" y="138" fill="var(--text)" font-weight="600">回忆录 Memoirs</text>
+    <text x="406" y="158" fill="var(--text-dim)" font-size="11.5">做过的重要决定</text>
+    <text x="406" y="176" fill="var(--text-faint)" font-size="11">由「剧情标记」自动解锁</text>
+
+    <rect x="576" y="112" width="170" height="86" rx="8" fill="var(--panel)" stroke="var(--border-strong)"/>
+    <text x="592" y="138" fill="var(--text)" font-weight="600">任务 Tasks</text>
+    <text x="592" y="158" fill="var(--text-dim)" font-size="11.5">主线 + 支线队列</text>
+    <text x="592" y="176" fill="var(--text-faint)" font-size="11">右上角显示、可计时</text>
+  </g>
+
+  <g stroke="var(--text-faint)" stroke-width="1.1" fill="none">
+    <path d="M340 68 L103 108" marker-end="url(#ar2)"/>
+    <path d="M366 68 L289 108" marker-end="url(#ar2)"/>
+    <path d="M394 68 L475 108" marker-end="url(#ar2)"/>
+    <path d="M420 68 L661 108" marker-end="url(#ar2)"/>
+  </g>
+</svg>
+<figcaption><b>图 4-1</b>　Inventory Manager 不是“背包”，而是所有叙事容器的总入口。</figcaption>
+</figure>
+
+<h2 id="quick-inv">快捷背包：工具栏，不是全屏</h2>
+
+<p>
+  SF 的背包刻意做成<strong>底部工具栏</strong>，而不是打开一个占满屏幕的大界面——目的是让玩家不脱离游戏画面。
+  选中某个道具后，可以执行“使用 / 组合 / 丢弃”，具体允许哪些，由道具自己的拾取设置决定。
+</p>
+
+<p>每个道具的 <code>Pickup Method Settings</code> 里：</p>
+
+<figure>
+  <img src="assets/img/pickup-settings.png" alt="PickupMethodSettings 细节面板" width="427" height="169">
+  <figcaption>这个结构体一共就四行：图标，以及能否使用 / 组合 / 丢弃三个开关。</figcaption>
+</figure>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>开关</th><th>作用</th><th>实现位置</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Can Use</code></td>
+      <td>能不能在背包里按“使用”</td>
+      <td>使用后干什么，写在 <code>SFInventoryManager_AC</code> 的 <code>Use Selected Item</code> 逻辑里（一个 <code>Switch on String</code>，按道具名分支）</td>
+    </tr>
+    <tr>
+      <td><code>Can Combine</code></td>
+      <td>能不能参与组合</td>
+      <td>组合配方写在数据表 <code>ItemCombinations_DT</code> 里</td>
+    </tr>
+    <tr>
+      <td><code>Can Drop</code></td>
+      <td>能不能丢到地上</td>
+      <td>一般保持开启；关键道具可关掉，防止玩家把自己卡死</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<figure>
+  <img src="assets/img/use-item-graph.png" alt="背包组件里使用道具的逻辑位置" width="1358" height="338">
+  <figcaption>“使用道具”的逻辑就在这里：<b>SFInventoryManager_AC › Event Graph › Use Selected Item from Inventory Logic</b>，结尾的 <code>Switch on String</code> 就是给每个道具写效果的地方。</figcaption>
+</figure>
+
+<p>组件本身还有两个全局值：<code>Max Inventory Slots</code>（最多几种道具）和 <code>Max Combine Slots</code>（一次最多组合几件，防止玩家瞎试出超长序列）。</p>
+
+<figure>
+  <img src="assets/img/inventory-settings.png" alt="背包组件的全局设置" width="537" height="81">
+  <figcaption>组件细节面板里只需要关心这两项：背包格子上限、组合上限。</figcaption>
+</figure>
+
+<div class="callout tip">
+  <div class="co-title">组合是「有顺序」的</div>
+  <p>
+    组合配方按顺序匹配：A+B 和 B+A 是两条不同的配方，可以产生不同结果。
+    想给玩家“试错空间”，就把 <code>Max Combine Slots</code> 设大一点；
+    不想让他们乱试，设成 2 即可。<strong>组合列表几秒内没有新道具加入会自动超时清空</strong>。
+  </p>
+</div>
+
+<figure>
+  <img src="assets/img/item-combinations.png" alt="ItemCombinations 数据表的一行" width="973" height="247">
+  <figcaption><code>ItemCombinations_DT</code> 的一行：<b>CraftedWrench</b> 需要按顺序放入 [Broken Wrench, Duct Tape, Duct Tape]，结果由 <code>ResultItemData</code> 决定。</figcaption>
+</figure>
+
+<h2 id="add-item">手动加/删道具：两个函数</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>函数</th><th>参数</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Add Item to Inventory</code></td>
+      <td><code>Interactable Data</code>（道具数据）、<code>Quantity</code>（数量）、<code>Pending Kill</code>（要销毁的 Actor）</td>
+      <td>把一件道具直接塞进背包。第三个参数用来“顺便销毁地上的那个物体”</td>
+    </tr>
+    <tr>
+      <td><code>Remove Selected Item From Inventory</code></td>
+      <td><code>Remove by Name</code>（可选）、<code>Spawn</code>（是否掉到地上）</td>
+      <td>按名字删除；不填名字就删“当前选中的那个”。<code>Spawn</code> 为真时会在准星位置生成掉落物</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout note">
+  <div class="co-title">还有几个好用的（来自社区总结）</div>
+  <p>
+    <code>Find Item in Inventory by Name</code>（查数量）、<code>DoItemsArrayExistInInventory</code>（批量检查）、
+    <code>EditItemInInventoryByName</code>（运行时改道具数据）。这些在 1.1 / 3.1 更新里加入，做任务计数时非常有用。
+  </p>
+</div>
+
+<h2 id="journal">日志：记录“见过但没带走”的东西</h2>
+
+<p>
+  日志和背包的区别是：<strong>日志里的东西不在玩家身上</strong>。它更像“图鉴”或“线索本”，
+  适合放看过的海报、读过的信、墙上的符号。日志条目同样支持 3D 检视。
+</p>
+
+<p>两种添加方式：</p>
+
+<ol>
+  <li><strong>做成关卡里的物品</strong>：新建蓝图，父类选 <code>JournalItemMaster_BP</code>，它比普通可交互物多一个 <code>Journal Entry</code> 数据段。</li>
+  <li><strong>代码里直接加</strong>：调用 Inventory Manager 的 <code>Add Journal Entry</code>（用 <code>Split Struct</code> 展开填参数），删除用 <code>Remove Journal Entry</code>（按条目名）。</li>
+</ol>
+
+<p><code>Journal Entry</code> 里要填四样东西：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>字段</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>Entry Name</code></td><td>条目名，显示在日志左侧列表</td></tr>
+    <tr><td><code>Entry Description</code></td><td>较长的描述文字，写背景故事或用途</td></tr>
+    <tr><td><code>Entry Static / Skeletal Mesh</code></td><td>中间 3D 展示用的模型（骨骼网格可以有物理飘动效果）</td></tr>
+    <tr><td><code>Entry Mesh Distance From Camera</code></td><td>模型离镜头多远，按模型尺寸调</td></tr>
+  </tbody>
+</table>
+</div>
+
+<figure>
+  <img src="assets/img/journal-entry.png" alt="Journal Entry 细节面板" width="441" height="266">
+  <figcaption>日志条目的全部字段。模型可留空——那就只有文字，没有 3D 展品。</figcaption>
+</figure>
+
+<div class="callout tip">
+  <div class="co-title">日志条目是“永久”的</div>
+  <p>
+    它不占背包格子、不会被丢弃，所以非常适合做<strong>“玩家一定会看到、但拿不走”的信息</strong>：
+    墙上的告示、尸体旁的信、监控录像。想给玩家一个“回头看”的档案库，就用日志。
+  </p>
+</div>
+
+<h2 id="memoir">回忆录：把“你做过什么”变成相册</h2>
+
+<p>
+  回忆录（Memoir）是 SF 里很有叙事味道的设计：玩家做过的关键决定，会自动变成一条带图片的记录。
+  它的机制非常“数据驱动”——<strong>你几乎不用写蓝图，只要填表 + 打标记</strong>。
+</p>
+
+<ol class="steps">
+  <li>
+    <strong>在数据表里加一行</strong>
+    打开 <code>MemoirEntry_DT</code>（在 <code>SF → Core → Blueprints → Data Tables</code> 下），新增一行。
+  </li>
+  <li>
+    <strong>填四个字段</strong>
+    <code>Target Consequential Tag</code>（触发用的剧情标记名）、<code>Decision Description</code>（这段回忆的文字）、
+    <code>Photo Image</code>（配图）、<code>Photo Description</code>（图片说明）。
+  </li>
+  <li>
+    <strong>在剧情里打上这个标记</strong>
+    调用 Inventory Manager 的 <code>Edit Consequential Tags</code>，把 <code>Add Tag</code> 设成你刚才写的标记名。
+    标记一加，回忆录自动出现。
+  </li>
+  <li>
+    <strong>（可选）弹个提示</strong>
+    加标记的同时弹一个自定义通知，告诉玩家“回忆录已更新”。
+  </li>
+</ol>
+
+<figure>
+  <img src="assets/img/memoir-table.png" alt="回忆录数据表" width="1060" height="256">
+  <figcaption>回忆录全部靠这张表：一行一个剧情标记，标记一出现，这条回忆就解锁。</figcaption>
+</figure>
+
+<div class="callout warn">
+  <div class="co-title">一个反直觉的细节</div>
+  <p>
+    <strong>移除标记不会删除已经生成的回忆录。</strong> 官方文档写的是“移除标记时回忆录也会移除”，
+    但社区实测（Jay 的教程）指出并不会。如果你需要“反悔就消失”，得手动调用删除逻辑。
+    这种官方文档与实测不一致的地方，建议以你的工程实测为准。
+  </p>
+</div>
+
+<h2 id="tasks">任务：主线与支线</h2>
+
+<p>
+  SF5 把任务重构成了<strong>主线（Main）</strong>与<strong>可选（Optional/Side）</strong>两类。
+  任务是“队列”结构：同一时间只有一条主线显示在右上角，完成后自动顶上下一条。
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>函数 / 节点</th><th>用途</th></tr></thead>
+  <tbody>
+    <tr><td><code>Add Main Task to Queue</code></td><td>加一条主线任务（传入 <code>TaskInfo_S</code> 结构）</td></tr>
+    <tr><td><code>Complete Current Main Task</code></td><td>完成当前主线，队列自动前进</td></tr>
+    <tr><td><code>Fail Current Task</code> / 设状态</td><td>标记失败</td></tr>
+    <tr><td><code>Edit Target Main Task in Queue</code></td><td>修改进行中的任务（标题、描述等）</td></tr>
+    <tr><td><code>Find Task in Queue by Header</code></td><td>按标题查任务，用于“确认我完成的是对的那条”</td></tr>
+    <tr><td><code>OnTaskInitialized</code>（事件）</td><td>任务初始化时触发，用来接自定义逻辑</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  <code>TaskInfo_S</code> 结构里可以塞：标题（Header）、描述、是否计时、时限等。
+  如果填了时限，玩家会看到倒计时，时间到自动失败；填 0 表示不限时。
+</p>
+
+<div class="callout tip">
+  <div class="co-title">想给任务加自定义字段？直接改结构体</div>
+  <p>
+    <code>TaskInfo_S</code> 在 <code>SF → Core → Blueprints → Structures</code> 下，可以直接往里加变量
+    （例如“任务类型枚举”“奖励分数”）。加完记得编译，已有数据表的行需要重新填。
+  </p>
+</div>
+
+<h2 id="case">完整案例：三根骨头的支线</h2>
+
+<p>把上面四块串起来，就是一个最经典的“跑腿任务”。这也是理解 SF 的最佳练习：</p>
+
+<ol class="steps">
+  <li>
+    <strong>NPC 给任务</strong>
+    对话回复里接 <code>On Dialogue Reply</code> → <code>Switch on String</code> 匹配那句台词 →
+    调 <code>Add Main Task to Queue</code>，标题写“收集骨头（0/3）”。
+  </li>
+  <li>
+    <strong>玩家捡骨头</strong>
+    骨头道具用 Default 交互（不是 Quick Pickup），在 <code>Event Interacted With</code> 里：
+    先 <code>Find Item in Inventory by Name</code> 查已收集数量 → <code>Add Item to Inventory</code> →
+    用 <code>Edit Target Main Task in Queue</code> 把标题改成“收集骨头（1/3）”。
+  </li>
+  <li>
+    <strong>集齐后打标记</strong>
+    当数量达到 3，再调一次 <code>Edit Consequential Tags</code> 加上 <code>HasAllBones</code> 标记，
+    并把任务标题改成“回去找教授”。
+  </li>
+  <li>
+    <strong>交任务</strong>
+    NPC 的对话里有一条被 <code>HasAllBones</code> 标记解锁的回复。玩家选它时：
+    移除标记、调用 <code>Complete Current Main Task</code>、再给一段“谢谢”的字幕。
+  </li>
+</ol>
+
+<div class="callout warn">
+  <div class="co-title">边界情况：玩家提前集齐了怎么办</div>
+  <p>
+    如果你把“集齐判断”写在每次拾取之后，那玩家在接任务<strong>之前</strong>就把三根骨头捡了，就永远触发不了这个判断。
+    解决办法：任务开始时先查一次背包（<code>Find Item in Inventory by Name</code> 的数量 ≥ 3 就直接跳到“回去找教授”）。
+    这类“时序漏洞”是叙事游戏最常见的 Bug，做任务时一定先想清楚。
+  </p>
+</div>
+
+<h2 id="pitfalls">本章的坑</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>现象</th><th>原因</th><th>解决</th></tr></thead>
+  <tbody>
+    <tr><td>背包里有物品但没图标</td><td>没设 <code>Item Inventory Icon</code></td><td>补一张 Texture2D</td></tr>
+    <tr><td>“使用”按了没反应</td><td><code>Can Use</code> 打开了，但 <code>Use Selected Item</code> 里没有对应道具名的分支</td><td>在 Switch on String 里加一个 case</td></tr>
+    <tr><td>组合没反应</td><td>数据表里没有这条配方，或顺序反了</td><td>检查 <code>ItemCombinations_DT</code> 的条目顺序</td></tr>
+    <tr><td>任务不显示</td><td>加的是支线，或队列里已有一条未完成的主线</td><td>先完成当前主线，或改用支线函数</td></tr>
+    <tr><td>日志条目删不掉</td><td>传的名字和 <code>Entry Name</code> 不一致</td><td>遍历日志数组取准确名字</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>容器讲完了。接下来是这个框架最有“故事感”的部分：对话与选择。</p>
+<p><a class="xref" href="dialogue.html">第 5 章 · 对话、字幕与故事选择 →</a></p>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#map" data-toc="map">四个容器，一张地图</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#quick-inv" data-toc="quick-inv">快捷背包：工具栏，不是全屏</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#add-item" data-toc="add-item">手动加/删道具：两个函数</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#journal" data-toc="journal">日志：记录“见过但没带走”的东西</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#memoir" data-toc="memoir">回忆录：把“你做过什么”变成相册</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#tasks" data-toc="tasks">任务：主线与支线</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#case" data-toc="case">完整案例：三根骨头的支线</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#pitfalls" data-toc="pitfalls">本章的坑</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="interaction.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">交互系统：让世界可以被“按 E”</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="dialogue.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">对话、字幕与故事选择</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页由官方英文文档（<a href="https://visualonecompany.gitbook.io/home" target="_blank" rel="noopener">visualonecompany.gitbook.io</a>）整理翻译而成。产品版权归 Visual One Company 所有；本手册为非官方中文资料。</p>
+        <p>如有疑问，官方支持渠道：<a href="https://discord.gg/SNwgyAjQPs" target="_blank" rel="noopener">Discord</a> · 配套视频：<a href="https://www.bilibili.com/video/BV1J582zsEQy/" target="_blank" rel="noopener">B 站 · 帕可模型库</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

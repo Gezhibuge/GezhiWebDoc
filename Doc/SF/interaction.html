@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>交互系统：让世界可以被“按 E” - Story Framework 中文手册</title>
+<meta name="description" content="五种交互方式各自的用途与参数、主次交互的组合规则、检视模式、QTE 与进度动作。这一章解决“我的东西为什么不能被点”以及“我该选哪种交互”。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="Story Framework 中文手册">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">Story Framework 中文手册</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">SF 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读 · 从这里开始</span></a></li>
+            <li><a class="md-nav__link" href="quickstart.html"><span class="md-nav__num">1</span><span>快速开始</span></a></li>
+            <li><a class="md-nav__link" href="concepts.html"><span class="md-nav__num">2</span><span>核心概念</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="interaction.html"><span class="md-nav__num">3</span><span>交互系统</span></a></li>
+            <li><a class="md-nav__link" href="inventory.html"><span class="md-nav__num">4</span><span>背包与叙事容器</span></a></li>
+            <li><a class="md-nav__link" href="dialogue.html"><span class="md-nav__num">5</span><span>对话与叙事</span></a></li>
+            <li><a class="md-nav__link" href="ui.html"><span class="md-nav__num">6</span><span>界面与输入提示</span></a></li>
+            <li><a class="md-nav__link" href="camera.html"><span class="md-nav__num">7</span><span>相机与场景</span></a></li>
+            <li><a class="md-nav__link" href="save.html"><span class="md-nav__num">8</span><span>存档与集成</span></a></li>
+            <li><a class="md-nav__link" href="faq.html"><span class="md-nav__num">9</span><span>排错手册</span></a></li>
+            <li><a class="md-nav__link" href="reference.html"><span class="md-nav__num">10</span><span>速查表</span></a></li>
+            <li><a class="md-nav__link" href="workshop.html"><span class="md-nav__num">11</span><span>实操工作坊</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">12</span><span>视频课程</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据官方文档 5.0+ / Fab 5.2 整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">第 3 章 · 核心系统</div>
+            <h1>交互系统：让世界可以被“按 E”</h1>
+            <p class="lede">五种交互方式各自的用途与参数、主次交互的组合规则、检视模式、QTE 与进度动作。这一章解决“我的东西为什么不能被点”以及“我该选哪种交互”。</p>
+            <div class="meta-row"><span class="chip accent">最常用的系统</span><span class="chip cyan">5 种交互方式</span><span class="chip">含参数表</span></div>
+          </header>
+
+<p class="lede">
+  交互是 SF 的门面：玩家看向一个东西，出现提示，按下键，发生事情。
+  背后的机制其实只有一句话——<strong>从摄像机打一条射线，打到谁，就问谁“你能怎么被交互”</strong>。
+  理解这句话，剩下的都是配置。
+</p>
+
+<h2 id="pipeline">交互是怎么发生的一套流程</h2>
+
+<figure>
+<svg viewBox="0 0 760 150" width="100%" role="img" aria-label="交互流程：射线检测 → 提示 → 按键 → 调用接口函数">
+  <defs>
+    <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--text-faint)"/>
+    </marker>
+  </defs>
+  <g font-size="12.5">
+    <rect x="10" y="26" width="160" height="76" rx="8" fill="var(--panel)" stroke="var(--border-strong)"/>
+    <text x="24" y="52" fill="var(--text)" font-weight="600">① 每帧打射线</text>
+    <text x="24" y="72" fill="var(--text-dim)" font-size="11.5">从镜头中心向前</text>
+    <text x="24" y="90" fill="var(--text-dim)" font-size="11.5">长度 = 交互距离</text>
+
+    <rect x="200" y="26" width="160" height="76" rx="8" fill="var(--panel)" stroke="var(--border-strong)"/>
+    <text x="214" y="52" fill="var(--text)" font-weight="600">② 命中可交互物</text>
+    <text x="214" y="72" fill="var(--text-dim)" font-size="11.5">读取它的</text>
+    <text x="214" y="90" fill="var(--accent-2)" font-size="11.5">InteractableData_S</text>
+
+    <rect x="390" y="26" width="160" height="76" rx="8" fill="var(--panel)" stroke="var(--border-strong)"/>
+    <text x="404" y="52" fill="var(--text)" font-weight="600">③ 生成提示</text>
+    <text x="404" y="72" fill="var(--text-dim)" font-size="11.5">Interaction_W 组件</text>
+    <text x="404" y="90" fill="var(--text-dim)" font-size="11.5">显示按键 + 名称</text>
+
+    <rect x="580" y="26" width="170" height="76" rx="8" fill="var(--accent-soft)" stroke="var(--accent-line)"/>
+    <text x="594" y="52" fill="var(--accent)" font-weight="600">④ 按键触发</text>
+    <text x="594" y="72" fill="var(--text-dim)" font-size="11.5">按交互方式执行逻辑</text>
+    <text x="594" y="90" fill="var(--text-dim)" font-size="11.5">并调用 BPI 函数</text>
+  </g>
+  <path d="M170 64 L196 64" stroke="var(--text-faint)" stroke-width="1.2" marker-end="url(#ar2)"/>
+  <path d="M360 64 L386 64" stroke="var(--text-faint)" stroke-width="1.2" marker-end="url(#ar2)"/>
+  <path d="M550 64 L576 64" stroke="var(--text-faint)" stroke-width="1.2" marker-end="url(#ar2)"/>
+</svg>
+<figcaption><b>图 3-1</b>　交互链路。提示的显示与隐藏由组件统一管理，所以你不需要为每个物体单独做 UI。</figcaption>
+</figure>
+
+<h2 id="five">五种交互方式：先选对，再配参数</h2>
+
+<p>
+  每个可交互物有两个槽位：<strong>主交互方式（PIM）</strong>和<strong>次交互方式（SIM）</strong>。
+  PIM 五选一；SIM 只能是 <code>None</code> 或 <code>Inspect</code>——也就是说，任何物体都可以在“主要功能”之外，额外提供“拿起来看看”。
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>方式</th><th>干什么</th><th>典型场景</th><th>会调用 BPI 事件吗</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Default</strong><br><span style="color:var(--text-faint);font-size:12px">默认交互</span></td>
+      <td>什么都不做，只把控制权交给你。你自己在蓝图里写逻辑。</td>
+      <td>开门、按按钮、拉机关、触发剧情</td>
+      <td><span class="yes">会</span></td>
+    </tr>
+    <tr>
+      <td><strong>Inspect</strong><br><span style="color:var(--text-faint);font-size:12px">检视</span></td>
+      <td>把物体浮到镜头前 3D 旋转查看，或显示可翻页的图文。</td>
+      <td>看照片、端详物件、读信件</td>
+      <td><span class="yes">会</span></td>
+    </tr>
+    <tr>
+      <td><strong>Quick Pickup</strong><br><span style="color:var(--text-faint);font-size:12px">快速拾取</span></td>
+      <td>把物体塞进背包并销毁它。</td>
+      <td>捡钥匙、捡弹药、捡任务道具</td>
+      <td><span class="no">不会</span>（物体已经没了）</td>
+    </tr>
+    <tr>
+      <td><strong>Has Item</strong><br><span style="color:var(--text-faint);font-size:12px">需要物品</span></td>
+      <td>检查背包里有没有指定物品，然后走“有 / 没有”两条分支。</td>
+      <td>用钥匙开门、交任务物品、消耗品</td>
+      <td><span class="yes">会</span>（带不同的 Data String）</td>
+    </tr>
+    <tr>
+      <td><strong>Drag</strong><br><span style="color:var(--text-faint);font-size:12px">拖动</span></td>
+      <td>用准星物理拖动 / 旋转物体。</td>
+      <td>拉抽屉、转阀门、移动雕像解谜</td>
+      <td><span class="yes">会</span>（持续调用）</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout beginner">
+  <div class="co-title">选型口诀</div>
+  <p>
+    <strong>能拿走 → Quick Pickup；要看/要读 → Inspect；要条件 → Has Item；要动 → Drag；其余全用 Default。</strong><br>
+    新手最常见的选择困难，其实用这四句话就能解决。Default 是最灵活的，因为它把“发生什么”完全交给你写。
+  </p>
+</div>
+
+<h2 id="default">Default：自己写逻辑的万能入口</h2>
+
+<p>
+  这个方式本身不执行任何逻辑，唯一的事是调用 <code>Event Interacted With</code> 这个蓝图接口函数。
+  你在自己的蓝图里实现它，把想做的事接上去。
+</p>
+
+<p>典型写法（在道具蓝图的事件图表里）：</p>
+
+<ol class="steps">
+  <li>在「我的蓝图」面板的 <strong>Interfaces</strong> 分类里找到 <code>Event Interacted With</code>，双击加到图表。</li>
+  <li>把逻辑接在它后面：播放音效、开灯、调用任务系统、销毁自己……</li>
+  <li>如果需要“先判断再执行”，就在这个事件后面接 <code>Branch</code>。</li>
+</ol>
+
+<div class="callout info">
+  <div class="co-title">Data String 是什么</div>
+  <p>
+    这个事件带一个 <code>DataString</code> 输入。它是一段文本，用来告诉你的逻辑“具体是哪种情况”，
+    例如 <code>Has Item</code> 方式会区分 <code>Found</code> / <code>Not Found</code>，<code>Drag</code> 方式会传位移量。
+    最常见的用法是接一个 <code>Switch on String</code> 节点分情况处理。
+  </p>
+</div>
+
+<h2 id="inspect">Inspect：把东西拿起来看</h2>
+
+<p>检视方式会生成一个专门的检视 Actor，把网格显示在镜头前。可配置项：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>参数</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>Inspect Method</code></td><td>四种表现：<code>Pan to Object</code>（镜头平移到物体）、<code>3D Inspect</code>（3D 旋转查看）、<code>Readable</code>（可翻页图文）、<code>3D Inspect + Readable</code>（两者都有）</td></tr>
+    <tr><td><code>Inspect Actor Class</code></td><td>可选：用一个自定义 Actor 代替默认检视体（想加特效、加灯、加动画时用）</td></tr>
+    <tr><td><code>Can Item be Picked Up when Inspecting</code></td><td>勾上后，玩家在检视界面里还能顺手拿走它</td></tr>
+    <tr><td><code>3D Inspect Object Distance from Camera</code></td><td>物体离镜头多远。<strong>要按模型大小调</strong>，大模型放太近会糊满屏幕</td></tr>
+    <tr><td><code>3D Inspect Object Offset</code></td><td>位置偏移，用来把物体挪到画面中间</td></tr>
+    <tr><td><code>Readable Text Color</code></td><td>可读文本的颜色</td></tr>
+    <tr><td><code>Readable Text Pages / Page Images</code></td><td>文字分页内容，以及每页可选的插图</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout tip">
+  <div class="co-title">让检视好看的两个小技巧</div>
+  <ul>
+    <li><strong>模型 pivot 放在几何中心</strong>：3D 检视是绕 pivot 旋转的，pivot 在边角会导致旋转时物体乱甩。</li>
+    <li><strong>距离按“包围盒最长边”的 2–3 倍设</strong>：不确定就先填一个值进游戏看，再微调。</li>
+  </ul>
+</div>
+
+<p>
+  <strong>5.2 新增：动画检视（Animation Inspection）</strong>——除了静态/骨骼网格，还能把物体放到角色手上、伴随动画旋转查看。
+  这个模式需要在角色蓝图和动画蓝图里做一点接入（加一个 <code>AnimInspectAnchor_SC</code> 场景组件、拷贝两段动画图表），
+  步骤见 <a href="save.html#migrate">第 8 章迁移</a>里的「Anim Inspect Dependencies」。
+</p>
+
+<h2 id="quick-pickup">Quick Pickup：最简单的拾取</h2>
+
+<p>需要配的只有三样：</p>
+
+<ul>
+  <li><code>Item Inventory Icon</code>：背包里显示的图标（<code>Texture2D</code>）；</li>
+  <li><code>Can Use</code> / <code>Can Combine</code> / <code>Can Drop</code>：三个开关，决定这个道具在背包里能干什么；</li>
+  <li>物品名称（在交互数据顶部的 <code>Object Name</code>）。</li>
+</ul>
+
+<div class="callout warn">
+  <div class="co-title">想在“捡起之前”做点事？别用 Quick Pickup</div>
+  <p>
+    这个方式会<strong>先销毁物体、再把它加进背包</strong>，所以 <code>Event Interacted With</code> 根本来不及执行。
+    如果你需要“捡起时触发剧情 / 加任务 / 打标记”，正确做法是：
+    <strong>用 Default 方式 → 写你的逻辑 → 最后调用 Inventory Manager 的 <code>Add Item to Inventory</code></strong>，
+    并把它被销毁的引用传进去。
+  </p>
+</div>
+
+<figure>
+  <img src="assets/img/interaction-custom-logic.png" alt="拾取前执行自定义逻辑的接线" width="927" height="382">
+  <figcaption>官方给的接法：<b>先执行自定义逻辑</b>，再把物品加进背包、销毁地上的 Actor。顺序反了，后面的节点就找不到物体了。</figcaption>
+</figure>
+
+<h2 id="has-item">Has Item：带条件的交互</h2>
+
+<p>适合“有钥匙才能开门”“有 3 根骨头才能交任务”这类。核心参数：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>参数</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>Inventory Items</code></td><td>要检查的物品清单（名称 + 数量），可加多条</td></tr>
+    <tr><td><code>Consume Items</code></td><td>交互后是否消耗掉这些物品</td></tr>
+    <tr><td><code>Must Player Have All Items</code></td><td>关掉时：只要满足清单里<strong>任意一条</strong>数量即可；打开时：必须<strong>全部</strong>满足</td></tr>
+    <tr><td><code>Prompt Item Data</code></td><td>可选。填了之后，交互提示上方会显示“需要哪些物品、各多少个”，需要给名称 + 图标</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  它会带两个不同的 <code>Data String</code>（<code>Found</code> / <code>Not Found</code>）调用事件。
+  你在蓝图里用 <code>Switch on String</code> 分成两支：找到就开门并消耗钥匙，没找到就播放“锁住了”的音效。
+</p>
+
+<figure>
+  <img src="assets/img/has-item-setup.png" alt="Has Item 的两条分支" width="589" height="286">
+  <figcaption>分岔点就在这里：<code>Event Interact With</code> 的 Data String 直接接 <code>Switch on String</code>，两个分支分别写“有物品”和“没物品”的逻辑。</figcaption>
+</figure>
+
+<h2 id="drag">Drag：用准星拖动物体</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>参数</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>Effected Axis</code></td><td>只允许沿某个轴移动，写成 <code>1,0,0</code> 这样的向量（<strong>只能填一个轴</strong>）</td></tr>
+    <tr><td><code>Drag Speed Multiplier</code></td><td>拖动速度倍率</td></tr>
+    <tr><td><code>Drag Distance from Origin (Min/Max)</code></td><td>离原点可移动的范围，形成“滑轨”限制</td></tr>
+    <tr><td><code>Swing/Rotate</code></td><td>改为旋转模式，旋转轴 = 上面设置的轴</td></tr>
+    <tr><td><code>Camera Focus Mode</code></td><td>拖动时镜头是否跟随物体</td></tr>
+    <tr><td><code>Play Moving Sounds</code></td><td>移动中 / 靠近原点时的音效</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  拖动过程中会<strong>持续</strong>调用事件，并把「已移动/旋转的量」放进 <code>Data String</code>。
+  利用这一点可以做解谜：转到位才开锁、推到某个位置才触发机关。
+</p>
+
+<h2 id="prompt">交互提示：三段文字怎么来的</h2>
+
+<p>提示不是一张固定图片，而是根据物体数据动态拼出来的：</p>
+
+<ul>
+  <li>用 <code>Has Item</code> 且配了物品图标 → 提示上方会多出一排“需要的物品”。</li>
+  <li>次交互设为 <code>None</code> → 只显示一行拾取文字。</li>
+  <li><code>Prompt Text</code> 填 <code>{empty}</code> → 只显示物体名称，不显示其他。</li>
+  <li><code>Prompt Text</code> 填 <code>{simplified}</code> → 只显示按键，不显示文字。</li>
+</ul>
+
+<figure>
+  <img src="assets/img/prompt-pickup.png" alt="游戏中的交互提示" width="1213" height="681">
+  <figcaption>游戏里看到的样子：同一个抽屉上的两件物品各自出现提示，玩家正对着的那件额外显示按键（<b>E</b>）与名称。</figcaption>
+</figure>
+
+<div class="callout warn">
+  <div class="co-title">打开 Interaction_W 是一片空白？</div>
+  <p>
+    这不是坏了。提示控件的透明度被 <code>SFInteractionWidget_SC</code> 场景组件在运行时接管，编辑时故意设为 0。
+    想编辑它，选中控件根节点，把 <code>Render Opacity</code> 临时改成 1，改完记得改回 0。
+  </p>
+</div>
+
+<h2 id="perform-action">进度动作：给操作加一个“读条”</h2>
+
+<p>
+  撬锁、制作、长按开门——这些需要“花时间”的动作，用交互管理器里的 <code>Perform Action</code>：
+  屏幕中央会出现一个圆形进度条。
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>参数</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>Action Length</code></td><td>总时长（秒）</td></tr>
+    <tr><td><code>Action Restrictions</code></td><td><code>None</code>（只能手动停止）/ <code>Stop Movement Until Completed</code>（期间不能移动）/ <code>Stop Action if Player Walks Away</code>（离开原位就中断）</td></tr>
+    <tr><td><code>Action Sound</code></td><td>开始时播放的音效</td></tr>
+    <tr><td><code>Hide Widget</code></td><td>勾上则不显示进度条（走“隐形读条”）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>结束后用两个事件分发器收尾：<code>OnPerformActionFinished</code>（完成）与 <code>OnPerformActionStopped</code>（被打断）。</p>
+
+<figure>
+  <img src="assets/img/perform-action.png" alt="Perform Action 的蓝图接法" width="1257" height="555">
+  <figcaption>官方示例（<b>Briefcase_BP</b>）：用 <code>Make PerformActionData_S</code> 设好时长、音效、限制，再接 <code>Perform Action</code>，最后绑定“完成”事件。</figcaption>
+</figure>
+
+<h2 id="qte">QTE：一秒决定生死的按键</h2>
+
+<p>一个函数搞定，参数打包在两个结构体里（<code>QTE Settings</code> 与 <code>QTE Input</code>）。支持两种类型：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>类型</th><th>规则</th><th>适合</th></tr></thead>
+  <tbody>
+    <tr><td><strong>On Timer（OT）</strong></td><td>限时内按下指定键即成功</td><td>闪避、抓住绳子</td></tr>
+    <tr><td><strong>Target Key Presses（TKP）</strong></td><td>限时内连续按 N 次</td><td>挣脱、连续点击、蓄力</td></tr>
+  </tbody>
+</table>
+</div>
+
+<figure>
+  <img src="assets/img/qte-node.png" alt="QTE 函数节点" width="707" height="356">
+  <figcaption>QTE 只有一个入口节点，参数分成 <code>QTE Settings</code>（时间、次数）与 <code>QTE Input</code>（按键）两块。</figcaption>
+</figure>
+
+<p>可配：时限、按键（键鼠与手柄各一）、要按的次数、<code>Ignore Specified Keys</code>（按了这些键不算失败）、<code>Ignore All Keys Except Targets</code>（除目标键外一律不算失败，等于“按错也不会死”）。</p>
+
+<p>在过场里插 QTE 也支持——直接在关卡序列的对应时间点调用即可。成功/失败分别绑定 <code>On Success</code> 与失败回调。</p>
+
+<h2 id="pitfalls">这一章最常见的四个坑</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>现象</th><th>原因</th><th>解决</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>物体完全没有提示</td>
+      <td>没实现接口 / 不是 InteractableBase 子类 / 没有碰撞</td>
+      <td>检查父类与碰撞预设；确认 <code>InteractableData_S</code> 已填名称</td>
+    </tr>
+    <tr>
+      <td>提示出现但按键无效</td>
+      <td>该交互方式对应的逻辑没写（Default 方式必须自己实现事件）</td>
+      <td>补上 <code>Event Interacted With</code> 的实现</td>
+    </tr>
+    <tr>
+      <td>拾取后任务没加、剧情没触发</td>
+      <td>用了 Quick Pickup，事件来不及执行</td>
+      <td>改用 Default，手动调用 <code>Add Item to Inventory</code></td>
+    </tr>
+    <tr>
+      <td>物体在墙后也能被交互</td>
+      <td>射线被遮挡，但提示没做遮挡</td>
+      <td>反过来：想穿透时给物体加 <code>IgnorePromptTrace</code> 标签；想正常遮挡就别加</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>交互物做好了，接下来是它的“下半场”：进了背包以后怎么办。</p>
+<p><a class="xref" href="inventory.html">第 4 章 · 背包、日志、任务 →</a></p>
+
+<div class="video-embed" data-bvid="BV1J582zsEQy">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：交互介绍（第 7 分 P · 28 分钟）">
+      <img src="assets/img/bili-cover.jpg" alt="" loading="lazy">
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>交互介绍（第 7 分 P · 28 分钟）</b><span>第 7 分 P · 交互介绍（28 分钟）</span></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1J582zsEQy/" target="_blank" rel="noopener">BV1J582zsEQy</a></div>
+</div>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#pipeline" data-toc="pipeline">交互是怎么发生的一套流程</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#five" data-toc="five">五种交互方式：先选对，再配参数</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#default" data-toc="default">Default：自己写逻辑的万能入口</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#inspect" data-toc="inspect">Inspect：把东西拿起来看</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#quick-pickup" data-toc="quick-pickup">Quick Pickup：最简单的拾取</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#has-item" data-toc="has-item">Has Item：带条件的交互</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#drag" data-toc="drag">Drag：用准星拖动物体</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#prompt" data-toc="prompt">交互提示：三段文字怎么来的</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#perform-action" data-toc="perform-action">进度动作：给操作加一个“读条”</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#qte" data-toc="qte">QTE：一秒决定生死的按键</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#pitfalls" data-toc="pitfalls">这一章最常见的四个坑</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="concepts.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">核心概念：五分钟看懂 SF 的骨架</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="inventory.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">背包、日志、回忆录与任务</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页由官方英文文档（<a href="https://visualonecompany.gitbook.io/home" target="_blank" rel="noopener">visualonecompany.gitbook.io</a>）整理翻译而成。产品版权归 Visual One Company 所有；本手册为非官方中文资料。</p>
+        <p>如有疑问，官方支持渠道：<a href="https://discord.gg/SNwgyAjQPs" target="_blank" rel="noopener">Discord</a> · 配套视频：<a href="https://www.bilibili.com/video/BV1J582zsEQy/" target="_blank" rel="noopener">B 站 · 帕可模型库</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

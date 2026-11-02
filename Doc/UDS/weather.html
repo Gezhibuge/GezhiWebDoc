@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天气系统与天气状态 - UDS 中文文档</title>
+<meta name="description" content="UDW 的安装与基础控制、天气状态由哪些值构成、预设与切换、随机变化与季节、手动状态、区域天气（覆盖体积与径向风暴）。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Weather · 10</div>
+            <h1>天气系统与天气状态</h1>
+            <p class="lede">UDW 的安装与基础控制、天气状态由哪些值构成、预设与切换、随机变化与季节、手动状态、区域天气（覆盖体积与径向风暴）。</p>
+            <div class="meta-row"><span class="chip">UDW 核心</span><span class="chip">区域化天气</span></div>
+          </header>
+
+<h2 id="add">把 UDW 加入关卡</h2>
+
+<p>
+  天气系统依赖 UDS：关卡里必须先有一个 <code>Ultra Dynamic Sky</code>，否则 UDW 不工作。
+  确认之后，从 <code>Blueprints</code> 文件夹把 <code>Ultra Dynamic Weather</code> 拖进场景，
+  它会自己找到 UDS 并把两边接起来。
+</p>
+
+<p>
+  默认情况下，UDW 会以一个“手动天气状态”启动，其数值与 UDS 上现有的
+  <code>Cloud Coverage</code>、<code>Fog</code> 保持一致。想快速换成别的天气，在
+  <code>Basic Controls</code> 的 <code>Weather</code> 里选一个预设即可。
+</p>
+
+<div class="video-embed" data-bvid="BV1LyoTBRELS">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：将 Ultra Dynamic Weather 添加到关卡">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>将 Ultra Dynamic Weather 添加到关卡</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1LyoTBRELS/" target="_blank" rel="noopener">BV1LyoTBRELS</a></div>
+</div>
+
+<h2 id="basic">基础控制</h2>
+
+<p>
+  选中 UDW，<code>Basic Controls</code> 分类里有两件事：
+</p>
+
+<ul>
+  <li>
+    <code>Weather</code>：选择天气设置预设。内置了 Rain、Partly Cloudy、Blizzard 等多种。
+    这个选择同时决定编辑器中显示的状态和关卡启动时的初始天气。
+  </li>
+  <li>
+    风向（Wind Direction）：影响天气粒子，也会接管 UDS 的云的移动方向。
+  </li>
+</ul>
+
+<h2 id="what-is-state">天气状态是什么</h2>
+
+<p>
+  “天气状态”就是决定当前天气的一组数值：
+</p>
+
+<div class="tag-grid">
+  <span class="chip">Cloud Coverage 云量</span>
+  <span class="chip">Fog 雾</span>
+  <span class="chip">Wind Intensity 风力</span>
+  <span class="chip">Rain 雨</span>
+  <span class="chip">Snow 雪</span>
+  <span class="chip">Dust 尘埃</span>
+  <span class="chip">Thunder / Lightning 雷电</span>
+</div>
+
+<p>另外还有一组<strong>材质状态</strong>，专门控制材质效果：</p>
+
+<div class="tag-grid">
+  <span class="chip">Material Snow Coverage 积雪覆盖</span>
+  <span class="chip">Material Wetness 湿润度</span>
+  <span class="chip">Material Dust Coverage 积尘覆盖</span>
+</div>
+
+<p>
+  它们属于天气状态的一部分，但运行时“看到的”材质状态并不总是直接来自这些值，
+  具体机制见 <a href="materials.html">材质效果</a>。
+</p>
+
+<h2 id="sources">谁在决定天气状态</h2>
+
+<p>当前天气可能来自以下几个来源，优先级与叠加关系由各自的设置决定：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>来源</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td><code>Weather</code> 预设</td><td>在 Basic Controls 里选中的预设，作为静态的全局天气。</td></tr>
+    <tr><td><code>Change Weather</code> 函数</td><td>在指定时长内从当前状态过渡到新预设。</td></tr>
+    <tr><td>随机天气变化</td><td>按周期随机切换预设，概率受当前季节影响。</td></tr>
+    <tr><td>手动天气状态</td><td>没有选中预设时使用；也可以单项覆盖，无论当前天气来自哪里。</td></tr>
+    <tr><td>天气覆盖体积（WOV）</td><td>一个 Actor，按任意形状的区域施加不同天气。</td></tr>
+    <tr><td>径向风暴（Radial Storm）</td><td>圆形区域内的天气，并且能从外部看到风暴本身。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="presets">天气预设</h2>
+
+<p>
+  预设是数据资产，位于 <code>Blueprints/Weather_Effects/Weather_Presets</code>。
+  除了 <code>Weather</code> 变量，<code>Change Weather</code>、随机天气、覆盖体积、径向风暴也都用这些资产。
+</p>
+
+<figure>
+  <img src="assets/img/weather-presets.png" alt="天气预设资产" width="568" height="326">
+  <figcaption>预设资产所在的文件夹。</figcaption>
+</figure>
+
+<p>
+  做自己的预设最省事的办法是复制其中一个现成资产，再改里面的数值。新建的预设和内置预设用法完全一致。
+  如果某个预设需要附加逻辑（例如额外的特效），见 <a href="weather-extra.html#custom-weather">自定义天气行为</a>。
+</p>
+
+<h2 id="change">切换天气</h2>
+
+<p>
+  运行时切换天气用 <code>Change Weather</code> 函数：立即开始向目标预设过渡，过渡时长由参数指定。
+  过渡完成后，这个全局天气会一直保持，直到你再次调用切换。
+</p>
+
+<figure>
+  <img src="assets/img/change-weather.png" alt="Change Weather 函数调用" width="692" height="325">
+  <figcaption>这次调用会让全局天气在 15 秒内过渡到 Rain。</figcaption>
+</figure>
+
+<div class="video-embed" data-bvid="BV15yoTBRE8Q">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用更改天气函数">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用更改天气函数</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV15yoTBRE8Q/" target="_blank" rel="noopener">BV15yoTBRE8Q</a></div>
+</div>
+
+<h2 id="random">随机天气变化</h2>
+
+<p>
+  <code>Random Weather Variation</code> 分类让天气按周期随机切换，概率由季节与概率映射表决定。
+  先选择一个时间模式：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>模式</th><th>切换时机</th></tr></thead>
+  <tbody>
+    <tr><td><code>Random Interval</code></td><td>由 <code>Random Weather Change Interval</code> 给出最短/最长保持时间，到时间后换一个。</td></tr>
+    <tr><td><code>Hourly</code></td><td>按 UDS 上流逝的时间，每小时切换。</td></tr>
+    <tr><td><code>Daily</code></td><td>每天一次，具体时刻由 <code>Random Weather Change Hour</code> 指定。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  <code>Transition Length</code> 是切换间隔中用于过渡的比例——不是绝对秒数。
+  例如间隔一小时、比例 0.1，就是用 6 分钟完成过渡。
+</p>
+
+<p>
+  <code>Weather Type Probabilities</code> 映射表里，每个预设对应一个概率值，按比例生效：
+  如果某个类型设 5、其余为 1，它被选中的概率就是其他类型的 5 倍。用哪张表取决于当前季节（见下一节）。
+</p>
+
+<figure>
+  <img src="assets/img/random-weather.png" alt="天气类型概率映射表" width="629" height="188">
+  <figcaption>这张示例表里，Rain 被选中的概率是 Partly Cloudy 的两倍。</figcaption>
+</figure>
+
+<p>
+  <code>Begin Play Weather is Random</code> 决定关卡开始时的天气：勾选则一开始就随机；
+  不勾选则先显示编辑器里设定的天气，等第一个间隔过去后才开始随机。
+</p>
+
+<p>
+  这里还可以套用气候预设（climate preset）：它用真实世界的气候数据生成对应的概率表，
+  并同时设置温度分类里的温度区间。
+</p>
+
+<p>
+  随机天气与固定预设可以互相切换：调用 <code>Change Weather</code> 切到固定预设；
+  想切回随机，调用 <code>Change to Random Weather Variation</code>。
+</p>
+
+<div class="video-embed" data-bvid="BV15yoTBRE8m">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：设置随机天气变化">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>设置随机天气变化</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV15yoTBRE8m/" target="_blank" rel="noopener">BV15yoTBRE8m</a></div>
+</div>
+
+<h2 id="seasons">季节</h2>
+
+<p>
+  <code>Season</code> 是 0–4 的浮点数，从春季开始依次推进。整数一般代表该季节的中段
+  （0 = 仲春、1 = 仲夏……），此时该季节的数值（随机天气概率、温度）会被纯粹地应用；
+  中间值表示两个季节的过渡，例如 0.5 表示一半春一半夏。
+</p>
+
+<p>
+  <code>Season Mode</code> 决定季节的来源：可以由 UDS 上的日期推导（日期在
+  <code>Simulation</code> 分类里设置，每天自动前进），也可以留空由你自己的蓝图通过
+  <code>Set Season</code> 函数控制。
+</p>
+
+<p>
+  由日期推导时，<code>Season Day Offset</code> 可以调整“哪一天对应哪个季节值”；
+  <code>Meteorological Seasons</code> 决定偏移 0 对应的是气象季节还是天文季节。
+</p>
+
+<p>
+  材质里想按季节做效果，有两个节点：<code>Sample UDW Season</code> 输出每个季节的 0–1 权重；
+  <code>Season Color Blend</code> 接收四个颜色输入，按当前季节混合。
+</p>
+
+<h2 id="manual">手动天气状态</h2>
+
+<p>
+  天气系统大部分设计都围绕预设资产，但你也可以不依赖预设，直接控制每一项数值：
+</p>
+
+<ol class="steps">
+  <li>在 <code>Basic Controls</code> 里把 <code>Weather</code> 清空（不选任何预设）。</li>
+  <li>此时下方的 <code>Manual Weather State</code> 分类生效，里面的各项数值就是当前天气。</li>
+</ol>
+
+<p>
+  也可以用 <code>Change Weather</code> 但不给预设参数，这样会过渡到手动状态。
+</p>
+
+<p>
+  手动状态还能当<strong>单项覆盖</strong>用：例如当前天气来自 Thunderstorm 预设，但你想单独控制雨量，
+  就勾选 <code>Manual Rain Override</code> 并设置 <code>Manual Rain</code>，
+  其余数值仍由预设提供。
+</p>
+
+<div class="video-embed" data-bvid="BV1LyoTBREjw">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用手动天气状态">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用手动天气状态</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1LyoTBREjw/" target="_blank" rel="noopener">BV1LyoTBREjw</a></div>
+</div>
+
+<h2 id="wov">天气覆盖体积（Weather Override Volume）</h2>
+
+<p>
+  大地图需要“分区域天气”时，用 <code>Weather Override Volume</code>（位于
+  <code>Blueprints/Weather Effects</code>）。
+</p>
+
+<p>
+  区域形状由样条（Spline）决定：编辑样条上的点即可，右键某点可以新增点。也可以缩放 Actor，
+  但尽量避免非等比缩放。
+</p>
+
+<p>
+  配置方式与 UDW 的全局天气类似：在 <code>Basic Controls</code> 里选预设，也可以启用随机天气变化，
+  并使用自己独立的概率表（随机的时间/逻辑参数仍取自 UDW 的对应分类）。
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>设置</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Transition Width</code></td>
+      <td>从外部天气过渡到内部天气所占的空间宽度。过渡是纯空间的，理想情况下应设得比较大，让玩家走进去时平滑变化。默认值偏小，只是为了 Actor 初始尺寸好操作。</td>
+    </tr>
+    <tr><td><code>Priority</code></td><td>多个体积重叠时谁生效。</td></tr>
+    <tr><td><code>Temperature</code> 分类</td><td>玩家在该区域内时 UDW 使用的温度区间。</td></tr>
+    <tr><td>气候预设</td><td>与在 UDS 上套用一致：改变概率表与该体积的温度区间。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  “玩家是否在体积内”的查询位置由 UDW 的 <code>Basic Controls</code> 里
+  <code>Control Point Location Source</code> 决定。
+</p>
+
+<p>
+  默认情况下，覆盖体积会把自己的材质状态画进一张渲染目标，供天气材质函数采样。
+  这样从外面看是一片雪原，走进区域内又能看到区域外没有积雪。该行为可以在 UDW 的
+  <code>Weather Override Volumes</code> 分类里关闭或调整。
+</p>
+
+<p>
+  运行时也可以用函数控制它，用法与 UDW 类似：<code>Change Weather</code> 切到指定预设，
+  <code>Change to Random Weather Variation</code> 切到随机天气。
+</p>
+
+<p>
+  如果想让覆盖体积做“天气以外”的事，创建一个子类并覆盖 <code>Custom Volume Behavior</code>。
+  UDW 使用该体积时每帧调用这个函数，输入 <code>Alpha</code> 表示玩家在体积内的程度（0–1）。
+</p>
+
+<div class="video-embed" data-bvid="BV1LyoTBREsm">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用天气覆盖体积">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用天气覆盖体积</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1LyoTBREsm/" target="_blank" rel="noopener">BV1LyoTBREsm</a></div>
+</div>
+
+<h2 id="radial">径向风暴（Radial Storms）</h2>
+
+<p>
+  径向风暴是圆形区域内的天气，与覆盖体积的区别在于形状固定为圆形，并且<strong>能把自己渲染出来</strong>：
+  站在风暴外面，可以看到远处一团云、下方的雾与被遮住的闪电。
+</p>
+
+<p>
+  它也是为“动态存在”设计的：可以在运行时生成、淡入淡出，并沿直线移动穿过关卡。
+</p>
+
+<div class="callout warn">
+  <div class="co-title">限制</div>
+  <p>
+    从外部看到风暴的效果只在 Sky Mode 为体积云时成立。其它 Sky Mode 下径向风暴仍可用，
+    但只是按玩家位置影响天气状态，看不到风暴本体。
+  </p>
+</div>
+
+<p>
+  虽然名字叫“风暴”，它也可以用来施加任何天气，包括晴朗天气。
+</p>
+
+<h3 id="生成与移动">生成与移动</h3>
+
+<p>
+  UDW 的 <code>Radial Storm Spawning</code> 分类可以开启周期性自动生成：UDW 会一次生成一个，
+  让它经过玩家所在位置，用哪个预设可以由当前季节决定（类似随机天气）。
+  也可以自己生成或直接摆进关卡，不依赖自动逻辑。运行时控制的函数：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>函数</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td><code>Fade In Storm</code></td><td>在给定时长内把 alpha 从 0 升到 1。</td></tr>
+    <tr><td><code>Fade Out Storm</code></td><td>在给定时长内淡出，结束后销毁 Actor。</td></tr>
+    <tr><td><code>Move Storm Over Time</code></td><td>在给定时长内移动到目标位置；可选择在移动结束时淡出并销毁。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<figure>
+  <img src="assets/img/radial-storm.png" alt="径向风暴的生成与移动" width="1121" height="655">
+  <figcaption>示例：生成一个风暴，30 秒淡入，同时用 200 秒穿过关卡，最后 30 秒淡出并销毁。</figcaption>
+</figure>
+
+<div class="video-embed" data-bvid="BV1vyoTBRE1P">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用径向风暴">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用径向风暴</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1vyoTBRE1P/" target="_blank" rel="noopener">BV1vyoTBRE1P</a></div>
+</div>
+
+<h2 id="above-clouds">云层之上的天气</h2>
+
+<p>
+  Sky Mode 为体积云时，玩家飞到云层之上后，UDW 默认会自动调整天气状态。
+  在 <code>Weather Above Volumetric Clouds</code> 分类里可以整体关闭这个行为，
+  也可以逐项调整云上时各天气值的倍率。
+</p>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#add" data-toc="add">把 UDW 加入关卡</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#basic" data-toc="basic">基础控制</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#what-is-state" data-toc="what-is-state">天气状态是什么</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#sources" data-toc="sources">谁在决定天气状态</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#presets" data-toc="presets">天气预设</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#change" data-toc="change">切换天气</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#random" data-toc="random">随机天气变化</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#seasons" data-toc="seasons">季节</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#manual" data-toc="manual">手动天气状态</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#wov" data-toc="wov">天气覆盖体积（Weather Override Volume）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#radial" data-toc="radial">径向风暴（Radial Storms）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#生成与移动" data-toc="生成与移动">生成与移动</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#above-clouds" data-toc="above-clouds">云层之上的天气</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="performance.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">性能、移动端与更新</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="weather-fx.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">天气粒子与闪电</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

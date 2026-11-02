@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>视频索引 - UDS 中文文档</title>
+<meta name="description" content="B 站 UP 主 Gezhibuge 翻译的 27 个 UDS 短片，与文档小节一一对应。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">附录 · 视频</div>
+            <h1>视频索引</h1>
+            <p class="lede">B 站 UP 主 Gezhibuge 翻译的 27 个 UDS 短片，与文档小节一一对应。</p>
+            <div class="meta-row"><span class="chip">27 个短片</span><span class="chip">中文讲解</span></div>
+          </header>
+
+<h2 id="play">先看这几个</h2>
+
+<p>不确定从哪开始，就先看这三段共 12 分钟：</p>
+
+<div class="video-embed" data-bvid="BV1LpdpBwELx">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：将 UDS 添加至关卡">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>将 UDS 添加至关卡</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1LpdpBwELx/" target="_blank" rel="noopener">BV1LpdpBwELx</a></div>
+</div>
+<div class="video-embed" data-bvid="BV1RxdpBFEpS">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：控制昼夜时间">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>控制昼夜时间</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1RxdpBFEpS/" target="_blank" rel="noopener">BV1RxdpBFEpS</a></div>
+</div>
+<div class="video-embed" data-bvid="BV1ByoFBrES9">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用体积云绘制器">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用体积云绘制器</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1ByoFBrES9/" target="_blank" rel="noopener">BV1ByoFBrES9</a></div>
+</div>
+
+<h2 id="list">全部 27 个短片</h2>
+<p>
+  官方文档里嵌了很多 YouTube 演示，国内打不开。UP 主 <strong>Gezhibuge</strong> 把常用部分翻成了中文，
+  共 27 个短片，基本能对上本文档的小节。点击标题直接跳转 B 站。
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>#</th><th>标题</th><th>时长</th><th>对应章节</th></tr></thead>
+  <tbody>
+    <tr id="v1">
+      <td>1</td>
+      <td><a href="https://www.bilibili.com/video/BV1LpdpBwELx" target="_blank" rel="noopener">将 UDS 添加至关卡</a></td>
+      <td>1:51</td>
+      <td><a href="sky-setup.html">安装与基础设置</a></td>
+    </tr>
+    <tr id="v2">
+      <td>2</td>
+      <td><a href="https://www.bilibili.com/video/BV1exdpBFEmJ" target="_blank" rel="noopener">手动调整太阳与月亮位置</a></td>
+      <td>1:43</td>
+      <td><a href="time-sun.html">时间、日月与模拟</a></td>
+    </tr>
+    <tr id="v3">
+      <td>3</td>
+      <td><a href="https://www.bilibili.com/video/BV1RxdpBFEpS" target="_blank" rel="noopener">控制昼夜时间</a></td>
+      <td>5:42</td>
+      <td><a href="time-sun.html">时间控制</a></td>
+    </tr>
+    <tr id="v4">
+      <td>4</td>
+      <td><a href="https://www.bilibili.com/video/BV1zyoFBkE8f" target="_blank" rel="noopener">设置体积雾</a></td>
+      <td>5:07</td>
+      <td><a href="fog.html">雾 · 体积雾</a></td>
+    </tr>
+    <tr id="v5">
+      <td>5</td>
+      <td><a href="https://www.bilibili.com/video/BV1ByoFBrES9" target="_blank" rel="noopener">使用体积云绘制器</a></td>
+      <td>4:43</td>
+      <td><a href="clouds.html">云 · 云绘制</a></td>
+    </tr>
+    <tr id="v6">
+      <td>6</td>
+      <td><a href="https://www.bilibili.com/video/BV1zyoFBrEGw" target="_blank" rel="noopener">使用 Sequencer 制作天空动画</a></td>
+      <td>2:18</td>
+      <td><a href="cinematics.html">影视渲染</a></td>
+    </tr>
+    <tr id="v7">
+      <td>7</td>
+      <td><a href="https://www.bilibili.com/video/BV1vyoTBRE1P" target="_blank" rel="noopener">使用径向风暴</a></td>
+      <td>4:15</td>
+      <td><a href="weather.html">天气状态 · 径向风暴</a></td>
+    </tr>
+    <tr id="v8">
+      <td>8</td>
+      <td><a href="https://www.bilibili.com/video/BV1LyoTBREMY" target="_blank" rel="noopener">使用材质积雪 / 灰尘重定向组件</a></td>
+      <td>3:50</td>
+      <td><a href="materials.html">材质效果</a></td>
+    </tr>
+    <tr id="v9">
+      <td>9</td>
+      <td><a href="https://www.bilibili.com/video/BV1LyoTBRELS" target="_blank" rel="noopener">将 Ultra Dynamic Weather 添加到关卡</a></td>
+      <td>2:05</td>
+      <td><a href="weather.html">天气系统基础</a></td>
+    </tr>
+    <tr id="v10">
+      <td>10</td>
+      <td><a href="https://www.bilibili.com/video/BV1vyoTBREtv" target="_blank" rel="noopener">使用水坑流体体积</a></td>
+      <td>3:17</td>
+      <td><a href="weather-extra.html">天气其他功能 · 水坑</a></td>
+    </tr>
+    <tr id="v11">
+      <td>11</td>
+      <td><a href="https://www.bilibili.com/video/BV1LyoTBREKQ" target="_blank" rel="noopener">使用太空层</a></td>
+      <td>3:52</td>
+      <td><a href="night.html">夜空 · 太空层</a></td>
+    </tr>
+    <tr id="v12">
+      <td>12</td>
+      <td><a href="https://www.bilibili.com/video/BV1vyoTBREcn" target="_blank" rel="noopener">使用 Sequencer 为天气制作动画</a></td>
+      <td>4:57</td>
+      <td><a href="weather-extra.html">天气 · Sequencer</a></td>
+    </tr>
+    <tr id="v13">
+      <td>13</td>
+      <td><a href="https://www.bilibili.com/video/BV1LyoTBREK9" target="_blank" rel="noopener">使用昼夜光照切换组件</a></td>
+      <td>5:30</td>
+      <td><a href="cinematics.html">关卡控制 · 夜间开灯</a></td>
+    </tr>
+    <tr id="v14">
+      <td>14</td>
+      <td><a href="https://www.bilibili.com/video/BV15yoTBRE81" target="_blank" rel="noopener">使用屏幕控制小控件</a></td>
+      <td>6:11</td>
+      <td><a href="sky-extra.html">天空其他功能 · 屏幕控件</a></td>
+    </tr>
+    <tr id="v15">
+      <td>15</td>
+      <td><a href="https://www.bilibili.com/video/BV1LyoTBREjP" target="_blank" rel="noopener">使用天气遮罩 Actor 和组件</a></td>
+      <td>6:27</td>
+      <td><a href="materials.html">材质 · 遮罩</a></td>
+    </tr>
+    <tr id="v16">
+      <td>16</td>
+      <td><a href="https://www.bilibili.com/video/BV1LyoTBREeh" target="_blank" rel="noopener">使用天空修改器</a></td>
+      <td>6:20</td>
+      <td><a href="sky-extra.html">天空修改器</a></td>
+    </tr>
+    <tr id="v17">
+      <td>17</td>
+      <td><a href="https://www.bilibili.com/video/BV1vyoTBRES4" target="_blank" rel="noopener">使用 Actor 天气状态组件</a></td>
+      <td>7:20</td>
+      <td><a href="sound-wind.html">Actor 天气状态</a></td>
+    </tr>
+    <tr id="v18">
+      <td>18</td>
+      <td><a href="https://www.bilibili.com/video/BV1LyoTBREiF" target="_blank" rel="noopener">为网格体添加滴落粒子</a></td>
+      <td>2:37</td>
+      <td><a href="weather-extra.html">滴水粒子</a></td>
+    </tr>
+    <tr id="v19">
+      <td>19</td>
+      <td><a href="https://www.bilibili.com/video/BV1iyoTBRENW" target="_blank" rel="noopener">设置动态景观天气效果</a></td>
+      <td>4:14</td>
+      <td><a href="materials.html">动态景观天气效果</a></td>
+    </tr>
+    <tr id="v20">
+      <td>20</td>
+      <td><a href="https://www.bilibili.com/video/BV1LyoTBREsm" target="_blank" rel="noopener">使用天气覆盖体积</a></td>
+      <td>4:39</td>
+      <td><a href="weather.html">天气覆盖体积</a></td>
+    </tr>
+    <tr id="v21">
+      <td>21</td>
+      <td><a href="https://www.bilibili.com/video/BV15yoTBREab" target="_blank" rel="noopener">将表面天气效果添加到材质</a></td>
+      <td>4:34</td>
+      <td><a href="materials.html">表面天气效果</a></td>
+    </tr>
+    <tr id="v22">
+      <td>22</td>
+      <td><a href="https://www.bilibili.com/video/BV15yoTBRE8m" target="_blank" rel="noopener">设置随机天气变化</a></td>
+      <td>3:44</td>
+      <td><a href="weather.html">随机天气变化</a></td>
+    </tr>
+    <tr id="v23">
+      <td>23</td>
+      <td><a href="https://www.bilibili.com/video/BV1LyoTBREjw" target="_blank" rel="noopener">使用手动天气状态</a></td>
+      <td>3:06</td>
+      <td><a href="weather.html">手动天气状态</a></td>
+    </tr>
+    <tr id="v24">
+      <td>24</td>
+      <td><a href="https://www.bilibili.com/video/BV15yoTBRE8Q" target="_blank" rel="noopener">使用更改天气函数</a></td>
+      <td>2:31</td>
+      <td><a href="weather.html">更换天气</a></td>
+    </tr>
+    <tr id="v25">
+      <td>25</td>
+      <td><a href="https://www.bilibili.com/video/BV1LyoTBRETn" target="_blank" rel="noopener">配置天气粒子碰撞</a></td>
+      <td>5:28</td>
+      <td><a href="weather-fx.html">粒子碰撞</a></td>
+    </tr>
+    <tr id="v26">
+      <td>26</td>
+      <td><a href="https://www.bilibili.com/video/BV1LyoTBREwY" target="_blank" rel="noopener">管理天空与天气配置</a></td>
+      <td>7:16</td>
+      <td><a href="sky-extra.html">配置管理</a></td>
+    </tr>
+    <tr id="v27">
+      <td>27</td>
+      <td><a href="https://www.bilibili.com/video/BV15yoTBREZK" target="_blank" rel="noopener">使用 UDS 事件分发器</a></td>
+      <td>6:54</td>
+      <td><a href="cinematics.html">事件分发器</a></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout note">
+  <div class="co-title">观看建议</div>
+  <p>
+    视频解决的是“这个设置长什么样、拖一下会发生什么”，参数细节仍以文档为准——
+    有些选项是后来版本才加的，视频里可能没有。遇到对不上的地方，先确认你的 UDS 版本。
+  </p>
+</div>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#play" data-toc="play">先看这几个</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#list" data-toc="list">全部 27 个短片</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="technical.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">技术说明</span></span></a>
+      <span></span>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天空的其他功能 - UDS 中文文档</title>
+<meta name="description" content="配置保存与套用、天空修改器、存档状态、镜头光晕、室内调整与玩家遮挡、云绘制、水位、云光柱、后处理与屏幕控制等十二项功能。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Sky · 08</div>
+            <h1>天空的其他功能</h1>
+            <p class="lede">配置保存与套用、天空修改器、存档状态、镜头光晕、室内调整与玩家遮挡、云绘制、水位、云光柱、后处理与屏幕控制等十二项功能。</p>
+            <div class="meta-row"><span class="chip">功能合集</span><span class="chip">多为可选增强</span></div>
+          </header>
+
+<p>
+  这一页把 UDS 里那些“不属于主线流程、但很实用”的功能集中在一起。它们大多是可选的：
+  不用不影响基础天空，需要时再回来查。
+</p>
+
+<h2 id="config">配置的保存与套用</h2>
+
+<p>
+  可以把 UDS（或 UDW）的全部设置存成配置，用于其它关卡/项目复用，或在运行时按游戏事件切换。
+  入口是 <code>Configuration Manager</code>：工具栏 <code>Ultra Dynamic Sky</code> 下拉菜单，或
+  <code>Blueprints</code> 文件夹里的编辑器工具。
+</p>
+
+<ul>
+  <li>在管理器里选中已有配置并应用到当前 UDS；没有选中任何配置时，用右下角的保存按钮新建。</li>
+  <li>保存时会让你命名并选择位置：<strong>项目内</strong>（放进项目的 Ultra Dynamic Sky 文件夹，仅本项目可用）或
+    <strong>引擎内容</strong>（放进引擎目录下的同名文件夹，同版本引擎的任意项目都能用）。</li>
+  <li>配置缩略图角上的数字是保存时所用的 UDS 版本。旧版本保存的配置仍可使用，但不包含后来新增的变量；
+    如果在意完整性，用新版本重新保存一次。</li>
+</ul>
+
+<p>
+  运行时套用：UDS 调 <code>Apply Sky Configuration</code>，UDW 调 <code>Apply Weather Configuration</code>。
+  两者都要套用时，官方建议<strong>先套天气配置，再套天空配置</strong>。
+</p>
+
+<p>
+  另一种用法是<strong>配置覆盖（Override）</strong>：在 UDS/UDW 的 <code>Basic Controls</code> 高级选项里指定一个配置资产，
+  让 Actor 的设置直接由该资产控制。适合多个关卡里各有一份 UDS、但希望它们共用同一套配置的情况。
+  注意启用覆盖后，Actor 上的设置就不能再手动改了——它们由配置资产决定。覆盖在启动时生效，运行中仍可正常读写 UDS 变量。
+</p>
+
+<p>
+  如果经常在同一关卡里来回切换几套配置，可以用 <code>Configuration Buttons</code> 工具把配置做成按钮固定到编辑器面板上。
+</p>
+
+<div class="video-embed" data-bvid="BV1LyoTBREwY">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：管理天空与天气配置">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>管理天空与天气配置</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1LyoTBREwY/" target="_blank" rel="noopener">BV1LyoTBREwY</a></div>
+</div>
+
+<h2 id="modifiers">天空修改器（Sky Modifiers）</h2>
+
+<p>
+  修改器是一套“叠加层”机制：用数据资产描述一组要改动的浮点/颜色属性（以及可选的后处理设置），
+  在运行时叠加到天空上，可以淡入淡出、多层叠加、随时移除。
+</p>
+
+<p>
+  修改器资产用 <code>Sky Modifier Editor</code> 制作（工具栏下拉菜单或 <code>Blueprints/Tools</code>）。
+  在编辑器里：
+</p>
+
+<ul>
+  <li><code>Modifiable Sky Properties</code> 列出该机制能接管的天空属性。改某一项的值即表示本修改器要覆盖它；
+    取消勾选则移除这项覆盖。</li>
+  <li><code>Modifier Settings</code> 里可以设置淡入淡出的缓动方式、最大 alpha，以及是否附带自己的后处理设置。</li>
+  <li>编辑过程中，效果会实时预览在场景里的 UDS 上。</li>
+</ul>
+
+<p>运行时控制的函数：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>函数</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td><code>Add Modifier</code></td><td>添加修改器（若尚未添加），并在指定秒数内淡入。</td></tr>
+    <tr><td><code>Remove Modifier</code></td><td>移除已应用的修改器，并在指定秒数内淡出。</td></tr>
+    <tr><td><code>Set Modifier State</code></td><td>直接把 alpha 设为某个值，之后不再自动变化。适合用玩家位置等任意数值驱动。若修改器尚未添加，会自动添加。</td></tr>
+    <tr><td><code>Clear Modifiers</code></td><td>立即清除全部已应用的修改器。</td></tr>
+    <tr><td><code>Set Unmodified Property Values</code></td><td>UDS 启动时会保存一份“未修改”的属性作为插值基准。需要在运行时重新取基准时调用它。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  如果想按时间段自动生效，用 <code>Sky Modifiers</code> 分类里的 <code>Time of Day Specific Modifiers</code> 映射表：
+  把修改器加进去，展开条目即可设置淡入区间与淡出区间。淡入可以晚于淡出（用于跨夜的修改器），
+  但两个区间的结束时间都必须晚于各自的开始时间。
+  <strong>以这种方式自动应用时，不要再用上面的函数去控制它</strong>，两者会冲突。
+</p>
+
+<div class="video-embed" data-bvid="BV1LyoTBREeh">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用天空修改器">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用天空修改器</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1LyoTBREeh/" target="_blank" rel="noopener">BV1LyoTBREeh</a></div>
+</div>
+
+<h2 id="save-state">保存天空与天气状态</h2>
+
+<p>
+  需要把当前天空（以及天气）状态写进存档、或跨关卡保留时，用两个函数：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>函数</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td><code>Create UDS and UDW State for Saving</code></td><td>把 UDS 与 UDW 的状态打包成一个结构体，包含时间与当前天气状态的全部变量，可随存档一起保存。</td></tr>
+    <tr><td><code>Apply Saved UDS and UDW State</code></td><td>读档或进入新关卡时，把该结构体应用回去。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<figure>
+  <img src="assets/img/save-state.png" alt="保存与恢复状态的两个函数" width="801" height="451">
+  <figcaption>生成状态结构、以及把结构应用回去的两个函数。</figcaption>
+</figure>
+
+<h2 id="lens-flare">太阳镜头光晕</h2>
+
+<p>
+  UDS 自带一套太阳专用的电影感光晕，与引擎后处理里基于图像的光晕（Image Based Lens Flare）是两套完全独立的实现。
+</p>
+
+<p>
+  在 <code>Lens Flare</code> 分类勾选 <code>Enable Sun Lens Flare</code>，再选择 <code>Lens Flare Type</code> 即可。
+  想自定义时，在分类的高级选项里找到 <code>Custom Lens Flare Parent Instance</code>，
+  以 <code>Materials/Material_Instances/Lens_Flares</code> 下的现成实例为父级新建一个实例，
+  调整纹理、颜色与光晕各元素的映射参数，再把这个实例填入该选项。
+</p>
+
+<h2 id="interior">室内调整与玩家遮挡</h2>
+
+<p>
+  <code>Player Occlusion</code> 是 UDS 里持续检测“相机/角色被场景碰撞遮挡了多少”的系统，
+  换句话说就是判断玩家现在有多“室内”。它的结果被三处使用：
+</p>
+
+<ul>
+  <li>UDS 的 <code>Interior Adjustments</code>：按遮挡程度调整部分天空属性；</li>
+  <li>UDW 的 <code>Sound Occlusion</code>：室内时把天气音效压低、闷住；</li>
+  <li>UDW 的温度计算：可选地在室内套用另一个温度。</li>
+</ul>
+
+<p>
+  要启用室内调整，先在 <code>Interior Adjustments</code> 分类勾选 <code>Apply Interior Adjustments</code>，
+  再设置进入室内时各属性如何变化。遮挡值的来源与精度在 <code>Player Occlusion</code> 分类里配置：
+  每次更新耗时、使用的碰撞射线数量、检测的碰撞通道等。
+</p>
+
+<p>
+  需要强制某些空间“永远算室内”时，把 <code>Blueprints/Occlusion</code> 下的
+  <code>UDS Occlusion Volume</code> 放进关卡。<code>Player Occlusion</code> 分类里的
+  <code>Occlusion Mode</code> 决定遮挡是按碰撞射线判定、按遮挡体积判定，还是两者结合。
+</p>
+
+<h2 id="light-shafts">屏幕空间光轴</h2>
+
+<p>
+  <code>Screen Space Light Shafts</code> 是引擎自带的平行光特性（Light Shaft Bloom）：通过采样已渲染画面的颜色与深度，
+  用很低的成本做出光束/神光效果。因为它基于屏幕空间，只有<strong>朝向光源</strong>时才看得到。
+  这个效果与体积雾无关——体积雾也能做出类似光束，但原理完全不同。
+</p>
+
+<p>UDS 的 <code>Screen Space Light Shafts</code> 分类就是用来给太阳和月亮这两盏平行光开关该效果的。</p>
+
+<h2 id="painter">绘制体积云覆盖</h2>
+
+<p>
+  体积云支持手动“画”出云量分布。画出来的值会叠加在全局 <code>Cloud Coverage</code> 之上
+  （如果场上有 UDW，则叠加在天气状态给出的云量之上）。
+</p>
+
+<ol class="steps">
+  <li>确认场景里有 UDS，且 Sky Mode 为体积云。</li>
+  <li>从工具栏 <code>Ultra Dynamic Sky</code> 下拉菜单启动 <code>Volumetric Cloud Painter</code>（或运行 <code>Blueprints</code> 里的编辑器工具）。</li>
+  <li>新建或打开一个 <code>UDS Cloud Paint Container</code>——它保存绘制数据，一个关卡里可以有多个。</li>
+  <li>在顶部栏调整笔刷（纹理、强度、衰减、笔刷间距），在视口里左键绘制、右键拖动视图、中键缩放。</li>
+  <li>左侧切换绘制/擦除模式：可画三档云量（视口中以红、绿、蓝表示），也可以擦除（画黑）。</li>
+  <li>完成后点底部的 <code>Save to Textures</code>。画好的格子会存成纹理，放在关卡所在目录的 <code>UDS_LevelData</code> 子文件夹里。</li>
+</ol>
+
+<p>
+  这些纹理最终被画进 UDS 上的一个云量渲染目标，渲染目标的尺寸、分辨率与用法在
+  <code>Volumetric Cloud Painting</code> 分类里设置。
+</p>
+
+<p>
+  关卡里有多个绘制容器、需要切换生效的那一个时，对该 Actor 调用 <code>Activate</code> / <code>Deactivate</code>，
+  编辑器细节面板里也能切换。
+</p>
+
+<div class="video-embed" data-bvid="BV1ByoFBrES9">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用体积云绘制器">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用体积云绘制器</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1ByoFBrES9/" target="_blank" rel="noopener">BV1ByoFBrES9</a></div>
+</div>
+
+<h2 id="water">水位（Water Level）</h2>
+
+<p>
+  <code>Water Level</code> 分类用来定义关卡水面高度，这个高度会被多个功能复用：
+</p>
+
+<ul>
+  <li>日月的焦散折射：UDS 上开启 <code>Render Water Caustics</code>，参数在同分类里。</li>
+  <li>体积雾在水下的消光与反照率：属于全局体积材质的一部分，在 <code>Volumetric Fog</code> 分类里配置。</li>
+  <li>UDW 的 <code>Use UDS Water Level</code>：把水位应用到天气粒子、声音遮挡等系统。</li>
+</ul>
+
+<p>
+  <code>Global Water Level</code> 是全局的最低水面高度（例如海平面），设成关卡里海面的 Z 高度即可。
+</p>
+
+<p>
+  地图里有多种水面（海、湖、河）时，用 <code>Water Body Classes</code> 数组：把某个 Actor 类加进去，
+  关卡里该类的水体就会通过把静态网格渲染到渲染目标的方式，局部影响水位。
+  用 Water 插件的话通常无需配置——分类里默认已包含该插件的 Lake、Ocean、River 类。
+</p>
+
+<p>
+  水体在关卡里加载/卸载后需要刷新水位目标时，调用 UDS 的 <code>Update Water Level Target</code> 强制更新。
+</p>
+
+<h2 id="light-rays">体积云光柱</h2>
+
+<p>
+  阴天时用云绘制器在云层上开一个洞，会看到远处有光束从洞口斜射下来——这就是
+  <code>Volumetric Cloud Light Rays</code>，默认开启，参数在同名分类里。
+</p>
+
+<p>
+  它是一套自定义效果：用 Niagara 控制大量加法卡片来渲染光束，<strong>与体积雾、屏幕空间光轴都没有关系</strong>。
+  分类里可以调光束卡片的颜色与间距；开启 <code>Individual Cloud Light Rays</code> 后，
+  即使没有手绘的缺口，只要整体云量很高、云团之间存在缝隙，也会尝试从缝隙里投射光束。
+  这个选项的卡片数量可能显著增加，性能开销也更高。
+</p>
+
+<h2 id="post">后处理</h2>
+
+<p>
+  <code>Post Processing</code> 分类里有一个 <code>Post Process Components</code> 数组，每加一条，系统就会创建一个后处理组件。
+  每条可以覆盖任意后处理设置（泛光、调色、暗角等），并额外提供三类遮罩：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>遮罩</th><th>效果</th></tr></thead>
+  <tbody>
+    <tr><td>按时间启用/停用</td><td>控制该组件的混合权重，随当前时间淡入淡出。</td></tr>
+    <tr><td>按云量、雾、尘埃、室内遮挡遮罩</td><td>例如勾选 <code>Mask Blend Weight When Overcast</code>，天转阴时这组后处理会逐渐消失。</td></tr>
+    <tr><td>按下雨/下雪遮罩</td><td>依赖 UDW；没有 UDW 时不生效。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="ambient">受时间与天气控制的环境声</h2>
+
+<p>
+  想让环境声随昼夜或天气改变音量，用 <code>Blueprints/Sound</code> 里的
+  <code>AmbientSound-Time and Weather Controlled</code>。它是标准 Ambient Sound 的子类，用法完全一致，
+  只是多了按时间与天气控制音量倍率的逻辑。
+</p>
+
+<p>
+  在 <code>Sound</code> 分类顶部可以设置白天/夜晚的音量倍率，以及雪天/雨天/无天气各自的倍率；
+  <code>Volume Multiplier Transition Time</code> 控制倍率变化时的过渡时长。
+</p>
+
+<p>
+  如果需要更完整的环境声景系统（带声音遮挡、与天气深度联动），应改用 UDW 的 Environment Sound。
+</p>
+
+<h2 id="onscreen">屏幕控制控件</h2>
+
+<p>
+  项目需要一个简单的屏上界面让玩家调时间和天气时，UDS 自带控件 <code>UDS Onscreen Controls</code>，
+  在控件设计器面板的 <code>Ultra Dynamic Sky Widgets</code> 分类里。
+</p>
+
+<ul>
+  <li>默认所有控件都启用，可以在细节面板里关掉不需要的部分。例如只留 <code>Show Time Control</code>，就是一个紧凑的时间滑块。</li>
+  <li>可以设置显示的时间/日期格式，以及天气控件里可选的天气预设。</li>
+  <li>多人游戏里，如果客户端要用它控制服务器上的 UDS/UDW，在玩家控制器里加上
+    <code>UDS Client Controller</code> 组件即可，控件会自动通过它把时间/天气操作同步到服务器。</li>
+</ul>
+
+<div class="video-embed" data-bvid="BV15yoTBRE81">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：使用屏幕控制小控件">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>使用屏幕控制小控件</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV15yoTBRE81/" target="_blank" rel="noopener">BV15yoTBRE81</a></div>
+</div>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#config" data-toc="config">配置的保存与套用</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#modifiers" data-toc="modifiers">天空修改器（Sky Modifiers）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#save-state" data-toc="save-state">保存天空与天气状态</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#lens-flare" data-toc="lens-flare">太阳镜头光晕</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#interior" data-toc="interior">室内调整与玩家遮挡</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#light-shafts" data-toc="light-shafts">屏幕空间光轴</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#painter" data-toc="painter">绘制体积云覆盖</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#water" data-toc="water">水位（Water Level）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#light-rays" data-toc="light-rays">体积云光柱</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#post" data-toc="post">后处理</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#ambient" data-toc="ambient">受时间与天气控制的环境声</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#onscreen" data-toc="onscreen">屏幕控制控件</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="cinematics.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">影视渲染与关卡控制</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="performance.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">性能、移动端与更新</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

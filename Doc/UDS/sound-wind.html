@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>声音、采样与风 - UDS 中文文档</title>
+<meta name="description" content="天气音效与遮挡、可自制的环境声系统、从蓝图采样天气与温度、事件分发器、Actor 天气状态组件，以及风向、阵风与风力。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Weather · 13</div>
+            <h1>声音、采样与风</h1>
+            <p class="lede">天气音效与遮挡、可自制的环境声系统、从蓝图采样天气与温度、事件分发器、Actor 天气状态组件，以及风向、阵风与风力。</p>
+            <div class="meta-row"><span class="chip">音频与环境声</span><span class="chip">蓝图接口</span></div>
+          </header>
+
+<h2 id="sounds">天气音效</h2>
+
+<p>
+  UDW 默认开启风、雨、雷三类音效。在 <code>Sound Effects</code> 分类里可以整体关闭，或分别调整音量；
+  最终音量同时受这些设置与当前天气状态缩放。
+</p>
+
+<p>
+  运行时想改变哪些声音开启，官方建议<strong>保持音效总开关开启</strong>，改为在运行时设置各自暴露的
+  Volume 变量。需要一次性全关时，调用 <code>Set Enable Weather Sound Effects</code>。
+</p>
+
+<p>
+  同一分类里还能调雷声相对于闪电的延迟：默认几乎无延迟，用
+  <code>Close Thunder Delay Per KM</code> 可以模拟真实的声速延迟。
+</p>
+
+<p>
+  UDW 的所有音效使用声音类 <code>UDS_Weather</code>。建议把该类作为你项目 Sound Effects 声音类的子类，
+  这样天气声就会受到整体音效混音的影响。
+</p>
+
+<h2 id="occlusion">声音遮挡</h2>
+
+<p>
+  UDW 默认带一套简单的遮挡系统：定期从相机位置发射射线，当玩家处在封闭空间时降低音量、压低低通滤波频率（让声音更闷）。
+  该行为可在 <code>Sound Occlusion</code> 分类里关闭或调整。
+</p>
+
+<p>
+  具体“有多封闭”由 UDS 的 Player Occlusion 系统计算，参数在 UDS 的 <code>Player Occlusion</code> 分类。
+  需要强制某些空间始终算作封闭时，放入 <code>UDS Occlusion Volume</code>；
+  <code>Player Occlusion</code> 里的 <code>Occlusion Sampling Mode</code> 决定是否采样这些体积。
+</p>
+
+<p>
+  还有一个 <code>UDS Occlusion Portal</code> 组件：放在遮挡采样点附近时会被射线检测，
+  若射线未被阻挡，它可以抵消遮挡。典型用法是给打开的门、窗各放一个，让外面的天气声更自然地传进室内。
+</p>
+
+<p>
+  想让关卡里自己的音源也受这套遮挡衰减影响，把它的声音类设为 <code>UDS Outdoor Sound</code>。
+</p>
+
+<h2 id="environment">环境声（Environment Sound）</h2>
+
+<p>
+  除了天气音效，UDW 还有一套环境声系统，用来播鸟鸣、虫声、城市底噪这类户外氛围声。
+  它能随时间与天气变化，也参与声音遮挡。
+</p>
+
+<p>
+  在 <code>Sound Effects</code> 分类里选择一个环境声资产即可。资源里带了一个森林氛围的示例，
+  系统本身是为“自己制作”设计的。
+</p>
+
+<h3 id="制作环境声资产">制作环境声资产</h3>
+
+<p>
+  环境声是数据资产，类型为 <code>UDS_Environment_Sound</code>：在内容浏览器新建该类型的数据资产。
+  它主要指向一个 MetaSound Source 资产，另外有音量缩放与 MetaSound 参数覆盖。
+</p>
+
+<h3 id="制作对应的-metasound-source">制作对应的 MetaSound Source</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>要求</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>输出格式为 5.1</td>
+      <td>只有 5.1 才能同时获得声音遮挡与四方向立体声定位。六个声道的含义见下表。</td>
+    </tr>
+    <tr>
+      <td>输出到天气总线</td>
+      <td>Source 设置里打开 <code>Enable Bus Sends</code>、关闭 <code>Enable Base Submix</code>，
+        然后加一个 Post-Effect Bus Send，输出到音频总线 <code>UDS_Weather_AudioBus</code>。</td>
+    </tr>
+    <tr>
+      <td>五个输入参数</td>
+      <td>三个整数参数 <code>Time</code>、<code>Weather</code>、<code>Wind</code>，两个时间参数
+        <code>Weather Interp</code>、<code>Time Interp</code>。UDW 会负责设置它们。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>5.1 六个声道的约定：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>声道</th><th>含义</th></tr></thead>
+  <tbody>
+    <tr><td>0 Front Left</td><td>来自 -X 方向的定向声</td></tr>
+    <tr><td>1 Front Right</td><td>来自 +X 方向的定向声</td></tr>
+    <tr><td>2 Front Center</td><td>来自 -Y 方向的定向声</td></tr>
+    <tr><td>3 Low Frequency</td><td>来自 +Y 方向的定向声</td></tr>
+    <tr><td>4 Side Left</td><td>全局声左声道</td></tr>
+    <tr><td>5 Side Right</td><td>全局声右声道</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  定向声按听者朝向做空间化，并按方向做遮挡；全局声当作普通立体声，使用全局遮挡。
+  MetaSound 里可以用 <code>UDS_TimeWeather_VolumeManager</code> 与 <code>UDS_DayNight_VolumeManager</code>
+  两个节点，传入上面的参数，用数组配置“某时段/某天气/某风力下应该是多少音量”。
+  具体接法参考自带的 Forest Example。
+</p>
+
+<h3 id="运行时切换">运行时切换</h3>
+
+<p>
+  在 UDW 上选中环境声资产，即设定 Begin Play 时播放哪个。运行时切换用
+  <code>Change Environment Sound</code>：可以启动一个原本没在播的环境声、从一个换到另一个，
+  或不传参数调用以停止环境声。
+</p>
+
+<h2 id="sample">采样天气状态</h2>
+
+<p>
+  在自己的蓝图里读取天气状态，用蓝图函数库里的各个 Get 函数：<code>Get Cloud Coverage</code>、
+  <code>Get Wind Intensity</code> 等，每一项都能单独取。
+</p>
+
+<p>
+  也可以取到 <code>Local Weather State</code> 对象（同样通过 Get 函数，或直接从 UDW 引用上取），
+  它是一个天气设置对象，包含当前驱动特效与天空的天气状态。
+</p>
+
+<p>
+  只需要“当前是什么天气”这种文字描述（如 Light Rain、Blizzard）时，调用
+  <code>Get Display Name for Current Weather</code>。
+</p>
+
+<figure>
+  <img src="assets/img/sample-weather.png" alt="采样天气状态的函数" width="1103" height="384">
+  <figcaption>用于采样天气状态的几个函数。</figcaption>
+</figure>
+
+<h2 id="temperature">温度</h2>
+
+<p>
+  <code>Get Current Temperature</code> 返回当前温度，可选择华氏或摄氏。温度是由天气推导出来的，
+  反过来不成立。计算过程大致是：
+</p>
+
+<ol class="steps">
+  <li>从 0 开始，按 <code>Temperature</code> 分类里各项 <code>Temperature Bias</code> 累加——这些值依据时间、天气状态等做加减。</li>
+  <li>把结果从 -1–1 的范围映射到<strong>当前季节</strong>的最小/最大温度区间。</li>
+  <li>叠加一个缓慢变化的随机值，幅度由 <code>Randomize Temperature</code> 缩放。</li>
+  <li>如果调用时 <code>Sample Location</code> 不是 Global，还会叠加位置相关效果：采样关卡里的温度体积，并按遮挡程度应用室内温度。</li>
+</ol>
+
+<figure>
+  <img src="assets/img/sample-temp.png" alt="采样温度的函数" width="617" height="315">
+  <figcaption>采样温度的函数。</figcaption>
+</figure>
+
+<p>
+  玩家处在天气覆盖体积内时，该体积会应用自己的温度区间；可以在体积设置里调整或关闭这一行为。
+</p>
+
+<p>
+  <code>Blueprints/Weather_Effects</code> 下的 <code>Temperature Volume</code> 可以在关卡里局部改变温度：
+  例如在火堆周围放一个、设正的 <code>Temperature Offset</code>，体积内采样到的温度就会更高。
+</p>
+
+<p>
+  想直接显示温度，用控件 <code>UDW Thermometer</code>（控件设计器的 <code>Ultra Dynamic Sky Widgets</code> 分类）。
+</p>
+
+<h2 id="dispatchers">事件分发器</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>事件</th><th>触发条件</th></tr></thead>
+  <tbody>
+    <tr><td><code>Started Raining</code> / <code>Finished Raining</code></td><td>按天气状态里的雨量判定</td></tr>
+    <tr><td><code>Started Snowing</code> / <code>Finished Snowing</code></td><td>同上，雪</td></tr>
+    <tr><td><code>Dust/Sand Forming</code> / <code>Dust/Sand Clearing</code></td><td>同上，尘</td></tr>
+    <tr><td><code>Getting Cloudy</code> / <code>Clouds Clearing</code></td><td>按云量判定</td></tr>
+    <tr><td><code>Getting Foggy</code> / <code>Fog Clearing</code></td><td>按雾值判定</td></tr>
+    <tr><td><code>Weather Display Name Changed</code></td><td>当前天气显示名变化时触发，适合做“天气整体变了”的统一入口</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  开始/结束类事件的判定阈值在 UDW 的 <code>Event Dispatchers</code> 分类里调整。
+  另外还有一组 <code>State Change</code> 分发器，用于监听某个具体数值的变化——
+  例如绑定 <code>State Change - Rain</code>，雨量一变就执行你的逻辑。
+</p>
+
+<h2 id="actor-status">Actor 天气状态</h2>
+
+<p>
+  <code>Actor Weather Status</code> 组件用来跟踪某个 Actor 暴露在天气中的程度，以及它的温度与风力暴露。
+  它适合玩家角色这类需要持续监控自身状态的 Actor。
+</p>
+
+<ul>
+  <li>运行时通过周期性射线检测暴露程度，并据此推算温度受影响的情况，结果都在组件的 <code>Status</code> 分类里。</li>
+  <li>组件自带事件分发器：开始淋雨、开始落雪、温度越过冷/热阈值等。</li>
+  <li><code>Material Effects</code> 分类里可以挂动态材质实例，组件会写入 <code>Wet</code>、<code>Raining</code>、<code>Snowy</code>、
+    <code>Dusty</code>、<code>Wind Intensity</code> 五个 0–1 参数。UDW 的材质函数里有个 <code>Use Local Parameters</code>
+    输入，就是配合这套参数用的。</li>
+</ul>
+
+<p>
+  如果只是偶尔查询一次、不需要持续跟踪，可以调用 UDW 的 <code>Test Actor for Weather Exposure</code>：
+  把 Actor 自身作为输入，函数输出雨、风、雪、尘四个 0–1 的暴露值，
+  数值同时受天气强度与遮挡程度影响（例如雪的值为 1 表示完全暴露在最大强度的雪中）。
+</p>
+
+<h2 id="wind">风</h2>
+
+<h3 id="风向">风向</h3>
+
+<p>
+  风向独立于天气状态控制：由 <code>Basic Controls</code> 里的 <code>Wind Direction</code> 与
+  <code>Wind Direction</code> 分类里的设置决定。除了吹动天气粒子，它也接管 UDS 上云的移动方向。
+</p>
+
+<p>
+  分类里可以开启 <code>Wind Direction Variation</code>，用随机噪声让风向在运行时围绕设定值漂移。
+  天气覆盖体积也能覆盖风向：体积上勾选 <code>Apply Wind Direction</code> 后，玩家进入时使用体积设置的方向。
+</p>
+
+<h3 id="风中的碎屑">风中的碎屑</h3>
+
+<p>
+  <code>Wind Debris</code> 在风力较高时往空中加飞行的碎屑粒子。可以调数量、大小与精灵贴图
+  （替换贴图时必须是 4x4 的帧图集，带 alpha 通道）。碎屑的生成与碰撞行为沿用
+  <code>Shared Particle Settings</code>。运行时可以改 <code>Wind Debris Particle Spawn Count</code>，粒子会即时更新。
+</p>
+
+<h3 id="阵风">阵风</h3>
+
+<p>
+  默认情况下风力本身带一层扰动，模拟阵风：一条 Perlin 噪声流把风力推高推低。
+  在 <code>Wind Gusts</code> 分类里可以调扰动幅度与噪声流的速度。
+</p>
+
+<h3 id="风向源组件">风向源组件</h3>
+
+<p>
+  引擎的 <code>Wind Directional Source</code> 会影响布料、SpeedTree 等。UDW 默认会自动创建并控制一个这样的组件，
+  把当前风速风向写进去。相关选项在 <code>Wind Directional Source</code> 分类：可以缩放写入的风速，
+  也可以设置“室内时风速归零”。
+</p>
+
+<h3 id="物理风力">物理风力</h3>
+
+<p>
+  <code>Wind Physics Force</code> 组件可以让参与物理模拟的物体被风吹动：把它挂在任何模拟物理的 Primitive 组件下，
+  运行时会查询当前风状态，并用射线判断该组件的受风程度，再施加力。
+  力的强度与组件行为细节都在暴露的设置里。
+</p>
+
+<h3 id="风力镜头抖动">风力镜头抖动</h3>
+
+<p>
+  <code>Wind Camera Shake</code> 分类里可以开启“最大风力时相机抖动”，调整抖动幅度，
+  以及触发抖动的风力区间。抖动会被全局遮挡遮罩屏蔽——玩家在室内时不会抖，
+  判定依据是 UDS 的 <code>Player Occlusion</code> 设置。
+</p>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#sounds" data-toc="sounds">天气音效</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#occlusion" data-toc="occlusion">声音遮挡</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#environment" data-toc="environment">环境声（Environment Sound）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#制作环境声资产" data-toc="制作环境声资产">制作环境声资产</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#制作对应的-metasound-source" data-toc="制作对应的-metasound-source">制作对应的 MetaSound Source</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#运行时切换" data-toc="运行时切换">运行时切换</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#sample" data-toc="sample">采样天气状态</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#temperature" data-toc="temperature">温度</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#dispatchers" data-toc="dispatchers">事件分发器</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#actor-status" data-toc="actor-status">Actor 天气状态</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#wind" data-toc="wind">风</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#风向" data-toc="风向">风向</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#风中的碎屑" data-toc="风中的碎屑">风中的碎屑</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#阵风" data-toc="阵风">阵风</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#风向源组件" data-toc="风向源组件">风向源组件</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#物理风力" data-toc="物理风力">物理风力</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#风力镜头抖动" data-toc="风力镜头抖动">风力镜头抖动</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="materials.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">材质效果</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="weather-extra.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">天气的其他功能</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

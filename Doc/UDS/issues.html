@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>常见问题 - UDS 中文文档</title>
+<meta name="description" content="天空全黑、天光不更新、云有硬边、透明材质不被云遮挡、天气粒子看不到或挡不住等问题的排查清单。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Reference · 15</div>
+            <h1>常见问题</h1>
+            <p class="lede">天空全黑、天光不更新、云有硬边、透明材质不被云遮挡、天气粒子看不到或挡不住等问题的排查清单。</p>
+            <div class="meta-row"><span class="chip">按症状查</span><span class="chip">官方排查项</span></div>
+          </header>
+
+<h2 id="lighting">光照与后处理</h2>
+
+<h3 id="加入-uds-后整个关卡变黑">加入 UDS 后整个关卡变黑</h3>
+
+<p>几乎都是曝光问题。依次检查：</p>
+<ul>
+  <li>关卡里是否有后处理体积在接管曝光？有的话关掉它的曝光覆盖，让 UDS 来控制。</li>
+  <li>视口的 <code>Lit</code> 下拉里，曝光是否勾选了 <code>Game Settings</code>。</li>
+  <li>在 UDS 的曝光分类里临时关闭 <code>Apply Exposure Settings</code>，看画面是否恢复。</li>
+</ul>
+
+<h3 id="天光不随时间变化">天光不随时间变化</h3>
+
+<p>初始正常、时间一走动环境光就不更新，通常是天光没有刷新：</p>
+<ul>
+  <li>某些平台不支持实时天光捕获。改用 <code>Cubemap with Dynamic Color Tinting</code>，它全平台可用且能随时间变化。</li>
+  <li>如果只是“入夜后环境光仍然很亮”，可能是关卡里残留了旧的静态光照，执行一次光照构建清掉。</li>
+</ul>
+
+<h3 id="天光更新很慢">天光更新很慢</h3>
+
+<p>
+  天空快速变化（时间跳变、云量突变）时，环境光要很久才跟上——这是 Lumen 的默认行为，UDS 不干预它的参数。
+  在后处理体积的 <code>Lumen Global Illumination</code> 里调 <code>Update Speed</code> 可以加快，
+  代价是 GPU 开销上升。
+</p>
+
+<h3 id="运行时改变量要等一两秒才生效">运行时改变量要等一两秒才生效</h3>
+
+<p>
+  UDS 会尽量少地重算属性，多数帧在缓存值之间插值，所以从设置到生效会有 1–2 秒延迟。
+  需要立刻生效时：
+</p>
+<ul>
+  <li>调用 <code>Hard Reset Cache</code>，清空缓存并立即应用全部改动；</li>
+  <li>或调小 <code>Scalability / Performance</code> 分类里的 <code>Max Property Cache Period</code>。</li>
+</ul>
+
+<h3 id="运行时改变量完全没用">运行时改变量完全没用</h3>
+
+<p>
+  有些属性被标记为静态属性，只在启动时应用，不会每帧刷新。改完变量后需要调用对应的
+  <code>Static Properties</code> 函数，例如改 <code>Sun Softness</code> 后调用 <code>Static Properties - Sun</code>。
+</p>
+
+<h3 id="阴天时水面-海洋着色仍然被阳光照亮">阴天时水面/海洋着色仍然被阳光照亮</h3>
+
+<p>
+  单层水（Single Layer Water）着色模型在计算平行光时不考虑 Light Function。
+  UDS 的云影支持 Light Function Atlas，在项目设置里开启
+  <code>Single Layer Water Uses Light Function Atlas</code> 即可让水面近似接收云影。
+</p>
+
+<p>
+  如果是日落前后水面反射与云量不匹配，在 UDS 的 <code>Cloud Shadows</code> 分类里开启
+  <code>Correct Specular Scale For Low Angle Cloud Shadows</code>。
+</p>
+
+<h2 id="clouds">体积云</h2>
+
+<h3 id="云与网格交界处很硬-质量差">云与网格交界处很硬、质量差</h3>
+
+<p>
+  默认的渲染模式把云当作纯背景元素，网格相交部分质量很低。把
+  <code>Volumetric Cloud Rendering Mode</code> 换成偏向 <em>Mesh Intersections</em> 的模式即可。
+</p>
+
+<h3 id="透明材质没有被云挡住">透明材质没有被云挡住</h3>
+
+<p>
+  半透明材质需要额外配置才会被体积云遮挡：材质 Translucency 设置里同时开启
+  <code>Apply Fogging</code> 与 <code>Apply Cloud Fogging</code>。
+  视网格情况，可能还要开 <code>Compute Fog Per Pixel</code>，否则云雾是按顶点计算的。
+</p>
+
+<h3 id="进入云层内部有噪点-条带-光照瑕疵">进入云层内部有噪点/条带/光照瑕疵</h3>
+
+<p>默认设置是按“从地面看”优化的。进云之后可以尝试：</p>
+<ul>
+  <li>提高 <code>View Sample Count Scale</code>（开销随之上升）；</li>
+  <li>降低 <code>Tracing Max Distance</code>——云层内、云层外各有一个；</li>
+  <li>调整 <code>Close View Sample Ratio</code>，它控制采样数如何随穿过云层的距离缩放。</li>
+</ul>
+
+<h3 id="云移动很快时发糊-有拖影">云移动很快时发糊、有拖影</h3>
+
+<p>
+  默认渲染模式会用过去多帧累积解算，快速移动（例如延时摄影）时就会出现糊和重影。
+  换用其它 <code>Volumetric Cloud Rendering Mode</code> 即可。
+</p>
+
+<h3 id="云异常发黑-发灰">云异常发黑 / 发灰</h3>
+
+<ul>
+  <li>如果用了 <code>Custom Sun Light Actor</code> / <code>Custom Moon Light Actor</code>：内置日月组件上有个
+    <code>Cloud Scattered Luminance Scale</code>，你自己的灯光也要设置同样的值，最好连颜色也照抄。</li>
+  <li>否则检查关卡里是否还残留着未删除的平行光 Actor/组件。</li>
+</ul>
+
+<h2 id="rendering">通用渲染</h2>
+
+<h3 id="某个距离上出现一条生硬的雾-大气分界线">某个距离上出现一条生硬的雾/大气分界线</h3>
+
+<p>
+  通常是天空大气组件与场景的相对位置不对。确保 UDS Actor 放在地面高度，
+  相机不会明显低于它。
+</p>
+
+<h3 id="移动相机时天空闪成纯黑">移动相机时天空闪成纯黑</h3>
+
+<p>
+  这是天空大气在相机落到其“地面”以下时触发的引擎 Bug。选中 UDS 的天空大气组件
+  （细节面板顶部的组件列表），把它下移到关卡最低点、相机到不了的位置。
+</p>
+
+<h3 id="体积雾像素化-质量差">体积雾像素化、质量差</h3>
+
+<p>
+  体积雾的画质由项目可扩展性设置决定，UDS 不接管。它的 cvar 属于 <code>Shadow Quality</code> 组，
+  调高该组即可。
+</p>
+
+<h3 id="太空层不渲染">太空层不渲染</h3>
+
+<p>
+  太空层用 DBuffer 网格贴花渲染，再由天空材质采样。所以项目里必须启用
+  <code>Dbuffer Decals</code>（移动端为 <code>Mobile DBuffer Decals</code>），且平台要支持。
+</p>
+
+<h2 id="weather">天气</h2>
+
+<h3 id="天气粒子完全看不到">天气粒子完全看不到</h3>
+
+<ul>
+  <li>可能被关卡里不可见的碰撞挡住了。把 <code>Shared Particle Settings</code> 的
+    <code>Particle Collision Mode</code> 临时设为 <code>No Collision</code> 验证一下。</li>
+  <li>检查视口的 Show 标记是否隐藏了粒子，切回 <code>Use Defaults</code>。</li>
+  <li>极少数情况下首次加载时 Niagara 系统编译失败：打开 <code>Particles</code> 里对应的系统资产
+    （Rain / Snow / Dust），用主工具栏 <code>Compile</code> 下拉里的 <code>Full Rebuild</code> 重建。</li>
+</ul>
+
+<h3 id="simulate-模式下看不到天气粒子">Simulate 模式下看不到天气粒子</h3>
+
+<p>
+  这是 Simulate 模式的限制：它用编辑器相机渲染，蓝图与 Niagara 都取不到相机位置。
+  换用其它 Play 模式即可。
+</p>
+
+<h3 id="dlwe-的痕迹不出现">DLWE 的痕迹不出现</h3>
+<ul>
+  <li>地形需要有 World Static 的简单碰撞，响应查询且阻挡 Visibility 通道；用非地形网格时要按 DLWE 章节的说明配置物理材质。</li>
+  <li>检查 DLWE Interaction 组件的位置与 <code>Size</code> 是否足够。</li>
+  <li>痕迹只能画在控制点周围那块渲染目标范围内，而控制点由 <code>Basic Controls</code> 高级选项里的
+    <code>Control Point Location Source</code> 决定。相机离控制点太远时效果不可见。</li>
+</ul>
+
+<h3 id="天气粒子挡不住物体">天气粒子挡不住物体</h3>
+
+<p>按当前碰撞模式分别排查：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>模式</th><th>检查项</th></tr></thead>
+  <tbody>
+    <tr>
+      <td rowspan="3"><code>Simple Collision</code></td>
+      <td>物体必须有<strong>简单碰撞</strong>，粒子只检测简单碰撞。</td>
+    </tr>
+    <tr>
+      <td>碰撞配置要阻挡 UDW 上 <code>Weather Particle Collision Channel</code> 指定的通道（默认 Visibility），
+        且碰撞响应为 <code>Collision Enabled</code> 或 <code>Query Only</code>。</td>
+    </tr>
+    <tr>
+      <td>高天花板建筑“漏雨”：粒子生成时没有检测到那么高的顶。调大 UDW 上的 <code>Ceiling Check Height</code>。</td>
+    </tr>
+    <tr>
+      <td rowspan="3"><code>Distance Field Collision</code></td>
+      <td>项目需开启生成 Mesh Distance Fields。</td>
+    </tr>
+    <tr>
+      <td>用 <code>Show → Visualize → Global Distance Field</code> 查看实际的距离场，定位个别网格的问题。</td>
+    </tr>
+    <tr>
+      <td>用于阻挡的网格要开启 <code>Affect Distance Field Lighting</code>，否则不会出现在全局距离场里。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="天气声音在不对的时候变小">天气声音在不对的时候变小</h3>
+
+<p>
+  声音遮挡的射线打到了不该打的东西。在 UDS 的 <code>Player Occlusion</code> 分类里调整遮挡检测的射线数量、
+  通道与更新频率。
+</p>
+
+<h3 id="vr-里出现立体渲染问题">VR 里出现立体渲染问题</h3>
+
+<p>
+  常见表现：雾只在一只眼睛里正常、雨溅只渲染在左眼、单眼出现线条/色块。
+  把 UDS 的 <code>Project Mode</code> 设为 <code>Virtual Reality</code>，它会针对立体渲染的限制做调整。
+</p>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#lighting" data-toc="lighting">光照与后处理</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#加入-uds-后整个关卡变黑" data-toc="加入-uds-后整个关卡变黑">加入 UDS 后整个关卡变黑</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#天光不随时间变化" data-toc="天光不随时间变化">天光不随时间变化</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#天光更新很慢" data-toc="天光更新很慢">天光更新很慢</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#运行时改变量要等一两秒才生效" data-toc="运行时改变量要等一两秒才生效">运行时改变量要等一两秒才生效</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#运行时改变量完全没用" data-toc="运行时改变量完全没用">运行时改变量完全没用</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#阴天时水面-海洋着色仍然被阳光照亮" data-toc="阴天时水面-海洋着色仍然被阳光照亮">阴天时水面/海洋着色仍然被阳光照亮</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#clouds" data-toc="clouds">体积云</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#云与网格交界处很硬-质量差" data-toc="云与网格交界处很硬-质量差">云与网格交界处很硬、质量差</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#透明材质没有被云挡住" data-toc="透明材质没有被云挡住">透明材质没有被云挡住</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#进入云层内部有噪点-条带-光照瑕疵" data-toc="进入云层内部有噪点-条带-光照瑕疵">进入云层内部有噪点/条带/光照瑕疵</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#云移动很快时发糊-有拖影" data-toc="云移动很快时发糊-有拖影">云移动很快时发糊、有拖影</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#云异常发黑-发灰" data-toc="云异常发黑-发灰">云异常发黑 / 发灰</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#rendering" data-toc="rendering">通用渲染</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#某个距离上出现一条生硬的雾-大气分界线" data-toc="某个距离上出现一条生硬的雾-大气分界线">某个距离上出现一条生硬的雾/大气分界线</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#移动相机时天空闪成纯黑" data-toc="移动相机时天空闪成纯黑">移动相机时天空闪成纯黑</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#体积雾像素化-质量差" data-toc="体积雾像素化-质量差">体积雾像素化、质量差</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#太空层不渲染" data-toc="太空层不渲染">太空层不渲染</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#weather" data-toc="weather">天气</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#天气粒子完全看不到" data-toc="天气粒子完全看不到">天气粒子完全看不到</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#simulate-模式下看不到天气粒子" data-toc="simulate-模式下看不到天气粒子">Simulate 模式下看不到天气粒子</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#dlwe-的痕迹不出现" data-toc="dlwe-的痕迹不出现">DLWE 的痕迹不出现</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#天气粒子挡不住物体" data-toc="天气粒子挡不住物体">天气粒子挡不住物体</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#天气声音在不对的时候变小" data-toc="天气声音在不对的时候变小">天气声音在不对的时候变小</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#vr-里出现立体渲染问题" data-toc="vr-里出现立体渲染问题">VR 里出现立体渲染问题</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="weather-extra.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">天气的其他功能</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="technical.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">技术说明</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Setup and guides to use the Options Menu System in your game">
+      
+      
+        <meta name="author" content="Nerwy">
+      
+      
+        <link rel="canonical" href="https://www.nerwy-ue.com/docs/easy-game-ui-3-0/options-menu/">
+      
+      
+        <link rel="prev" href="index-10.html">
+      
+      
+        <link rel="next" href="index-12.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="main-content/Logo.webp">
+      <meta name="generator" content="zensical-0.0.42">
+    
+    
+      
+        <title>Options Menu - Easy Game UI 3.0 文档</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="static/css/main.fba56155.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="static/css/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="static/css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="导航"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#options-menu" class="md-skip">跳到正文</a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="./.." title="Easy Game UI 3.0 文档" class="md-header__button md-logo" aria-label="Easy Game UI 3.0 文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewbox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="导航">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewbox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Easy Game UI 3.0 文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">Options Menu</span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="pink" aria-label="切换到浅色模式" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="pink" aria-label="切换到深色模式" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewbox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="搜索">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewbox="0 0 24 24"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="搜索">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Easy Game UI 3.0 文档" class="md-nav__button md-logo" aria-label="Easy Game UI 3.0 文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewbox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+
+    </a>
+    Easy Game UI 3.0 文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-rocket" viewbox="0 0 24 24"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"></path><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"></path></svg>
+  
+  <span class="md-ellipsis">欢迎！</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-1.html" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-scroll-text" viewbox="0 0 24 24"><path d="M15 12h-5M15 8h-5M19 17V5a2 2 0 0 0-2-2H4"></path><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"></path></svg>
+  
+  <span class="md-ellipsis">更新日志</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">1. 快速上手</span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>1. 快速上手</label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">项目设置</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">资源安装</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">Game Instance 设置</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">游戏 HUD 设置</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">额外设置与系统测试</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">全局配置与样式系统</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index-8.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">2. 全局用法</span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>2. 全局用法</label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-9.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">主菜单与开场画面</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-10.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">暂停菜单</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Options Menu
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index-11.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">选项菜单</span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="本页目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>本页目录</label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#keybindings-settings-setup" class="md-nav__link"><span class="md-ellipsis">按键绑定设置配置</span></a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphics-settings-setup" class="md-nav__link"><span class="md-ellipsis">图形设置配置</span></a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gameplay-settings-setup" class="md-nav__link"><span class="md-ellipsis">玩法设置配置</span></a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audio-settings-setup" class="md-nav__link"><span class="md-ellipsis">音频设置配置</span></a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-upscaling-setup-dlss-fsr-xess" class="md-nav__link"><span class="md-ellipsis">外部超分辨率设置（DLSS、FSR、XeSS）</span></a>
+  
+    <nav class="md-nav" aria-label="External Upscaling Setup (DLSS, FSR, XeSS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plugins-installation" class="md-nav__link"><span class="md-ellipsis">插件安装</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-setup" class="md-nav__link"><span class="md-ellipsis">项目设置</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-guides-for-upscaling" class="md-nav__link"><span class="md-ellipsis">升采样（Upscaling）附加指南</span></a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmarking-tool-setup" class="md-nav__link"><span class="md-ellipsis">基准测试工具设置</span></a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">存档系统</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">拍照模式</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-14.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">游戏制作人员名单</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">3. 核心系统用法</span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>3. 核心系统用法</label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-15.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">设置系统</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-16.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">UI 导航系统</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-17.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">模块化控件系统</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-18.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">输入提示系统</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-19.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">移除演示内容</span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="本页目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>本页目录</label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#keybindings-settings-setup" class="md-nav__link"><span class="md-ellipsis">按键绑定设置配置</span></a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphics-settings-setup" class="md-nav__link"><span class="md-ellipsis">图形设置配置</span></a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gameplay-settings-setup" class="md-nav__link"><span class="md-ellipsis">玩法设置配置</span></a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audio-settings-setup" class="md-nav__link"><span class="md-ellipsis">音频设置配置</span></a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-upscaling-setup-dlss-fsr-xess" class="md-nav__link"><span class="md-ellipsis">外部超分辨率设置（DLSS、FSR、XeSS）</span></a>
+  
+    <nav class="md-nav" aria-label="External Upscaling Setup (DLSS, FSR, XeSS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plugins-installation" class="md-nav__link"><span class="md-ellipsis">插件安装</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-setup" class="md-nav__link"><span class="md-ellipsis">项目设置</span></a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-guides-for-upscaling" class="md-nav__link"><span class="md-ellipsis">升采样（Upscaling）附加指南</span></a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmarking-tool-setup" class="md-nav__link"><span class="md-ellipsis">基准测试工具设置</span></a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="options-menu">选项菜单<a class="headerlink" href="#options-menu" title="本页锚点">¶</a></h1>
+<p>选项菜单系统可从提供的主菜单或暂停菜单中进入。部分设置以及选项菜单的一部分功能可能需要额外配置才能在项目中完全可用并完成集成，你可以在以下指南中找到所有必要的细节：</p>
+<ul>
+<li><a data-preview="" href="#keybindings-settings-setup">按键绑定设置配置</a></li>
+<li><a data-preview="" href="#graphics-settings-setup">图形设置配置</a></li>
+<li><a data-preview="" href="#gameplay-settings-setup">玩法设置配置</a></li>
+<li><a data-preview="" href="#audio-settings-setup">音频设置配置</a></li>
+<li><a data-preview="" href="#external-upscaling-setup-dlss-fsr-xess">外部超分设置（DLSS、FSR、XeSS）</a></li>
+<li><a data-preview="" href="#benchmarking-tool-setup">基准测试工具配置</a></li>
+</ul>
+<p>请查看<a data-preview="" href="index-15.html">设置系统用法</a>章节，了解有关如何添加或删除新设置，以及在选项菜单以外的任何系统中使用设置的更多细节。</p>
+<hr>
+<h2 id="keybindings-settings-setup">按键绑定设置配置<a class="headerlink" href="#keybindings-settings-setup" title="本页锚点">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title">简介说明</p>
+<p>本资源提供的按键重绑定系统使用 Unreal Engine 的增强输入系统（Enhanced Input System）。如果你仍在使用已弃用的旧输入系统，需要先将输入转换到这套新系统。你可以查看 <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/enhanced-input-in-unreal-engine?application_version=5.3" target="_blank">Unreal 的文档，了解如何开始使用增强输入</a></p>
+<p>增强输入配置的示例位于 <code>EasyGameUI/DemoContent/Inputs</code> 文件夹中，其中的输入在 <code>BP_EGUI_DemoMainCharacter</code> 中使用</p>
+</div>
+<ol>
+<li>
+<p>要开始配置按键绑定，你首先需要配置系统会考虑哪些输入映射上下文（Input Mapping Context），以及应如何处理分组与冲突。</p>
+<p>为此，请打开你的全局配置数据资源（Global Config Data Asset），然后在选项菜单（Options Menu）部分可以找到以下相关设置：</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-2-5.webp"><img alt="" height="153" loading="lazy" src="static/image/image-2-5.webp" width="827"></a></p>
+<ul>
+<li><a href="index-7.html"><code>Keybinding Mapping Contexts</code></a> 该变量定义了所有输入映射上下文的列表，这些上下文包含可重新绑定的输入，并且你希望它们在按键重绑定系统中使用。如果按映射上下文分组，与每个上下文关联的文本将用作类别名称</li>
+<li>
+<p><a href="index-7.html"><code>Keybinding Mappings Grouping Type</code></a> 该变量定义了在菜单中显示按键绑定时采用的分组方式</p>
+<blockquote>
+<ul>
+<li><code>Group by Mapping Context</code> 将所有按键绑定归到由输入映射上下文定义的类别下</li>
+<li><code>Group by Input Category</code> 按每个按键自身的 <code>Display Category</code> 对所有按键绑定进行分组，与映射上下文无关</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p><a href="index-7.html"><code>Keybinding Mappings Conflict Method</code></a> 该变量定义了系统应如何处理按键绑定冲突</p>
+<blockquote>
+<ul>
+<li><code>Conflicts by Input Mapping Context</code> 只有同一输入映射上下文内的按键才会冲突（与显示类别无关）</li>
+<li><code>Conflicts by Category</code> 只有同一显示类别内的按键才会冲突（与输入映射上下文无关）——<em>请注意，根据你的输入配置，这可能会在 IMC 内产生非预期的行为，如果合适，可以考虑使用“Conflicts All”</em></li>
+<li><code>Conflicts All</code> 所有按键都会被纳入冲突检测（与类别或 IMC 无关），这意味着所有可用的按键映射之间都不允许出现任何冲突</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>配置完成后，打开你希望设置用于重新绑定的输入映射上下文</p>
+</li>
+<li>
+<p>然后，对于你希望出现在按键绑定设置中的每个按键（即使它对玩家是锁定的），按下方描述的以下参数进行配置</p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%201-3.webp"><img alt="" height="335" loading="lazy" src="static/image/Untitled%201-3.webp" width="1319"></a></p>
+<ul>
+<li><strong><code>Setting Behavior</code></strong> 如果该按键需要在设置中可见，应设为 <code>Override Settings</code>；如果应完全隐藏，则设为 <code>Ignore Settings</code></li>
+<li><strong><code>Player Mappable Key Settings</code></strong> 只需在该变量的下拉菜单中选择 <code>Player Mappable Key Settings</code></li>
+<li>
+<p><strong><code>Name</code></strong> 必须是用于描述该按键的完全<strong>唯一名称</strong>。名称本身并不重要，但必须唯一</p>
+<div class="admonition abstract">
+<p class="admonition-title">按键绑定修饰符</p>
+<p>系统支持多种“修饰符”，可以添加到任意按键上以改变其行为。要添加修饰符，只需在你的唯一名称末尾加上 <code>_ModifierName</code>，可用的修饰符如下：</p>
+<ul>
+<li><code>_Secondary</code> 带有该修饰符的按键会显示在次要槽位中（仅支持鼠标/键盘按键），它可以与同一映射中的主要按键绑定一同显示</li>
+<li><code>_Locked</code> 带有该修饰符的按键会在 UI 中显示，但玩家无法手动重新绑定它</li>
+<li><code>_AllowConflicts</code> 带有该修饰符的按键会忽略所有冲突，这意味着其他任何按键绑定都允许使用与该按键相同的键</li>
+<li><code>_Hold</code> 带有该修饰符的按键会显示为“Hold”键，这不会改变按键重绑定的工作方式，只会改变按键的视觉显示</li>
+</ul>
+<p>你可以组合任意修饰符，例如：<code>MoveForward_Hold_Locked</code> 或 <code>MoveForward_AllowConflicts_Secondary</code> 等等。</p>
+</div>
+</li>
+<li>
+<p><strong><code>Display Name</code></strong> 你希望在 UI 中显示的名称，此名称可以与其他按键复用相同文本，最多 3 个按键可以共享同一个 Display Name（2 个鼠标/键盘按键和 1 个手柄按键），这种情况下它们会在同一个按键绑定设置中一起显示</p>
+</li>
+<li><strong><code>Display Category</code></strong> 如果你在全局配置中选择按按键类别排序，这将是该按键显示时所属的类别</li>
+<li>然后你可以忽略任何我没有提到的设置</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="graphics-settings-setup">图形设置配置<a class="headerlink" href="#graphics-settings-setup" title="本页锚点">¶</a></h2>
+<p>开箱即用，系统提供了一整套图形设置，无需任何额外配置即可工作。以下说明仅为建议，应用后可以改进你的项目中的系统。</p>
+<details class="abstract" open="open">
+<summary>改进的图形可扩展性设置</summary>
+<p>Unreal Engine 有一套默认的可扩展性规则来定义所有图形设置（阴影、光照、纹理等），但这些规则往往过于极端，尤其是在较低设置下（例如在 Low 下完全禁用阴影）。</p>
+<p>为改善这一点，你可以使用以下可扩展性设置，即使在低/中图形设置下也能提供更“合理”的配置。 <br> 要使用它，只需打开文件资源管理器，进入项目的 <code>Config</code> 文件夹并创建一个 <code>DefaultScalability.ini</code> 文件。 <br> 然后，复制以下文本并粘贴到创建好的文件中：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>;-----------------------------------------------------------------------------------------------------------------
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>[ViewDistanceQuality@0]
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>r.ViewDistanceScale=0.5
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>[ViewDistanceQuality@1]
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>r.ViewDistanceScale=0.65
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>;-----------------------------------------------------------------------------------------------------------------
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>[PostProcessQuality@0]
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>-r.MotionBlurQuality=0
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>r.MotionBlur.HalfResGather=1
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>r.AmbientOcclusionMaxQuality=40
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>r.DepthOfFieldQuality=1
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>r.Tonemapper.Quality=2
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>r.DOF.Gather.ResolutionDivisor=2 ; lower gathering resolution
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>r.DOF.Gather.AccumulatorQuality=0; lower gathering accumulator quality
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>r.DOF.Gather.PostfilterMethod=2  ; Max3x3 postfilering method
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>r.DOF.Gather.EnableBokehSettings=0   ; no bokeh simulation when gathering
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>r.DOF.Gather.RingCount=3 ; low number of samples when gathering
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>r.DOF.Scatter.ForegroundCompositing=0; no foreground scattering
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>r.DOF.Scatter.BackgroundCompositing=0; no foreground scattering
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>r.DOF.Recombine.Quality=0; no slight out of focus
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>r.DOF.TemporalAAQuality=0; faster temporal accumulation
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>r.DOF.Kernel.MaxForegroundRadius=0.005   ; required because low gathering and no scattering and not looking great at 1080p
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>r.DOF.Kernel.MaxBackgroundRadius=0.005   ; required because low gathering and no scattering and not looking great at 1080p
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>[PostProcessQuality@1]
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>-r.MotionBlurQuality=3
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>r.MotionBlur.HalfResGather=1
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>r.LensFlareQuality=1
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>r.FastBlurThreshold=3
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>r.Tonemapper.Quality=4
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>[PostProcessQuality@2]
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>-r.MotionBlurQuality=3
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>r.MotionBlur.HalfResGather=0
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>r.FastBlurThreshold=7
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>[PostProcessQuality@3]
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>-r.MotionBlurQuality=4
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>r.MotionBlur.HalfResGather=0
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>;-----------------------------------------------------------------------------------------------------------------
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>[AntiAliasingQuality@0]
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>r.FXAA.Quality=1
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>r.TemporalAA.Quality=1
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>r.TSR.RejectionAntiAliasingQuality=1
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>[AntiAliasingQuality@1]
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>r.FXAA.Quality=2
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>;-----------------------------------------------------------------------------------------------------------------
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>[ShadowQuality@0]
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>r.LightFunctionQuality=1
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>r.ShadowQuality=2
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>r.Shadow.CSM.MaxCascades=2
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>r.Shadow.MaxCSMResolution=1024
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>r.Shadow.DistanceScale=0.65
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>-r.VolumetricFog=0
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>r.LightMaxDrawDistanceScale=0.25
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>r.CapsuleShadows=1
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>r.Shadow.Virtual.SMRT.RayCountDirectional=2
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>r.Shadow.Virtual.SMRT.RayCountLocal=2
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>[ShadowQuality@1]
+</span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>r.Shadow.CSM.MaxCascades=2
+</span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a>r.Shadow.DistanceScale=0.75
+</span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a>r.Shadow.CSM.TransitionScale=0.3
+</span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a>-r.VolumetricFog=0
+</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a>r.Shadow.Virtual.MaxPhysicalPages=1024
+</span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a>
+</span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a>[ShadowQuality@2]
+</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a>r.ShadowQuality=4
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a>r.Shadow.DistanceScale=0.9
+</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a>-r.VolumetricFog=1
+</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a>-r.VolumetricFog.GridPixelSize=16
+</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a>-r.VolumetricFog.GridSizeZ=64
+</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a>-r.VolumetricFog.HistoryMissSupersampleCount=4
+</span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a>
+</span><span id="__span-0-85"><a id="__codelineno-0-85" name="__codelineno-0-85" href="#__codelineno-0-85"></a>[ShadowQuality@3]
+</span><span id="__span-0-86"><a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a>-r.VolumetricFog=1
+</span><span id="__span-0-87"><a id="__codelineno-0-87" name="__codelineno-0-87" href="#__codelineno-0-87"></a>-r.VolumetricFog.GridPixelSize=8
+</span><span id="__span-0-88"><a id="__codelineno-0-88" name="__codelineno-0-88" href="#__codelineno-0-88"></a>-r.VolumetricFog.GridSizeZ=128
+</span><span id="__span-0-89"><a id="__codelineno-0-89" name="__codelineno-0-89" href="#__codelineno-0-89"></a>-r.VolumetricFog.HistoryMissSupersampleCount=4
+</span><span id="__span-0-90"><a id="__codelineno-0-90" name="__codelineno-0-90" href="#__codelineno-0-90"></a>
+</span><span id="__span-0-91"><a id="__codelineno-0-91" name="__codelineno-0-91" href="#__codelineno-0-91"></a>;-----------------------------------------------------------------------------------------------------------------
+</span><span id="__span-0-92"><a id="__codelineno-0-92" name="__codelineno-0-92" href="#__codelineno-0-92"></a>
+</span><span id="__span-0-93"><a id="__codelineno-0-93" name="__codelineno-0-93" href="#__codelineno-0-93"></a>[GlobalIlluminationQuality@0]
+</span><span id="__span-0-94"><a id="__codelineno-0-94" name="__codelineno-0-94" href="#__codelineno-0-94"></a>r.DistanceFieldAO=1
+</span><span id="__span-0-95"><a id="__codelineno-0-95" name="__codelineno-0-95" href="#__codelineno-0-95"></a>r.AOQuality=1
+</span><span id="__span-0-96"><a id="__codelineno-0-96" name="__codelineno-0-96" href="#__codelineno-0-96"></a>r.SSGI.Quality=1
+</span><span id="__span-0-97"><a id="__codelineno-0-97" name="__codelineno-0-97" href="#__codelineno-0-97"></a>
+</span><span id="__span-0-98"><a id="__codelineno-0-98" name="__codelineno-0-98" href="#__codelineno-0-98"></a>[GlobalIlluminationQuality@1]
+</span><span id="__span-0-99"><a id="__codelineno-0-99" name="__codelineno-0-99" href="#__codelineno-0-99"></a>r.SSGI.Quality=2
+</span><span id="__span-0-100"><a id="__codelineno-0-100" name="__codelineno-0-100" href="#__codelineno-0-100"></a>
+</span><span id="__span-0-101"><a id="__codelineno-0-101" name="__codelineno-0-101" href="#__codelineno-0-101"></a>[GlobalIlluminationQuality@2]
+</span><span id="__span-0-102"><a id="__codelineno-0-102" name="__codelineno-0-102" href="#__codelineno-0-102"></a>r.SSGI.Quality=3
+</span><span id="__span-0-103"><a id="__codelineno-0-103" name="__codelineno-0-103" href="#__codelineno-0-103"></a>
+</span><span id="__span-0-104"><a id="__codelineno-0-104" name="__codelineno-0-104" href="#__codelineno-0-104"></a>[GlobalIlluminationQuality@3]
+</span><span id="__span-0-105"><a id="__codelineno-0-105" name="__codelineno-0-105" href="#__codelineno-0-105"></a>r.SSGI.Quality=4
+</span><span id="__span-0-106"><a id="__codelineno-0-106" name="__codelineno-0-106" href="#__codelineno-0-106"></a>
+</span><span id="__span-0-107"><a id="__codelineno-0-107" name="__codelineno-0-107" href="#__codelineno-0-107"></a>;-----------------------------------------------------------------------------------------------------------------
+</span><span id="__span-0-108"><a id="__codelineno-0-108" name="__codelineno-0-108" href="#__codelineno-0-108"></a>
+</span><span id="__span-0-109"><a id="__codelineno-0-109" name="__codelineno-0-109" href="#__codelineno-0-109"></a>[ReflectionQuality@0]
+</span><span id="__span-0-110"><a id="__codelineno-0-110" name="__codelineno-0-110" href="#__codelineno-0-110"></a>r.SSR.Quality=2
+</span><span id="__span-0-111"><a id="__codelineno-0-111" name="__codelineno-0-111" href="#__codelineno-0-111"></a>
+</span><span id="__span-0-112"><a id="__codelineno-0-112" name="__codelineno-0-112" href="#__codelineno-0-112"></a>[ReflectionQuality@3]
+</span><span id="__span-0-113"><a id="__codelineno-0-113" name="__codelineno-0-113" href="#__codelineno-0-113"></a>r.Lumen.TranslucencyReflections.FrontLayer.Enable=1
+</span><span id="__span-0-114"><a id="__codelineno-0-114" name="__codelineno-0-114" href="#__codelineno-0-114"></a>
+</span><span id="__span-0-115"><a id="__codelineno-0-115" name="__codelineno-0-115" href="#__codelineno-0-115"></a>;-----------------------------------------------------------------------------------------------------------------
+</span><span id="__span-0-116"><a id="__codelineno-0-116" name="__codelineno-0-116" href="#__codelineno-0-116"></a>
+</span><span id="__span-0-117"><a id="__codelineno-0-117" name="__codelineno-0-117" href="#__codelineno-0-117"></a>[TextureQuality@0]
+</span><span id="__span-0-118"><a id="__codelineno-0-118" name="__codelineno-0-118" href="#__codelineno-0-118"></a>r.Streaming.MipBias=2
+</span><span id="__span-0-119"><a id="__codelineno-0-119" name="__codelineno-0-119" href="#__codelineno-0-119"></a>r.Streaming.MaxNumTexturesToStreamPerFrame=2
+</span><span id="__span-0-120"><a id="__codelineno-0-120" name="__codelineno-0-120" href="#__codelineno-0-120"></a>r.Streaming.Boost=0.5
+</span><span id="__span-0-121"><a id="__codelineno-0-121" name="__codelineno-0-121" href="#__codelineno-0-121"></a>r.MaxAnisotropy=2
+</span><span id="__span-0-122"><a id="__codelineno-0-122" name="__codelineno-0-122" href="#__codelineno-0-122"></a>r.Streaming.PoolSize=500
+</span><span id="__span-0-123"><a id="__codelineno-0-123" name="__codelineno-0-123" href="#__codelineno-0-123"></a>
+</span><span id="__span-0-124"><a id="__codelineno-0-124" name="__codelineno-0-124" href="#__codelineno-0-124"></a>[TextureQuality@1]
+</span><span id="__span-0-125"><a id="__codelineno-0-125" name="__codelineno-0-125" href="#__codelineno-0-125"></a>r.Streaming.PoolSize=750
+</span><span id="__span-0-126"><a id="__codelineno-0-126" name="__codelineno-0-126" href="#__codelineno-0-126"></a>
+</span><span id="__span-0-127"><a id="__codelineno-0-127" name="__codelineno-0-127" href="#__codelineno-0-127"></a>[TextureQuality@2]
+</span><span id="__span-0-128"><a id="__codelineno-0-128" name="__codelineno-0-128" href="#__codelineno-0-128"></a>r.Streaming.PoolSize=1000
+</span><span id="__span-0-129"><a id="__codelineno-0-129" name="__codelineno-0-129" href="#__codelineno-0-129"></a>
+</span><span id="__span-0-130"><a id="__codelineno-0-130" name="__codelineno-0-130" href="#__codelineno-0-130"></a>[TextureQuality@3]
+</span><span id="__span-0-131"><a id="__codelineno-0-131" name="__codelineno-0-131" href="#__codelineno-0-131"></a>r.Streaming.PoolSize=1500
+</span><span id="__span-0-132"><a id="__codelineno-0-132" name="__codelineno-0-132" href="#__codelineno-0-132"></a>
+</span><span id="__span-0-133"><a id="__codelineno-0-133" name="__codelineno-0-133" href="#__codelineno-0-133"></a>;-----------------------------------------------------------------------------------------------------------------
+</span><span id="__span-0-134"><a id="__codelineno-0-134" name="__codelineno-0-134" href="#__codelineno-0-134"></a>
+</span><span id="__span-0-135"><a id="__codelineno-0-135" name="__codelineno-0-135" href="#__codelineno-0-135"></a>[EffectsQuality@0]
+</span><span id="__span-0-136"><a id="__codelineno-0-136" name="__codelineno-0-136" href="#__codelineno-0-136"></a>r.SSS.Scale=0.5
+</span><span id="__span-0-137"><a id="__codelineno-0-137" name="__codelineno-0-137" href="#__codelineno-0-137"></a>-r.SSGI.Quality=0
+</span><span id="__span-0-138"><a id="__codelineno-0-138" name="__codelineno-0-138" href="#__codelineno-0-138"></a>r.EmitterSpawnRateScale=0.15
+</span><span id="__span-0-139"><a id="__codelineno-0-139" name="__codelineno-0-139" href="#__codelineno-0-139"></a>
+</span><span id="__span-0-140"><a id="__codelineno-0-140" name="__codelineno-0-140" href="#__codelineno-0-140"></a>[EffectsQuality@1]
+</span><span id="__span-0-141"><a id="__codelineno-0-141" name="__codelineno-0-141" href="#__codelineno-0-141"></a>-r.SSGI.Quality=1
+</span><span id="__span-0-142"><a id="__codelineno-0-142" name="__codelineno-0-142" href="#__codelineno-0-142"></a>r.EmitterSpawnRateScale=0.3
+</span><span id="__span-0-143"><a id="__codelineno-0-143" name="__codelineno-0-143" href="#__codelineno-0-143"></a>
+</span><span id="__span-0-144"><a id="__codelineno-0-144" name="__codelineno-0-144" href="#__codelineno-0-144"></a>[EffectsQuality@2]
+</span><span id="__span-0-145"><a id="__codelineno-0-145" name="__codelineno-0-145" href="#__codelineno-0-145"></a>r.DetailMode=2
+</span><span id="__span-0-146"><a id="__codelineno-0-146" name="__codelineno-0-146" href="#__codelineno-0-146"></a>-r.SSGI.Quality=2
+</span><span id="__span-0-147"><a id="__codelineno-0-147" name="__codelineno-0-147" href="#__codelineno-0-147"></a>r.EmitterSpawnRateScale=0.6
+</span><span id="__span-0-148"><a id="__codelineno-0-148" name="__codelineno-0-148" href="#__codelineno-0-148"></a>
+</span><span id="__span-0-149"><a id="__codelineno-0-149" name="__codelineno-0-149" href="#__codelineno-0-149"></a>[EffectsQuality@3]
+</span><span id="__span-0-150"><a id="__codelineno-0-150" name="__codelineno-0-150" href="#__codelineno-0-150"></a>r.MaterialQualityLevel=3 ; High quality
+</span><span id="__span-0-151"><a id="__codelineno-0-151" name="__codelineno-0-151" href="#__codelineno-0-151"></a>-r.SSGI.Quality=3
+</span><span id="__span-0-152"><a id="__codelineno-0-152" name="__codelineno-0-152" href="#__codelineno-0-152"></a>
+</span><span id="__span-0-153"><a id="__codelineno-0-153" name="__codelineno-0-153" href="#__codelineno-0-153"></a>;-----------------------------------------------------------------------------------------------------------------
+</span><span id="__span-0-154"><a id="__codelineno-0-154" name="__codelineno-0-154" href="#__codelineno-0-154"></a>
+</span><span id="__span-0-155"><a id="__codelineno-0-155" name="__codelineno-0-155" href="#__codelineno-0-155"></a>[FoliageQuality@0]
+</span><span id="__span-0-156"><a id="__codelineno-0-156" name="__codelineno-0-156" href="#__codelineno-0-156"></a>foliage.DensityScale=0.3
+</span><span id="__span-0-157"><a id="__codelineno-0-157" name="__codelineno-0-157" href="#__codelineno-0-157"></a>grass.DensityScale=0.3
+</span><span id="__span-0-158"><a id="__codelineno-0-158" name="__codelineno-0-158" href="#__codelineno-0-158"></a>
+</span><span id="__span-0-159"><a id="__codelineno-0-159" name="__codelineno-0-159" href="#__codelineno-0-159"></a>[FoliageQuality@1]
+</span><span id="__span-0-160"><a id="__codelineno-0-160" name="__codelineno-0-160" href="#__codelineno-0-160"></a>foliage.DensityScale=0.6
+</span><span id="__span-0-161"><a id="__codelineno-0-161" name="__codelineno-0-161" href="#__codelineno-0-161"></a>grass.DensityScale=0.6
+</span><span id="__span-0-162"><a id="__codelineno-0-162" name="__codelineno-0-162" href="#__codelineno-0-162"></a>
+</span><span id="__span-0-163"><a id="__codelineno-0-163" name="__codelineno-0-163" href="#__codelineno-0-163"></a>;-----------------------------------------------------------------------------------------------------------------
+</span></code></pre></div>
+<p>你可以根据自己游戏的具体需求随意调整这些可扩展性设置，作为参考，你可以在以下文件中找到引擎默认的可扩展性设置： <br> <code>[UE Install Folder]\Engine\Config\BaseScalability.ini</code></p>
+</details>
+<details class="abstract">
+<summary>在首次启动游戏时应用图形预设</summary>
+<p>大多数情况下，Unreal Engine 在首次启动游戏时通常会默认使用 Epic/Ultra 图形预设，这在配置较低的硬件上可能带来较差的体验。</p>
+<p>为帮助解决这个问题，系统在全局配置中提供了一个<a data-preview="" href="index-7.html">内置参数</a>，你可以调整它在首次启动时应用你选择的特定预设。 <br> <a class="glightbox" data-type="image" href="static/image/image-9-3.webp"><img alt="" height="31" loading="lazy" src="static/image/image-9-3.webp" width="830"></a></p>
+</details>
+<hr>
+<h2 id="gameplay-settings-setup">玩法设置配置<a class="headerlink" href="#gameplay-settings-setup" title="本页锚点">¶</a></h2>
+<p>开箱即用，选项菜单提供了若干玩法选项，其中一些会根据你的项目配置自动生效，另一些则需要按本节所述进行简单的额外配置</p>
+<p><a class="glightbox" data-type="image" href="static/image/2026-05-26_175721_320.webp"><img alt="" height="645" loading="lazy" src="static/image/2026-05-26_175721_320.webp" width="1492"></a></p>
+<details class="abstract">
+<summary>语言</summary>
+<p>语言设置会与 Unreal Engine 提供的内置<a href="https://dev.epicgames.com/documentation/unreal-engine/localization-tools-in-unreal-engine">本地化仪表板工具</a>自动配合工作，在该工具中配置的任何语言都会显示在选项菜单中供用户选择，无需任何额外配置。</p>
+</details>
+<details class="abstract">
+<summary>手柄图标</summary>
+<p>手柄图标设置允许用户选择输入图标应使用哪个手柄品牌，此设置无需任何配置，开箱即用。</p>
+<p>如果你希望更改应用于游戏的默认手柄品牌，可以在全局样式数据资源（Global Styling Data Asset）中通过 <a data-preview="" href="index-7.html"><code>Default Gamepad Keys Brand</code></a> 设置进行修改</p>
+</details>
+<details class="abstract">
+<summary>相机视野</summary>
+<p>视野设置应无需额外配置即可自动生效，但在某些情况下，它可能会将 FOV 应用到错误的游戏相机上。</p>
+<p>如果你遇到此问题，请打开 <code>EasyGameUI/EasyOptionsMenu/Core/SettingManagers/GameplaySettings</code> 中的蓝图 <code>BP_SettingCameraFOV</code> <br> 然后在 <code>Apply Setting Value</code> 函数中，将红色注释内的逻辑替换为你自己的逻辑，以从角色上获取正确的游戏相机</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-8-3.webp"><img alt="" height="328" loading="lazy" src="static/image/image-8-3.webp" width="1428"></a></p>
+</details>
+<details class="abstract">
+<summary>灵敏度与相机反转</summary>
+<p>鼠标和手柄相机的玩法选项使用增强输入修饰符（Enhanced Input Modifiers）应用到你的输入映射上下文，并按所请求的灵敏度和相机反转设置修改输入。你可以在 <code>IMC_EGUI_DemoInputs</code>（<code>EasyGameUI/DemoContent/Inputs</code>）中看到此配置的示例</p>
+<ol>
+<li>要应用这些设置，只需打开包含相机输入的输入映射上下文</li>
+<li>
+<p>然后，在你的“Look”输入中，添加对应的 <code>Modifiers</code>：鼠标输入添加 <code>Mouse Sensitivity</code>，并根据你设置的鼠标轴添加 <code>Invert XAxis</code> 或 <code>Invert YAxis</code>。</p>
+<p>如果你使用的是单个 <code>Mouse XY 2D-Axis</code>，那么只需为该输入添加 Mouse Sensitivity 修改器，以及 <code>Invert XAxis</code> 和 <code>Invert YAxis</code> 两个修改器即可</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2020-1.webp"><img alt="" height="473" loading="lazy" src="static/image/image%2020-1.webp" width="1065"></a></p>
+</li>
+<li>
+<p>对手柄输入重复上述操作，但使用 <code>Gamepad Sensitivity</code> 而非 Mouse Sensitivity。<code>Invert XAxis</code> 和 <code>Invert YAxis</code> 的说明同样适用</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2021-1.webp"><img alt="" height="466" loading="lazy" src="static/image/image%2021-1.webp" width="1110"></a></p>
+</li>
+</ol>
+</details>
+<hr>
+<h2 id="audio-settings-setup">音频设置配置<a class="headerlink" href="#audio-settings-setup" title="本页锚点">¶</a></h2>
+<p>要设置项目中的音频设置，你可以使用资源包提供的音频类，也可以在系统中实现自己的类</p>
+<details class="abstract">
+<summary>使用提供的音频声音类</summary>
+<ol>
+<li>
+<p>进入项目设置（Project Settings）</p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%202-3.webp"><img alt="" height="342" loading="lazy" src="static/image/Untitled%202-3.webp" width="479"></a></p>
+</li>
+<li>
+<p>在“Engine”下，搜索 <code>Audio</code> 类别</p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%203-2.webp"><img alt="" height="150" loading="lazy" src="static/image/Untitled%203-2.webp" width="237"></a></p>
+</li>
+<li>
+<p>现在为 <code>Default Sound Class</code>、<code>Media Sound Class</code>、<code>Default Base Sound Mix</code> 填入提供的对应声音类，值如下：</p>
+<p>前两项填入 <code>SC_EGUI_MasterAudio</code>，声音混合项填入 <code>SCM_EGUI_MasterMix</code>，如下图所示</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-10-2.webp"><img alt="" height="347" loading="lazy" src="static/image/image-10-2.webp" width="1186"></a></p>
+</li>
+<li>
+<p>然后，打开你的 Global Config Data Asset，找到 <a data-preview="" href="index-7.html"><code>Game Audio Classes</code></a> 设置，填入对应的值（<code>Master</code> 中为 <code>SC_EGUI_MasterAudio</code>，等等。你也可以在 Demo Config Data Asset 中找到此配置）</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-11-3.webp"><img alt="" height="346" loading="lazy" src="static/image/image-11-3.webp" width="829"></a></p>
+</li>
+<li>
+<p>接着，你需要为你项目中使用的每个 Sound Wave／Sound Cue 资源配置正确的音频类别。<br> 为此，在 Sound Wave 或 Sound Cue 资源中，找到 Sound Category 下的 <code>Class</code>，并选择提供的某个声音类：<code>SC_EGUI_EffectsAudio</code> / <code>SC_EGUI_MusicAudio</code> / <code>SC_EGUI_UIAudio</code> / <code>SC_EGUI_AmbientAudio</code></p>
+<p><em>在 Sound Cue 资源中</em> <br> <a class="glightbox" data-type="image" href="static/image/image-13-1.webp"><img alt="" height="516" loading="lazy" src="static/image/image-13-1.webp" width="635"></a></p>
+<p><em>在 Sound Wave 资源中</em> <br> <a class="glightbox" data-type="image" href="static/image/image-12-3.webp"><img alt="" height="561" loading="lazy" src="static/image/image-12-3.webp" width="1413"></a></p>
+</li>
+</ol>
+</details>
+<details class="abstract">
+<summary>使用你自己的声音类</summary>
+<ol>
+<li>要使用你自己的音频类，只需打开你的 Global Config Data Asset，找到 <a data-preview="" href="index-7.html"><code>Game Audio Classes</code></a> 设置</li>
+<li>
+<p>找到后，用你系统中对应的音频类填充每个类别，下面是使用演示声音类的示例，这些类也可以在 Demo Config Data Asset 中看到</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-18.webp"><img alt="" height="346" loading="lazy" src="static/image/image-18.webp" width="825"></a></p>
+</li>
+<li>
+<p>音频类现在将由选项菜单中对应名称的设置控制。如果你想添加新的类，请查看下一节</p>
+</li>
+</ol>
+</details>
+<p><br></p>
+<details class="abstract">
+<summary>添加新的声音类/音频设置</summary>
+<p>如果你想在系统中注册新的声音类，无论是已有的自定义类，还是与资源包提供的类并存的新类，都可以按以下步骤操作：</p>
+<ol>
+<li>
+<p>如果你使用的是提供的 master 声音类（<code>EasyGameUI/Core/Audio/SC_EGUI_MasterAudio</code>），请打开它，然后从“Children”拖出一根连线到图表中的空白处，输入这个新类的名称并按回车。这样会在 master 所在的同一文件夹中自动生成一个新的声音类。</p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%207.webp"><img alt="" height="556" loading="lazy" src="static/image/Untitled%207.webp" width="599"></a></p>
+</li>
+<li>
+<p>然后，打开位于 <code>EasyGameUI/EasyOptionsMenu/Datas/</code> 文件夹中的枚举 <code>E_AudioClasses</code></p>
+</li>
+<li>
+<p>使用 <code>Add Enumerator</code> 按钮添加一个新的项，然后在新生成的字段中为它命名</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%205-5.webp"><img alt="" height="297" loading="lazy" src="static/image/image%205-5.webp" width="1395"></a></p>
+</li>
+<li>
+<p>接着，进入 <code>EasyGameUI/EasyOptionsMenu/Core/SettingsManagers/AudioSettings</code> 文件夹，复制其中的任意蓝图，例如 <code>BP_SettingAudio_Master</code>（右键 &gt; 复制，或按 Ctrl + D）</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-19.webp"><img alt="" height="474" loading="lazy" src="static/image/image-19.webp" width="875"></a></p>
+</li>
+<li>
+<p>为这个新蓝图取一个你喜欢的名称并打开它，你会在 Details 面板中看到以下参数</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-18-1.webp"><img alt="" height="497" loading="lazy" src="static/image/image-18-1.webp" width="575"></a></p>
+<ul>
+<li><code>Audio Class</code> 首先在此变量的下拉菜单中选择你创建的音频枚举值</li>
+<li><code>Setting Data</code> 然后按你的喜好配置该设置（显示名称、描述、数值等）。这些内容将由 UI 中的设置控件使用</li>
+</ul>
+</li>
+<li>
+<p>然后，我们只需在 <code>WBP_EasyOptionsMenuMain</code>（<code>EasyOptionsMenu/Core/</code>）中为此设置添加一个控件</p>
+</li>
+<li>
+<p>在控件的 Hierarchy 中，搜索任一 <code>Audio Setting</code>（例如我将用作示例的 <code>Ambient Audio Setting</code>），然后复制它（Ctrl+D）</p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%208-1.webp"><img alt="" height="486" loading="lazy" src="static/image/Untitled%208-1.webp" width="392"></a></p>
+</li>
+<li>
+<p>为该控件取一个合适的名称，然后在 <code>Easy Config</code> 类别下的 <code>Setting Manager</code> 变量中选择你刚创建的蓝图。</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-21.webp"><img alt="" height="657" loading="lazy" src="static/image/image-21.webp" width="659"></a></p>
+<p><em>你不需要更改其他任何内容，该设置应该已经正确配置</em></p>
+</li>
+<li>
+<p>最后，我们只需在 Global Config 中引用新的音频类和设置，以便系统正确注册。</p>
+</li>
+<li>
+<p>打开你的 Global Config data asset，在 <a data-preview="" href="index-7.html"><code>Game Audio Classes</code></a> 变量中，使用 <code>+</code> 按钮添加一个新条目。</p>
+<p>然后在新条目的下拉菜单中，选择你之前添加的枚举值，并选择关联的音频类</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-22.webp"><img alt="" height="421" loading="lazy" src="static/image/image-22.webp" width="1427"></a></p>
+</li>
+<li>
+<p>最后，找到 <a data-preview="" href="index-7.html"><code>Settings List</code></a> 变量，将新创建的 <code>BP_SettingAudio</code> 蓝图类添加到其中</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-20.webp"><img alt="" height="262" loading="lazy" src="static/image/image-20.webp" width="1402"></a></p>
+</li>
+<li>
+<p>现在编译并保存所有已编辑的蓝图，就完成了！</p>
+</li>
+</ol>
+</details>
+<hr>
+<h2 id="external-upscaling-setup-dlss-fsr-xess">外部超分辨率设置（DLSS、FSR、XeSS）<a class="headerlink" href="#external-upscaling-setup-dlss-fsr-xess" title="本页锚点">¶</a></h2>
+<p>要设置外部超分辨率方案，你首先需要下载每个插件并将其导入你的项目</p>
+<p>以下是我针对指定版本资源包测试并验证的最低版本。更旧的版本可能可用，但<strong>我建议始终为每个插件使用最新版本。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">资源包版本</th>
+<th style="text-align: center;">Nvidia DLSS</th>
+<th style="text-align: center;">AMD FSR</th>
+<th style="text-align: center;">Intel XeSS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>3.0</strong></td>
+<td style="text-align: center;">8.1.0</td>
+<td style="text-align: center;">4.0.3a</td>
+<td style="text-align: center;">3.0.1</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition failure">
+<p class="admonition-title">插件可用性</p>
+<p>所有插件未必始终支持每个 Unreal Engine 版本，如果某个插件不可用，请过几周再回来查看它是否已更新，我无法控制这些第三方插件的发布。<br> <em>如果并非所有插件都可用，系统提供了一种仅启用特定插件的方式，如下面的说明所示。</em></p>
+</div>
+<h4 id="plugins-installation">插件安装<a class="headerlink" href="#plugins-installation" title="本页锚点">¶</a></h4>
+<p>以下说明将帮助你为项目安装各个插件，你可以安装自己选择的插件，因为之后你可以只激活特定插件供系统使用。</p>
+<details class="abstract">
+<summary>Nvidia DLSS 安装</summary>
+<ol>
+<li>下载链接：<a href="https://developer.nvidia.com/rtx/dlss/get-started">https://developer.nvidia.com/rtx/dlss/get-started</a></li>
+<li>
+<p>向下滚动到 <strong><code>DLSS in Unreal Engine 5</code></strong> 部分，下载与你的 Unreal Engine 版本对应的版本。</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2010-1.webp"><img alt="" height="541" loading="lazy" src="static/image/image%2010-1.webp" width="1142"></a></p>
+</li>
+<li>
+<p>解压你下载的 .zip 文件</p>
+</li>
+<li>
+<p>在解压出的文件中，找到 <code>Plugins</code> 文件夹</p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%2014.webp"><img alt="" height="110" loading="lazy" src="static/image/Untitled%2014.webp" width="656"></a></p>
+</li>
+<li>
+<p>在 <code>Plugins</code> 文件夹内，复制 <code>DLSS</code> 和 <code>StreamlineNGXCommon</code> 文件夹</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2011-3.webp"><img alt="" height="199" loading="lazy" src="static/image/image%2011-3.webp" width="250"></a>         </p>
+</li>
+<li>
+<p>然后，转到你的项目文件夹，将复制的文件夹粘贴到 <code>Plugins</code> 文件夹中（如果不存在则创建一个）</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-14-1.webp"><img alt="" height="214" loading="lazy" src="static/image/image-14-1.webp" width="272"></a></p>
+</li>
+</ol>
+</details>
+<details class="abstract">
+<summary>AMD FSR 安装</summary>
+<ol>
+<li>下载链接：<a href="https://gpuopen.com/learn/ue-fsr/">https://gpuopen.com/learn/ue-fsr/</a></li>
+<li>
+<p>点击下载按钮，即可开始下载所有可用的 Unreal 版本</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-15-1.webp"><img alt="" height="213" loading="lazy" src="static/image/image-15-1.webp" width="927"></a></p>
+</li>
+<li>
+<p>解压你下载的 .zip 文件</p>
+</li>
+<li>
+<p>在解压出的文件中，找到与你的引擎版本相匹配的文件夹（530 = 5.3 / 540 = 5.4，以此类推）</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-29.webp"><img alt="" height="147" loading="lazy" src="static/image/image-29.webp" width="277"></a></p>
+</li>
+<li>
+<p>在你的版本文件夹内，复制 <code>FSR</code> 文件夹（仅此文件夹）</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-28.webp"><img alt="" height="150" loading="lazy" src="static/image/image-28.webp" width="280"></a></p>
+</li>
+<li>
+<p>然后，进入你的项目文件夹，把 FSR3 文件夹粘贴到 <code>Plugins</code> 文件夹中（如果该文件夹不存在，就新建一个）</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-14-1.webp"><img alt="" height="214" loading="lazy" src="static/image/image-14-1.webp" width="272"></a></p>
+</li>
+</ol>
+</details>
+<details class="abstract">
+<summary>Intel XeSS 安装</summary>
+<ol>
+<li>下载链接：<a href="https://github.com/GameTechDev/XeSSUnrealPlugin/releases">https://github.com/GameTechDev/XeSSUnrealPlugin/releases</a></li>
+<li>
+<p>在最新版本中，点击与你的 Unreal Engine 版本相匹配的版本的下载链接</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-16-1.webp"><img alt="" height="789" loading="lazy" src="static/image/image-16-1.webp" width="1016"></a></p>
+</li>
+<li>
+<p>解压你下载的 .zip 文件</p>
+</li>
+<li>
+<p>把所有解压出的内容放入同一个文件夹，并复制这个新文件夹</p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%2019.webp"><img alt="" height="244" loading="lazy" src="static/image/Untitled%2019.webp" width="638"></a></p>
+</li>
+<li>
+<p>然后，进入你的项目文件夹，把新建的文件夹粘贴到 <code>Plugins</code> 文件夹中（如果该文件夹不存在，就新建一个）</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-14-1.webp"><img alt="" height="214" loading="lazy" src="static/image/image-14-1.webp" width="272"></a></p>
+</li>
+</ol>
+</details>
+<p><br></p>
+<h4 id="project-setup">项目设置<a class="headerlink" href="#project-setup" title="本页锚点">¶</a></h4>
+<ol>
+<li>首先，如果你在安装插件之前没有关闭 Unreal 项目，请重新启动它</li>
+<li>
+<p>然后，<u>如果你安装了 AMD FSR 插件</u>，请转到 <code>Edit</code> <code>&gt;</code> <code>Project Settings</code>，输入 <code>Frame Generation</code>，并确保 <code>Frame Generation Enabled</code> 设置未被勾选（false）</p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%2021.webp"><img alt="" height="338" loading="lazy" src="static/image/Untitled%2021.webp" width="1010"></a></p>
+</li>
+<li>
+<p>接着，转到 <code>EasyGameUI/Core/Utilities</code> 文件夹，打开 <code>BPFL_EGUI_EasyFunctionUtilities</code> 蓝图，并打开 <code>Get Supported Upscaling Methods</code> 函数</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-23.webp"><img alt="" height="151" loading="lazy" src="static/image/image-23.webp" width="388"></a></p>
+</li>
+<li>
+<p>在此函数中，<strong>只连接已安装插件对应的节点</strong> <br> 例如，如果你只安装了 DLSS，就只连接 <code>Enable DLSS Support</code> 节点，其他节点保持未连接</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-24.webp"><img alt="" height="780" loading="lazy" src="static/image/image-24.webp" width="1473"></a></p>
+<div class="admonition info">
+<p class="admonition-title">FSR 版本选择</p>
+<p>如果你使用的是较旧版本的 FSR 插件（3.X、4.0.0），可以在 <code>FSR Plugin Version</code> 变量中选择已安装的版本。这是必需的，因为 AMD 在插件代码中做了改动，若不显式选择，这些版本之间便无法互相兼容。</p>
+<p>如果你刚刚下载的是最新版本，保持默认值 <code>FSR 4 Redstone</code> 即可。</p>
+</div>
+</li>
+<li>
+<p>编译、保存，就完成了！</p>
+</li>
+</ol>
+<p><br></p>
+<h4 id="additional-guides-for-upscaling">升采样（Upscaling）附加指南<a class="headerlink" href="#additional-guides-for-upscaling" title="本页锚点">¶</a></h4>
+<details class="abstract">
+<summary>测试注意事项</summary>
+<ul>
+<li>
+<p>要正确测试各种升采样效果，你需要在 Standalone Game 模式 / Quick Launch 模式 / 打包版本中进行游戏。在 Play In Editor（PIE）中测试无法体现正常的功能表现</p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%2022.webp"><img alt="" height="530" loading="lazy" src="static/image/Untitled%2022.webp" width="1250"></a></p>
+<p><a class="glightbox" data-type="image" href="static/image/Untitled%2023.webp"><img alt="" height="530" loading="lazy" src="static/image/Untitled%2023.webp" width="992"></a></p>
+</li>
+<li>
+<p>如果 3 个选项都没有出现在菜单中，可能是因为你的硬件不兼容。Nvidia DLSS 仅在 Nvidia RTX 显卡上有效。Intel XeSS 和 AMD FSR 应能在大多数现代显卡上正常工作</p>
+</li>
+<li>大部分功能基本可以直接开箱即用，但若要获得最佳的实现效果，或者你发现任何异常/不一致的行为，请参考各插件的文档</li>
+</ul>
+</details>
+<details class="failure">
+<summary>修复可能出现的打包编译错误</summary>
+<p><em>此问题最有可能在 UE 5.6+ 中搭配 FSR 插件时出现</em></p>
+<p>如果你在打包过程中遇到与任何升采样插件相关的编译错误（阻塞性错误，而非警告），请尝试将插件安装到引擎文件夹中：</p>
+<ol>
+<li>首先，找到你所使用的 Unreal Engine 版本的安装位置</li>
+<li>
+<p>然后，转到 <code>Engine/Plugins/Marketplace</code> 文件夹。如果你的 Plugins 文件夹中没有该文件夹，只需新建一个文件夹并将其命名为 <code>Marketplace</code></p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2015.webp"><img alt="" height="217" loading="lazy" src="static/image/image%2015.webp" width="250"></a></p>
+</li>
+<li>
+<p>接着，从你安装到项目中的插件里，把导致错误的插件（FSR、DLSS 或 XESS）移动到该 Marketplace 文件夹中（将其从项目中完全移除）</p>
+</li>
+<li>
+<p>完成后，重新打开你的项目，并进入 <code>Edit</code> <code>&gt;</code> <code>Plugins</code> 搜索你移动的插件，确认它仍处于启用状态</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2016-3.webp"><img alt="" height="403" loading="lazy" src="static/image/image%2016-3.webp" width="523"></a></p>
+<p><a class="glightbox" data-type="image" href="static/image/image%2017-3.webp"><img alt="" height="203" loading="lazy" src="static/image/image%2017-3.webp" width="1802"></a></p>
+</li>
+</ol>
+</details>
+<details class="abstract">
+<summary>如何更改游戏默认的升采样/抗锯齿方法</summary>
+<p>系统将使用 Nvidia DLSS 作为默认的升采样/抗锯齿方法（如果该插件可用）。如果你想更改此默认设置，请查看以下说明</p>
+<ol>
+<li>转到 <code>EasyGameUI/EasyOptionsMenu/Core/SettingManagers/VideoSettings</code>，打开蓝图 <code>BP_SettingUpscalingMethod</code></li>
+<li>
+<p>在该蓝图中，找到 <code>Initialize Custom Setting Data</code> 函数，你应该会在函数开头看到一个 <code>Default Requested Upscaler</code> 变量</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-26.webp"><img alt="" height="661" loading="lazy" src="static/image/image-26.webp" width="1322"></a></p>
+</li>
+<li>
+<p>在该变量的下拉菜单中，直接选择你希望用作默认值的系统（注意：相关插件必须已安装；如果所选系统与用户硬件不兼容，系统可能会回退到其他升采样方案）</p>
+</li>
+<li>
+<p>然后，在蓝图 <code>BP_SettingAntiAliasingMethod</code> 中重复相同的步骤，这次选择 <code>Default Requested AA</code></p>
+<p><a class="glightbox" data-type="image" href="static/image/image-27.webp"><img alt="" height="757" loading="lazy" src="static/image/image-27.webp" width="1303"></a></p>
+</li>
+</ol>
+</details>
+<details class="abstract">
+<summary>如有需要，安全移除插件</summary>
+<p>如果出于任何原因你想安全地移除插件（例如引擎升级、兼容性问题等），请按照以下说明操作</p>
+<ol>
+<li>
+<p>转到 <code>EasyGameUI/Core/Utilities</code> 文件夹，打开 <code>BPFL_EGUI_EasyFunctionUtilities</code> 蓝图，并打开 <code>Get Supported Upscaling Methods</code> 函数</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-23.webp"><img alt="" height="151" loading="lazy" src="static/image/image-23.webp" width="388"></a></p>
+</li>
+<li>
+<p>在此函数中，只需断开注释中任意一个折叠节点的连接。<strong>不要断开连接到 <code>Return Node</code> 的引脚</strong></p>
+<p><a class="glightbox" data-type="image" href="static/image/image-25.webp"><img alt="" height="786" loading="lazy" src="static/image/image-25.webp" width="1332"></a></p>
+</li>
+<li>
+<p>编译并保存</p>
+</li>
+<li>现在你可以安全地移除插件了：可以删除项目文件夹内 <code>Plugins</code> 文件夹中的插件（在此之前请关闭 Unreal Engine），也可以在 Plugins 窗口中禁用它们</li>
+</ol>
+</details>
+<hr>
+<h2 id="benchmarking-tool-setup">基准测试工具设置<a class="headerlink" href="#benchmarking-tool-setup" title="本页锚点">¶</a></h2>
+<p>基准测试工具（Benchmarking Tool）是一个非常有用的工具，可以帮助你的玩家测试他们在你的游戏中的性能。本节将介绍在项目中实现它所需的设置。如果你想查看该系统的演示设置，可以在 <code>L_EGUI_BenchmarkDemoLevel</code> 地图中查看</p>
+<ol>
+<li>
+<p>要设置该系统，你需要一个供其运行的关卡。为此，我强烈建议创建一个专用于基准测试运行的新关卡（例如通过复制你的任一关卡），其中不要包含任何可能造成干扰的游戏内容，例如游戏 HUD、玩家界面或任何可能干扰基准测试的游戏元素。</p>
+<blockquote>
+<p>如果你不想创建新的专用关卡，就必须确保这些元素都不会造成干扰。你可以将以下这段小代码添加到任何可能造成干扰的 Actor 或任何在基准测试运行期间应被阻止的元素的 Begin Play 中： <br> <a class="glightbox" data-type="image" href="static/image/image-30.webp"><img alt="" height="184" loading="lazy" src="static/image/image-30.webp" width="820"></a></p>
+<p>若为 True，基准测试将启动，所有游戏元素都应被禁用。若为 False，则该 Actor 可照常加载</p>
+</blockquote>
+</li>
+<li>
+<p>然后，转到 <code>EasyGameUI/EasyOptionsMenu/EasyGameBenchmark/DemoContent/</code> 文件夹。找到 <code>LS_BenchmarkTemplate</code> 关卡序列并复制它，然后将这个新的关卡序列拖放到你的世界中</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-1-5.webp"><img alt="" height="479" loading="lazy" src="static/image/image-1-5.webp" width="692"></a></p>
+</li>
+<li>
+<p>接着回到 <code>EasyGameUI/EasyOptionsMenu/EasyGameBenchmark/</code> 文件夹，找到 <code>BP_EasyGameBenchmarkHandler</code></p>
+<p><a class="glightbox" data-type="image" href="static/image/image-3-5.webp"><img alt="" height="271" loading="lazy" src="static/image/image-3-5.webp" width="618"></a></p>
+</li>
+<li>
+<p>将其放置在你的世界中的任意位置，然后转到 Details 面板，在 <code>Level Sequence to Play</code> 变量中，添加你刚刚放置在世界中的关卡序列的引用</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%203-3.webp"><img alt="" height="450" loading="lazy" src="static/image/image%203-3.webp" width="483"></a></p>
+</li>
+<li>
+<p>然后，打开你的关卡序列（双击你复制的资源），继续添加摄像机位置，让摄像机在你的世界中行进到你想要的地点。</p>
+<p>理想情况下，摄像机路径应经过地图的各个区域，包括那些运行开销较大的区域。如果你愿意，可以随意延长序列长度，25 到 60 秒左右最为理想。 <br> <a class="glightbox" data-type="image" href="static/image/image-4-6.webp"><img alt="" height="365" loading="lazy" src="static/image/image-4-6.webp" width="2266"></a></p>
+</li>
+<li>
+<p>完成后，点击 Events 区域，你会注意到已经放置了 3 个事件，分别用于基准测试的开始、结束，以及一个演示用的暂停/恢复事件。首先，将开始/结束事件放置在你的序列中任何合理的位置。</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-5-4.webp"><img alt="" height="81" loading="lazy" src="static/image/image-5-4.webp" width="2318"></a></p>
+<p>我强烈建议在序列开头留出几秒钟，让关卡在基准测试开始前充分加载。</p>
+</li>
+<li>
+<p>然后，你也可以在时间轴中的任意位置使用暂停/恢复事件。为此，复制现有的 <code>PauseOrResumeGameBenchmark</code> 事件，然后右键单击它并悬停在 <code>Properties</code> 区域</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-6-5.webp"><img alt="" height="307" loading="lazy" src="static/image/image-6-5.webp" width="695"></a></p>
+<p>在该区域中，你可以根据 <code>Resume?</code> 变量的值，选择该关键帧应暂停还是恢复基准测试采集：</p>
+<ul>
+<li>若为 True，基准测试将重新开始记录性能数据（如果此前处于暂停状态）</li>
+<li>若为 False，基准测试将停止记录性能数据。序列仍会继续运行，只有 FPS 记录会被暂停</li>
+</ul>
+<p>例如，当你想传送到地图上的其他位置时，这就会很有用：你可以先暂停基准测试，以免记录到错误的数据，等传送完成后再恢复测试</p>
+</li>
+<li>
+<p>最后，你现在可以打开全局配置数据资源（Global Config Data Asset），将 <a data-preview="" href="index-7.html"><code>Enable Game Benchmarking Tool?</code></a> 设置设为 True，并将 <a data-preview="" href="index-7.html"><code>Game Benchmarking Level</code></a> 设为当前的基准测试等级</p>
+</li>
+<li>
+<p>完成以上所有步骤后，你就可以在游戏中通过选项菜单里的 <code>Run Benchmark</code> 按钮开始基准测试了</p>
+<p><a class="glightbox" data-type="image" href="static/image/image%209-4.webp"><img alt="" height="457" loading="lazy" src="static/image/image%209-4.webp" width="2372"></a></p>
+</li>
+</ol>
+<details class="abstract">
+<summary>了解基准测试结果</summary>
+<p>基准测试结束后，你会看到类似下图的基准测试结果</p>
+<p><a class="glightbox" data-type="image" href="static/image/image-7-4.webp"><img alt="" height="1439" loading="lazy" src="static/image/image-7-4.webp" width="2559"></a> <br> <em>根据本次测试的性能表现和你的硬件配置，实际结果不会与此完全相同。如果帧率非常稳定，它甚至可能看起来是一条完美的直线。</em></p>
+<p>该基准测试结果包含多项信息：</p>
+<blockquote>
+<p>在左侧，你可以看到若干帧率数据</p>
+<ul>
+<li><code>Average FPS</code> 是整轮测试期间的平均帧率，它可以给出性能的整体概况，但很容易受到极高和极低帧率的影响而产生偏差</li>
+<li><code>1% Lows FPS</code> 该指标代表整轮测试期间最低的 1% 帧率。它对于判断帧率的整体稳定性非常有用：该指标越接近平均值，帧率就越平滑。</li>
+<li><code>0.1% Lows FPS</code> 该指标同样可用于判断帧率的稳定性，但更重要的是，当该数值非常低时，可用于检测潜在的卡顿问题。它代表整轮测试期间最低的 0.1% 帧率。</li>
+<li><code>Maximum FPS</code> 简单来说，就是本次基准测试期间达到的最高帧率</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p>在右侧，你可以看到一张帧时间图表，它描绘了基准测试持续期间的帧率变化 <br> 该图表对于发现测试过程中可能存在性能问题的区段，以及查看帧率的整体稳定性，都非常有用</p>
+<p>请记住，以不锁帧的方式运行游戏，总会比在 GPU 最大性能以下设置帧率上限运行更容易出现卡顿</p>
+</blockquote>
+<p>在该基准测试结果页面上，你可以直接进入选项菜单调整任意设置并重新运行基准测试，或退出到主菜单。<br> 如果你在<a data-preview="" href="index-7.html">发行版构建</a>中启用了基准测试，玩家也能使用该工具，以便他们根据自己的硬件和各种画面设置快速检查性能表现。</p>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m16 12-4-4-4 4M12 16V8"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="index-10.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Pause Menu">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewbox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Pause Menu
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="index-12.html" class="md-footer__link md-footer__link--next" aria-label="Next: Save Game System">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Save Game System
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewbox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Nerwy
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.com/invite/sWZ2E7jcm4" target="_blank" rel="noopener" title="discord.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 576 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.expand","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.top","search.highlight","toc.follow"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="static/js/bundle.6e5f0216.min.js"></script>
+      
+    
+  <script src="static/js/egui-search-data.js"></script>
+<script src="static/js/egui-search.js" defer></script>
+</body>
+</html>

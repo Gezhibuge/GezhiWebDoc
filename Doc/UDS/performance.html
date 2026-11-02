@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>性能、移动端与更新 - UDS 中文文档</title>
+<meta name="description" content="哪些设置最吃性能、按什么顺序取舍、移动端要改什么，以及升级 UDS 时怎么不丢自己的改动。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Sky · 09</div>
+            <h1>性能、移动端与更新</h1>
+            <p class="lede">哪些设置最吃性能、按什么顺序取舍、移动端要改什么，以及升级 UDS 时怎么不丢自己的改动。</p>
+            <div class="meta-row"><span class="chip">优化取舍</span><span class="chip">升级前必读</span></div>
+          </header>
+
+<h2 id="performance">性能配置</h2>
+
+<p>
+  下面只讨论 UDS 自身功能的开销，不涉及引擎通用项（动态阴影、全局光照等）——那部分优化在使用 UDS 时同样适用。
+  按影响从大到小排列：
+</p>
+
+<h3 id="sky-mode">Sky Mode</h3>
+
+<p>
+  整个系统里最影响 GPU 的就是这一项。体积云最贵；<code>2D Dynamic Clouds</code> 便宜得多；
+  <code>Static Clouds</code> 再便宜一些；<code>No Clouds</code> 最省（<code>Space</code> 模式除外）。
+</p>
+
+<h3 id="color-mode">Color Mode</h3>
+
+<p>
+  改成 <code>Simplified Color</code> 可以省掉天空大气的开销，天空颜色改用更简单的材质逻辑计算。
+</p>
+
+<h3 id="project-mode">Project Mode</h3>
+
+<p>
+  只要项目需要实时性能，务必确认是 <code>Game / Real-time</code>。
+  <code>Cinematic / Offline</code> 只用于离线渲染，它会在运行时套用高画质设置，严重拖慢帧率。
+</p>
+
+<h3 id="体积云">体积云</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>设置</th><th>影响</th></tr></thead>
+  <tbody>
+    <tr><td><code>Volumetric Cloud Rendering Mode</code></td><td>影响云的渲染开销。要压低 GPU 成本时，选偏向性能的那两种模式。</td></tr>
+    <tr><td><code>View Sample Scale</code>、<code>Shadow Sample Scale</code></td><td>降低可省开销，但会引入噪点与瑕疵。</td></tr>
+    <tr><td><code>Max High Frequency Noise Levels</code></td><td>高于默认值会增加靠近/放大云时的开销，影响程度还与 <code>High Frequency Noise Distance Scale</code> 有关。</td></tr>
+    <tr><td><code>Two Layers</code></td><td>要同时解算两层云，采样数需求高得多，体积材质也更复杂。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="其它">其它</h3>
+
+<ul>
+  <li><strong>2D 动态云</strong>：开启 <code>One Cloud Layer</code> 可以略微降低天空着色器开销。</li>
+  <li><strong>天光</strong>：<code>Sky Light Mode</code> 有少量影响，主要来自实时捕获。想保留天光随时间/天气变化又不想付捕获成本，用
+    <code>Cubemap with Dynamic Color Tinting</code>。</li>
+  <li><strong>体积雾</strong>：开销非常大；UDS 的全局体积材质会再增加一些。体积雾是引擎特性，可扩展性设置跟随
+    <code>Shadow Quality</code> 组，且引擎的 Low / Medium 档默认<strong>完全关闭</strong>体积雾。</li>
+  <li><strong>材质</strong>：UDS 几乎所有材质都会响应全局材质质量等级，Low / Medium 下会简化。</li>
+  <li><strong>静态光照</strong>：UDS 的灯默认都是可移动的，能接受的话改成静态/固定总是更省。</li>
+</ul>
+
+<h3 id="两个容易被忽略的开关">两个容易被忽略的开关</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>设置</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Half Rate Tick</code>（Scalability / Performance 分类）</td>
+      <td>默认开启：帧率高于 45 时，UDS/UDW 的逻辑隔帧执行。建议保持开启。可以调低这个帧率阈值让优化在 30fps 也生效，但此时光照/天空属性最快只以 15fps 更新，快速变化时会有可见的顿挫。</td>
+    </tr>
+    <tr>
+      <td><code>Use Sky Mode Scalability Map</code></td>
+      <td>按 Game User Settings 里的 Effects Quality 在启动时切换 Sky Mode。例如 Medium 及以上用体积云，Low 用静态云。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  另外，如果担心平行光移动导致缓存阴影频繁失效，可以用 <code>Directional Light</code> 分类里的
+  <code>Lights Update</code> 设置限制更新频率。
+</p>
+
+<h2 id="mobile">移动端注意事项</h2>
+
+<ul>
+  <li>
+    先把 <code>Basic Controls</code> 里的 <code>Feature Level</code> 改成与实际打包目标一致——多数移动项目是
+    <code>Mobile</code>。这一项设错，蓝图会尝试启用设备不支持的特性，导致渲染异常。
+  </li>
+  <li><code>Mobile</code> 分类里定义了 Feature Level 为 mobile 时的替换规则。</li>
+  <li>同一分类里的 <code>Platform Feature Levels</code> 映射表，可以在启动时按平台名决定 Feature Level。</li>
+</ul>
+
+<h2 id="update">如何更新 UDS</h2>
+
+<p>
+  更新会<strong>覆盖</strong> UDS 资产：你直接改在资产上的蓝图逻辑会丢失；
+  你自己新建的文件（配置资产、天空修改器等）不会被覆盖，会保留下来。
+  更新前建议备份或用版本控制，以便出问题时回滚。
+</p>
+
+<div class="callout note">
+  <div class="co-title">注意</div>
+  <p>
+    Fab 插件不能用来更新已经导入项目的资产包，更新必须通过 Epic 启动器完成。
+  </p>
+</div>
+
+<h3 id="情况一-uds-仍在默认位置">情况一：UDS 仍在默认位置</h3>
+
+<ol class="steps">
+  <li>关闭项目。</li>
+  <li>在启动器的 <em>库</em> 标签页里，于 Fab 库中找到 Ultra Dynamic Sky。</li>
+  <li>点 <code>Add to Project</code>，提示是否覆盖旧文件时选择允许。</li>
+  <li>如果启动器添加失败或没下载到最新版，先点 <code>Remove Local Content</code> 再重试。</li>
+</ol>
+
+<h3 id="情况二-uds-已被移动到其它目录">情况二：UDS 已被移动到其它目录</h3>
+
+<p>
+  这种情况需要手动搬：因为编辑器要按目标位置重写文件夹内所有资产引用，所以得先在另一个项目里做同样的移动。
+</p>
+
+<ol class="steps">
+  <li>在目标项目里，对 <code>UltraDynamicSky</code> 文件夹执行 <code>Update Redirector References</code>，确保没有依赖重定向器，然后关闭项目。</li>
+  <li>用启动器把 UDS 添加到一个<strong>同引擎版本的空白项目</strong>。</li>
+  <li>打开空白项目与 UDS 演示地图，等着色器编译完成。保持演示地图打开，把 <code>UltraDynamicSky</code> 文件夹移动到与目标项目完全一致的路径。</li>
+  <li>等待移动完成，右键整个 <code>Content</code> 文件夹执行 <code>Update Redirector References</code>。</li>
+  <li>关闭并重新打开演示地图，确认移动没弄坏东西。如果云等效果不见了，执行控制台命令 <code>Recompileshaders All</code>——这是资产移动后着色器编译的引擎 Bug。</li>
+  <li>关闭项目（目标项目也保持关闭），在文件管理器里把空白项目中的 <code>UltraDynamicSky</code> 文件夹复制到目标项目，覆盖旧文件夹。</li>
+  <li>打开目标项目，更新即完成。</li>
+</ol>
+
+<p>
+  更新完成后建议读一遍对应版本的更新日志，里面会写清楚需要在项目里额外做什么。
+</p>
+
+<h2 id="modifying">修改 UDS 的蓝图</h2>
+
+<p>
+  需要改 UDS 的蓝图逻辑时，<strong>不要直接改原类</strong>，而是对它创建一个子类：
+  在内容浏览器里右键该类，选 <code>Create Child Blueprint Class</code>，在子类里覆盖具体函数。
+  这样更新 UDS 时你的改动不会被覆盖。
+</p>
+
+<p>
+  例如：在 UDS 的子类里覆盖 <code>Current Sun Light Color</code>，就能替换决定太阳光颜色的那段逻辑。
+</p>
+
+<p>
+  有些类还预留了空函数专门给子类覆盖，例如天气覆盖体积（Weather Override Volume）的
+  <code>Custom Volume Behavior</code>。
+</p>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#performance" data-toc="performance">性能配置</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#sky-mode" data-toc="sky-mode">Sky Mode</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#color-mode" data-toc="color-mode">Color Mode</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#project-mode" data-toc="project-mode">Project Mode</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#体积云" data-toc="体积云">体积云</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#其它" data-toc="其它">其它</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#两个容易被忽略的开关" data-toc="两个容易被忽略的开关">两个容易被忽略的开关</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#mobile" data-toc="mobile">移动端注意事项</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#update" data-toc="update">如何更新 UDS</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#情况一-uds-仍在默认位置" data-toc="情况一-uds-仍在默认位置">情况一：UDS 仍在默认位置</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#情况二-uds-已被移动到其它目录" data-toc="情况二-uds-已被移动到其它目录">情况二：UDS 已被移动到其它目录</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#modifying" data-toc="modifying">修改 UDS 的蓝图</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="sky-extra.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">天空的其他功能</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="weather.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">天气系统与天气状态</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

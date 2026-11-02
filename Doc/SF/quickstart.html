@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>快速开始：把示例工程跑起来 - Story Framework 中文手册</title>
+<meta name="description" content="从打开工程到做出第一个能按 E 捡起来的物品。这一章不讲原理，只保证你在半小时内看到东西动起来。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="Story Framework 中文手册">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">Story Framework 中文手册</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">SF 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读 · 从这里开始</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="quickstart.html"><span class="md-nav__num">1</span><span>快速开始</span></a></li>
+            <li><a class="md-nav__link" href="concepts.html"><span class="md-nav__num">2</span><span>核心概念</span></a></li>
+            <li><a class="md-nav__link" href="interaction.html"><span class="md-nav__num">3</span><span>交互系统</span></a></li>
+            <li><a class="md-nav__link" href="inventory.html"><span class="md-nav__num">4</span><span>背包与叙事容器</span></a></li>
+            <li><a class="md-nav__link" href="dialogue.html"><span class="md-nav__num">5</span><span>对话与叙事</span></a></li>
+            <li><a class="md-nav__link" href="ui.html"><span class="md-nav__num">6</span><span>界面与输入提示</span></a></li>
+            <li><a class="md-nav__link" href="camera.html"><span class="md-nav__num">7</span><span>相机与场景</span></a></li>
+            <li><a class="md-nav__link" href="save.html"><span class="md-nav__num">8</span><span>存档与集成</span></a></li>
+            <li><a class="md-nav__link" href="faq.html"><span class="md-nav__num">9</span><span>排错手册</span></a></li>
+            <li><a class="md-nav__link" href="reference.html"><span class="md-nav__num">10</span><span>速查表</span></a></li>
+            <li><a class="md-nav__link" href="workshop.html"><span class="md-nav__num">11</span><span>实操工作坊</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">12</span><span>视频课程</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据官方文档 5.0+ / Fab 5.2 整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">第 1 章 · 上手</div>
+            <h1>快速开始：把示例工程跑起来</h1>
+            <p class="lede">从打开工程到做出第一个能按 E 捡起来的物品。这一章不讲原理，只保证你在半小时内看到东西动起来。</p>
+            <div class="meta-row"><span class="chip accent">预计 30 分钟</span><span class="chip">无需写代码</span><span class="chip">适合第一次打开工程</span></div>
+          </header>
+
+<p class="lede">
+  这一章的目标很朴素：<strong>让你亲眼看到它跑起来</strong>。不要急着理解每个节点——
+  先玩一遍示例地图，知道“原来它长这样”，后面读原理时脑子里才有画面。
+</p>
+
+<h2 id="prereq">开始前，确认三件事</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>检查项</th><th>怎么确认</th><th>不满足怎么办</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>引擎版本</td>
+      <td>启动器里装有 <strong>UE 5.6</strong>（5.1–5.6 均可，文档以此区间为准）</td>
+      <td>去 Epic 启动器 → 虚幻引擎 → 库 → 添加版本</td>
+    </tr>
+    <tr>
+      <td>工程来源</td>
+      <td>Fab 库里已购买 → 「添加到工程」或在启动器「库」里下载完整示例工程</td>
+      <td>SF 是付费资产，需在 <a href="https://www.fab.com/listings/108a7e42-a307-42fb-b1e9-e21a4c1905d7" target="_blank" rel="noopener">Fab 页面</a>购买</td>
+    </tr>
+    <tr>
+      <td>磁盘空间</td>
+      <td>预留 10 GB 以上（示例工程含演示关卡、动画与音频）</td>
+      <td>先清一清 DerivedDataCache</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout beginner">
+  <div class="co-title">纯新手名词：什么是“内容包 / 模板工程”</div>
+  <p>
+    Fab 上的资产分两种交付方式：一种是一个<strong>完整工程</strong>（打开就是一个能玩的游戏）；
+    另一种是<strong>可以添加进你现有工程的资产包</strong>。
+    SF 两种都有：作者建议<strong>先下载完整工程</strong>（里面有示例地图和演示关卡），玩明白之后再考虑把它迁移进你自己的项目。
+    迁移的详细步骤在 <a href="save.html#migrate">第 8 章</a>。
+  </p>
+</div>
+
+<h2 id="open">第一步：打开工程</h2>
+
+<ol class="steps">
+  <li>
+    <strong>用 5.6 打开</strong>
+    双击 <code>.uproject</code>，或在启动器里选择版本 5.6 后打开。
+    如果提示「此项目是为较旧版本创建的」，选择<strong>转换副本</strong>（Convert a copy），保留原始工程做备份。
+  </li>
+  <li>
+    <strong>等编译着色器</strong>
+    首次打开会长时间停在「Compiling Shaders」。这是正常的，去泡杯茶；中途不要强关。
+  </li>
+  <li>
+    <strong>打开示例地图</strong>
+    在内容浏览器里进入 <code>StoryFramework</code> 文件夹，找到示例关卡（名称通常含 <code>Example</code> / <code>Demo</code>），双击打开。
+    如果引擎自动打开了别的关卡，用 <code>File → Open Level</code> 手动选。
+  </li>
+  <li>
+    <strong>点 Play</strong>
+    按 <kbd>Alt</kbd>+<kbd>P</kbd> 或点工具栏的 ▶。现在你就是一个拿着手电的探险者了。
+  </li>
+</ol>
+
+<h2 id="tour">第二步：在示例地图里“逛一圈”</h2>
+
+<p>
+  示例地图是这套框架最重要的教材——<strong>官方文档里说“示例里有例子”的地方，全部都能在这里找到实物</strong>。
+  建议按下面的顺序体验，每个都亲手做一遍：
+</p>
+
+<figure>
+  <img src="assets/img/prompt-alt.png" alt="示例地图中的交互提示" width="1213" height="681">
+  <figcaption>示例地图里最常见的画面：看向一个物体，屏幕中央浮出按键提示。整套交互的“成果”就是这个小小的方块。</figcaption>
+</figure>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>体验内容</th><th>你会看到</th><th>对应系统</th></tr></thead>
+  <tbody>
+    <tr><td>走到一个物品前</td><td>屏幕出现按键提示与物品名；物体有描边高亮</td><td>交互系统 · 提示</td></tr>
+    <tr><td>按交互键拾取</td><td>物品消失，右下角提示“已加入背包”</td><td>快捷背包</td></tr>
+    <tr><td>打开背包</td><td>底部工具栏式背包，可切换、使用、组合、丢弃</td><td>快捷背包</td></tr>
+    <tr><td>捡起一张纸条、按检视键</td><td>物品浮到镜头前，可旋转；或出现可翻页的文字</td><td>检视（Inspect）</td></tr>
+    <tr><td>打开日志 / 回忆录</td><td>3D 检视的条目、剧情选择记录</td><td>日志 &amp; 回忆录</td></tr>
+    <tr><td>看右上角</td><td>当前任务标题、倒计时（若有）</td><td>任务系统</td></tr>
+    <tr><td>和 NPC 对话</td><td>镜头切换、字幕、若干回复选项</td><td>对话系统</td></tr>
+    <tr><td>触发一次 QTE</td><td>屏幕中央出现按键与倒计时</td><td>快速反应事件</td></tr>
+    <tr><td>做一个重大选择</td><td>全屏两个选项，选择后画面淡出</td><td>故事选择</td></tr>
+    <tr><td>走进某个区域</td><td>自动播放语音、弹出教学提示、或切到固定镜头</td><td>触发器体积</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout tip">
+  <div class="co-title">逛的时候顺便做一件事</div>
+  <p>
+    每看到一个效果，就按 <kbd>F8</kbd> 退出 Play，然后在关卡里<strong>选中那个物体</strong>，看它的细节面板。
+    示例地图里的每一个可交互物，都是一个继承自 <code>InteractableBase_BP</code> 的蓝图实例——
+    它们的差别，全在细节面板里那几个字段。这是理解 SF 最快的路径。
+  </p>
+</div>
+
+<h2 id="keys">按键在哪改？</h2>
+
+<p>
+  SF 用的是 UE5 的<strong>增强输入（Enhanced Input）</strong>：一套输入动作（Input Action）+ 若干输入映射上下文（IMC）。
+  默认按键不在代码里，而在资产里：
+</p>
+
+<pre><code>StoryFramework / Core / Input /  →  SFGameplay_IMC（游戏中的常规操作）
+                                    Inventory_IMC（打开背包时切换）
+                                    WidgetMenu_IMC（打开菜单时切换）</code></pre>
+
+<p>
+  双击对应的 IMC，就能看到每个动作绑定了哪个键，也可以直接改。
+  SF 的一个重要设计是：<strong>打开背包时会把 <code>Gameplay_IMC</code> 换成 <code>Inventory_IMC</code></strong>，
+  这样同一个键在不同界面下可以干不同的事，也不会互相冲突。
+</p>
+
+<div class="callout note">
+  <div class="co-title">已知的默认按键（来自第三方教程，可能随版本变化）</div>
+  <p>
+    社区教程提到：<kbd>C</kbd> 可在第一/第三人称之间切换（手柄为长按 <kbd>Y</kbd>）。
+    其余按键（交互、背包、日志、跳过对话）请直接查看 <code>SFGameplay_IMC</code>，以你手上的版本为准。
+  </p>
+</div>
+
+<h2 id="first-object">第三步：做你的第一个可交互物体</h2>
+
+<p>现在离开示例，自己造一个能捡起来的东西。整个过程约 5 分钟：</p>
+
+<ol class="steps">
+  <li>
+    <strong>新建蓝图子类</strong>
+    在内容浏览器空白处右键 → <code>Blueprint Class</code> → 展开 <code>All Classes</code> → 搜索 <code>InteractableBase_BP</code> → 选中它创建。
+    命名为 <code>BP_MyFirstItem</code>，放进你自己的文件夹（不要直接改 SF 原始资产）。
+  </li>
+  <li>
+    <strong>给它一个外形</strong>
+    打开蓝图，选中 <code>StaticMesh</code> 组件（基类里已经带好），在细节面板把 <code>Static Mesh</code> 换成任意一个立方体或瓶子。
+    如果是 <code>SkeletalMesh</code>（骨骼网格），也支持，用于需要物理摆动的物体。
+  </li>
+  <li>
+    <strong>填写交互数据</strong>
+    在细节面板找到 <code>Interaction Data</code>（一个结构体，叫 <code>InteractableData_S</code>）。展开后先设置这三个：
+    <div class="table-wrap" style="margin-top:10px">
+    <table>
+      <thead><tr><th>字段</th><th>含义</th><th>建议值</th></tr></thead>
+      <tbody>
+        <tr><td><code>Object Name</code></td><td>物品名，会显示在提示与背包里</td><td>“生锈的钥匙”</td></tr>
+        <tr><td><code>Primary Interaction Method</code></td><td>主交互方式</td><td><code>Quick Pickup</code>（快速拾取）</td></tr>
+        <tr><td><code>Secondary Interaction Method</code></td><td>附加交互（可选）</td><td><code>Inspect</code> 或 <code>None</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </li>
+  <li>
+    <strong>设置背包图标（Quick Pickup 专有）</strong>
+    在同一结构体里找到 <code>Pickup Method Settings</code> → <code>Item Inventory Icon</code>，指定一张 2D 贴图。
+    这一项不填，背包里就是一个空方块——不影响功能，但很难看。
+  </li>
+  <li>
+    <strong>拖进关卡并测试</strong>
+    把蓝图拖进场景，<kbd>Alt</kbd>+<kbd>P</kbd> 进入游戏，走过去看向它：应该出现按键提示；按下后物品消失、进入背包。
+  </li>
+</ol>
+
+<div class="callout warn">
+  <div class="co-title">如果提示不出现 / 按了没反应</div>
+  <ul>
+    <li><strong>碰撞体没设</strong>：交互靠一条射线（Trace）打到物体，物体必须有碰撞。检查网格组件的 <code>Collision Presets</code> 是否为 <code>BlockAll</code> 或至少阻挡可见性/交互通道。</li>
+    <li><strong>距离太远</strong>：交互管理器组件上有交互距离（Reach）参数，默认值有限，站近一点试。</li>
+    <li><strong>被“软锁”了</strong>：如果物体带着 <code>SoftLocked</code> 这个 Actor Tag，它会主动隐藏提示并禁止交互。这是用法，不是 Bug。</li>
+    <li><strong>项目设置缺通道</strong>：如果你是在<strong>自己的工程</strong>里做（不是示例工程），必须先在碰撞设置里加 <code>SFInteraction</code> 追踪通道，否则一切都不响应。见 <a href="save.html#migrate">迁移章节</a>。</li>
+  </ul>
+</div>
+
+<h2 id="structure">工程目录：东西都在哪</h2>
+
+<p>打开内容浏览器，SF 的资产集中在 <code>StoryFramework</code> 文件夹下，结构大致如下：</p>
+
+<pre><code>StoryFramework/
+├── Core/
+│   ├── Blueprint/
+│   │   ├── Components/          ← 五大管理器组件（重点）
+│   │   │   ├── Core/            ← Interaction / Inventory / Sequence / Save / Camera Manager
+│   │   │   └── Other/           ← 相机组件 SFDefaultCamera_CC 等
+│   │   ├── Data Tables/         ← 道具组合、回忆录、NPC 叫声、按键样式
+│   │   ├── Structures/          ← 各种 _S 结构体（TaskInfo_S 等）
+│   │   └── Function Libraries/  ← 一堆可复用的蓝图函数
+│   ├── User Interface/
+│   │   ├── Widgets/             ← 交互提示、输入按键、菜单
+│   │   └── ...
+│   ├── Input/                   ← IMC / Input Action
+│   └── Example/
+│       └── Level/               ← 示例地图与其专用 Actor（触发器、道具）
+└── ...（演示用美术资源）</code></pre>
+
+<div class="callout tip">
+  <div class="co-title">强烈建议：先装那个“快捷工具栏”</div>
+  <p>
+    SF 自带一个编辑器工具栏（Editor Utility Widget），能把一堆散落的设置集中到一个面板里，还能一键跳到核心组件。
+    它需要在 <code>Project Settings → Plugins → Python</code> 的 <code>Startup Scripts</code> 里挂一段脚本（可选步骤，不装也能用）。
+    详细做法见 <a href="concepts.html#editor-tools">第 2 章 · 编辑器工具</a>。
+  </p>
+</div>
+
+<h2 id="checklist">本章检查清单</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>✓</th><th>你应该已经做到</th></tr></thead>
+  <tbody>
+    <tr><td>□</td><td>用 UE 5.6 打开了示例工程，并成功进入 Play</td></tr>
+    <tr><td>□</td><td>在示例地图里体验过拾取、检视、对话、任务、QTE、故事选择</td></tr>
+    <tr><td>□</td><td>知道默认按键在 <code>SFGameplay_IMC</code> 里改</td></tr>
+    <tr><td>□</td><td>做出了一个继承自 <code>InteractableBase_BP</code> 的、能捡起来的物品</td></tr>
+    <tr><td>□</td><td>知道五大管理器组件在 <code>Core/Blueprint/Components/Core</code> 下</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>下一步，我们把这套东西的“骨架”讲清楚——为什么它要拆成五个组件，以及你怎么在任意蓝图里调用它们。</p>
+<p><a class="xref" href="concepts.html">第 2 章 · 核心概念与架构 →</a></p>
+
+<div class="video-embed" data-bvid="BV1J582zsEQy">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：项目演示（第 1 分 P · 8 分钟）">
+      <img src="assets/img/bili-cover.jpg" alt="" loading="lazy">
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>项目演示（第 1 分 P · 8 分钟）</b><span>第 1 分 P · 项目演示（8 分钟）</span></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1J582zsEQy/" target="_blank" rel="noopener">BV1J582zsEQy</a></div>
+</div>
+<div class="video-embed" data-bvid="BV1J582zsEQy">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：项目概述（第 2 分 P · 14 分钟）">
+      <img src="assets/img/bili-cover.jpg" alt="" loading="lazy">
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>项目概述（第 2 分 P · 14 分钟）</b><span>第 2 分 P · 项目概述（14 分钟）</span></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1J582zsEQy/" target="_blank" rel="noopener">BV1J582zsEQy</a></div>
+</div>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#prereq" data-toc="prereq">开始前，确认三件事</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#open" data-toc="open">第一步：打开工程</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#tour" data-toc="tour">第二步：在示例地图里“逛一圈”</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#keys" data-toc="keys">按键在哪改？</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#first-object" data-toc="first-object">第三步：做你的第一个可交互物体</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#structure" data-toc="structure">工程目录：东西都在哪</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#checklist" data-toc="checklist">本章检查清单</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="index.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">开始阅读：这套文档怎么用</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="concepts.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">核心概念：五分钟看懂 SF 的骨架</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页由官方英文文档（<a href="https://visualonecompany.gitbook.io/home" target="_blank" rel="noopener">visualonecompany.gitbook.io</a>）整理翻译而成。产品版权归 Visual One Company 所有；本手册为非官方中文资料。</p>
+        <p>如有疑问，官方支持渠道：<a href="https://discord.gg/SNwgyAjQPs" target="_blank" rel="noopener">Discord</a> · 配套视频：<a href="https://www.bilibili.com/video/BV1J582zsEQy/" target="_blank" rel="noopener">B 站 · 帕可模型库</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>光照与曝光 - UDS 中文文档</title>
+<meta name="description" content="UDS 自带日月平行光与天光组件，并接管了云影、天光模式与自动曝光。这一页说明各组件的可控范围，以及用静态光照时需要注意什么。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Sky · 03</div>
+            <h1>光照与曝光</h1>
+            <p class="lede">UDS 自带日月平行光与天光组件，并接管了云影、天光模式与自动曝光。这一页说明各组件的可控范围，以及用静态光照时需要注意什么。</p>
+            <div class="meta-row"><span class="chip">组件而非 Actor</span><span class="chip">曝光由 UDS 接管</span></div>
+          </header>
+
+<h2 id="components">灯光组件</h2>
+
+<p>
+  UDS 内部自带三个灯光组件：代表太阳的平行光、代表月亮的平行光，以及一盏天光（Sky Light）。
+  具体用哪个组件、以何种方式工作，由 <code>Sun</code>、<code>Moon</code>、<code>Sky Light</code> 三个分类里的设置决定；
+  天光还额外受 <code>Sky Light Mode</code> 影响。
+</p>
+
+<p>
+  也可以让 UDS 去引用关卡里现成的灯光 Actor，而不是用内置组件，但<strong>除了第三方资产或插件明确要求引用灯光 Actor 的情况，都不建议这么做</strong>。
+  如果确实要用，有两步必须手动补上：
+</p>
+
+<ul>
+  <li>
+    <strong>平行光</strong>：组件上有一个 <code>Cloud Scattered Luminance Scale</code>，控制灯光对云的影响。
+    这个值无法通过蓝图设置到你的灯光 Actor 上，需要从 UDS 的 Sun 或 Moon 组件里抄到你的平行光 Actor。
+  </li>
+  <li>
+    <strong>天光</strong>：天光组件上的 <code>Source Type</code> 也无法被 UDS 控制，必须与 UDS 的 <code>Sky Light Mode</code> 对应：
+    使用 <code>Cubemap with Dynamic Color Tinting</code> 或 <code>Custom Cubemap</code> 时，Source Type 要设为
+    <code>Specified Cubemap</code>；使用 <code>Capture Based</code> 时设为 <code>Captured Scene</code>。
+  </li>
+</ul>
+
+<h2 id="sun-moon">日月平行光</h2>
+
+<p>
+  太阳与月亮这两个平行光组件，有一部分属性由蓝图每帧驱动：颜色、强度、是否投射阴影、光源角度。
+  其余属性保持开放，你可以直接在组件上改——选中 UDS 后，在细节面板顶部的组件列表里选 <code>Sun</code> 或 <code>Moon</code>，
+  看到的就是一个标准平行光组件的属性面板。
+</p>
+
+<p>
+  影响两者的公共参数在 <code>Directional Light</code> 分类里；只影响单个的分别在 <code>Sun</code>、<code>Moon</code> 分类里。
+  日月的位置、运动与外观见 <a href="time-sun.html">时间、日月与模拟</a>。
+</p>
+
+<h2 id="cloud-shadows">云影</h2>
+
+<p>
+  云影默认开启，并且<strong>与所有 Sky Mode 兼容</strong>，包括没有云的 <code>No Clouds</code>。
+  不需要的话可以在 <code>Cloud Shadows</code> 分类里关闭。
+</p>
+
+<p>同一个分类里还能调：</p>
+
+<ul>
+  <li>云量高/低时阴影的强度与柔和度。默认云量高时完全遮挡平行光，云量低时只部分遮挡。</li>
+  <li><code>Fog</code> 或 <code>Dust Amount</code> 较高时，对平行光的遮挡比例。</li>
+</ul>
+
+<p>
+  Sky Mode 为体积云时，云影是按 3D 云层真实计算的，每一朵云都会在场景里投下对应的影子。
+  其他模式没有三维云层可投射，云影来自一张阴影纹理，其移动速度与尺度由
+  <code>2D Cloud Shadows Speed</code> 与 <code>2D Cloud Shadows Scale</code> 控制。
+</p>
+
+<h2 id="skylight">天光（Sky Light）</h2>
+
+<p><code>Sky Light Mode</code> 决定天光立方体贴图从哪来，以及 UDS 如何控制它的强度与颜色。</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>模式</th><th>做法</th><th>适用</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Capture Based</code></td>
+      <td>通过捕获天空生成立方体贴图。默认使用实时捕获，<code>Sky Light</code> 分类里可以开关。</td>
+      <td>画质优先，接受捕获开销</td>
+    </tr>
+    <tr>
+      <td><code>Custom Cubemap</code></td>
+      <td>使用一张静态立方体贴图，在下方 <code>Sky Light Cubemap</code> 指定。</td>
+      <td>天空固定、或想要特定环境光</td>
+    </tr>
+    <tr>
+      <td><code>Cubemap with Dynamic Color Tinting</code></td>
+      <td>用一张中性灰立方体贴图，按雾色动态染色，使环境光随昼夜变化。</td>
+      <td>动态昼夜项目，性能友好且全平台可用</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  <code>Sky Light Color Multiplier</code> 可以按时段分别给天光染色。这些倍率允许大于 1，
+  超过 1 时该时段的光照强度会按比例放大。
+</p>
+
+<h2 id="exposure">曝光</h2>
+
+<p>
+  UDS 默认会应用自动曝光（Auto Exposure，引擎里也叫 Eye Adaptation）。相关设置都在 <code>Exposure</code> 分类里，
+  可以调整或关闭。
+</p>
+
+<p>勾选 <code>Apply Exposure Settings</code> 后，UDS 会接管以下几项：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>引擎参数</th><th>UDS 中的对应设置</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Exposure Compensation Curve</td>
+      <td>—</td>
+      <td>根据画面整体亮度把曝光往上或往下推。</td>
+    </tr>
+    <tr>
+      <td>Exposure Compensation</td>
+      <td><code>Exposure Bias</code>（分时段、分天气）</td>
+      <td>针对性地让夜晚更亮、阴天更暗。</td>
+    </tr>
+    <tr>
+      <td>Metering Mode</td>
+      <td><code>Exposure Metering Mode</code></td>
+      <td>是否启用自动曝光以及用哪种测光方式。改成 <code>Manual</code> 会关闭自动曝光，但仍可使用下面的曝光偏移。</td>
+    </tr>
+    <tr>
+      <td>MinEV100 / MaxEV100</td>
+      <td><code>Exposure Brightness Range</code></td>
+      <td>自动曝光试图适应的亮度区间。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  如果调不准，可以在视口里打开 <code>Show → Visualize → HDR (Eye Adaptation)</code>，
+  直接看到自动曝光内部在做什么，再对照后处理体积或相机里的曝光设置一起调。
+</p>
+
+<h2 id="static">使用静态 / 固定光照</h2>
+
+<p>
+  UDS 默认全部使用可移动（Movable）光源，但也支持静态光照。要改成静态或固定（Stationary），
+  请在 UDS 细节面板里对应分类（<code>Sun</code>、<code>Moon</code>、<code>Sky Light</code>）中找到 Mobility 设置，
+  <strong>从暴露出来的这一项改，不要直接改灯光组件上的 Mobility</strong>。
+</p>
+
+<p>
+  构建光照之后，仍可以调整部分天空设置，但任何改变光源本身或位置的设置都会让光照构建失效，需要重新构建。
+  另外，太阳如果是静态或固定光照，运行时 <code>Time of Day</code> 就无法变化了。
+</p>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#components" data-toc="components">灯光组件</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#sun-moon" data-toc="sun-moon">日月平行光</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#cloud-shadows" data-toc="cloud-shadows">云影</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#skylight" data-toc="skylight">天光（Sky Light）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#exposure" data-toc="exposure">曝光</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#static" data-toc="static">使用静态 / 固定光照</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="clouds.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">云</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="time-sun.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">时间、日月与模拟</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>

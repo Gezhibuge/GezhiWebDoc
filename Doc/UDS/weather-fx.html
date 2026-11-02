@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天气粒子与闪电 - UDS 中文文档</title>
+<meta name="description" content="雨、雪、尘三套粒子的参数，粒子碰撞的三种模式与性能取舍，生成体积的控制，以及闪电与「可被雷击」接口。">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('doc-theme');
+      if (t === 'slate' || t === 'paper') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" class="md-header__button md-logo" aria-label="UDS 中文文档">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <button class="md-header__button" id="menu-btn" type="button" aria-label="导航" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </button>
+    <div class="md-header__title"><a href="index.html">UDS 中文文档</a></div>
+    <span class="md-header__spacer"></span>
+    <button class="md-header__button" id="search-btn" type="button" aria-label="搜索" title="搜索（Ctrl/⌘ + K）">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="md-header__option" role="group" aria-label="配色主题">
+      <button class="md-header__button" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="md-header__button" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" id="sidebar" data-md-component="sidebar">
+        <nav class="md-nav md-nav--primary" aria-label="导航">
+          <div class="md-nav__title">UDS 文档</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link" href="index.html"><span class="md-nav__num">★</span><span>导读</span></a></li>
+            <li><a class="md-nav__link" href="sky-setup.html"><span class="md-nav__num">1</span><span>安装与基础设置</span></a></li>
+            <li><a class="md-nav__link" href="clouds.html"><span class="md-nav__num">2</span><span>云</span></a></li>
+            <li><a class="md-nav__link" href="lighting.html"><span class="md-nav__num">3</span><span>光照与曝光</span></a></li>
+            <li><a class="md-nav__link" href="time-sun.html"><span class="md-nav__num">4</span><span>时间与日月</span></a></li>
+            <li><a class="md-nav__link" href="fog.html"><span class="md-nav__num">5</span><span>雾与天空颜色</span></a></li>
+            <li><a class="md-nav__link" href="night.html"><span class="md-nav__num">6</span><span>夜空</span></a></li>
+            <li><a class="md-nav__link" href="cinematics.html"><span class="md-nav__num">7</span><span>影视与关卡控制</span></a></li>
+            <li><a class="md-nav__link" href="sky-extra.html"><span class="md-nav__num">8</span><span>天空其他功能</span></a></li>
+            <li><a class="md-nav__link" href="performance.html"><span class="md-nav__num">9</span><span>性能与维护</span></a></li>
+            <li><a class="md-nav__link" href="weather.html"><span class="md-nav__num">10</span><span>天气与状态</span></a></li>
+            <li><a class="md-nav__link md-nav__link--active" href="weather-fx.html"><span class="md-nav__num">11</span><span>粒子与闪电</span></a></li>
+            <li><a class="md-nav__link" href="materials.html"><span class="md-nav__num">12</span><span>材质效果</span></a></li>
+            <li><a class="md-nav__link" href="sound-wind.html"><span class="md-nav__num">13</span><span>声音与风</span></a></li>
+            <li><a class="md-nav__link" href="weather-extra.html"><span class="md-nav__num">14</span><span>天气其他功能</span></a></li>
+            <li><a class="md-nav__link" href="issues.html"><span class="md-nav__num">15</span><span>常见问题</span></a></li>
+            <li><a class="md-nav__link" href="technical.html"><span class="md-nav__num">16</span><span>技术说明</span></a></li>
+            <li><a class="md-nav__link" href="videos.html"><span class="md-nav__num">17</span><span>视频索引</span></a></li>
+          </ul>
+          <div class="md-sidebar__foot">
+            <div>依据 Ultra Dynamic Sky 9.7 官方文档整理 · 非官方中文版</div>
+            <div class="md-sidebar__home"><a href="../index.html">← 返回文档首页</a></div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset">
+          <header class="doc-head">
+            <div class="eyebrow">Weather · 11</div>
+            <h1>天气粒子与闪电</h1>
+            <p class="lede">雨、雪、尘三套粒子的参数，粒子碰撞的三种模式与性能取舍，生成体积的控制，以及闪电与「可被雷击」接口。</p>
+            <div class="meta-row"><span class="chip">雨雪尘</span><span class="chip">碰撞模式三选一</span></div>
+          </header>
+
+<h2 id="rain">雨（Rain Particles）</h2>
+
+<p>
+  <code>Rain Particles</code> 分类控制雨滴效果，强度由当前天气状态里的 <code>Rain</code> 值驱动。
+  可以调节的项目包括：
+</p>
+
+<ul>
+  <li>雨滴的颜色与受光强度；</li>
+  <li>相机周围同时存在的最大粒子数；</li>
+  <li>打在碰撞面上的溅射粒子（数量与外观）。</li>
+</ul>
+
+<p>
+  粒子碰撞与生成范围的公共设置在 <code>Shared Particle Settings</code> 分类里，三种粒子共用。
+</p>
+
+<h2 id="snow">雪（Snow Particles）</h2>
+
+<p>
+  由天气状态里的 <code>Snow</code> 值驱动。可调最大粒子数、环境受光强度、粒子缩放与颜色。
+</p>
+
+<h2 id="dust">尘（Dust Particles）</h2>
+
+<p>
+  由天气状态里的 <code>Dust</code> 值驱动，表现是空气里漂浮的沙尘。可调缩放、颜色、alpha 与最大粒子数。
+</p>
+
+<h2 id="collision">粒子碰撞</h2>
+
+<p>
+  雨、雪、尘都带碰撞系统，默认开启，作用是让粒子打在面上、并且不进入室内。
+  碰撞模式由 <code>Particle Collision Mode</code> 选择：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>模式</th><th>做法</th><th>优点 / 局限</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Simple Collision</code></td>
+      <td>对关卡的简单碰撞几何体做射线检测，通道由 <code>Weather Particle Collision Channel</code> 指定（默认 Visibility）。</td>
+      <td>灵活，能精确控制哪些面挡雨；代价是 CPU 开销，即使做了优化（复用少量粒子路径）仍可能明显。</td>
+    </tr>
+    <tr>
+      <td><code>Distance Field Collision</code></td>
+      <td>完全走 GPU 发射器，查询全局距离场做碰撞。</td>
+      <td>CPU 开销低；但无法单独让某个面挡粒子而不影响距离场光照，反之亦然。</td>
+    </tr>
+    <tr>
+      <td><code>No Collision</code></td>
+      <td>不做碰撞。</td>
+      <td>最省，但粒子会穿进室内。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout note">
+  <div class="co-title">两个前置条件</div>
+  <p>
+    Simple Collision 用的是查询（query）射线，所以网格的碰撞响应里必须启用 Queries；
+    Distance Field Collision 要求项目开启生成 Mesh Distance Fields，并且依赖全局距离场——被引擎可扩展性设置关闭时也会失效。
+  </p>
+</div>
+
+<p>几种特殊情况：</p>
+
+<ul>
+  <li>
+    <strong>没有网格也想挡住粒子</strong>：用 <code>UDS Occlusion Volume</code>，它有个选项可以阻挡天气粒子。
+    这个做法只在 Simple Collision 模式下有效。
+  </li>
+  <li>
+    <strong>移动空间、要求零延迟</strong>（例如玩家驾驶的车辆内部）：用
+    <code>Weather Particles Kill Sphere</code> 组件，球内粒子会被直接杀掉，没有碰撞延迟。
+    注意它是 Niagara 更新流程里单独处理的一环，<strong>同一时间只能有一个该组件生效</strong>；
+    多处需要时得自己管理启用/停用。
+  </li>
+</ul>
+
+<div class="video-embed" data-bvid="BV1LyoTBRETn">
+  <div class="video-frame">
+    <button class="video-poster" type="button" aria-label="播放视频：配置天气粒子碰撞">
+      
+      <span class="video-play"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="video-cap"><b>配置天气粒子碰撞</b></span>
+    </button>
+  </div>
+  <div class="video-foot"><span>B 站 · 点击播放</span><a href="https://www.bilibili.com/video/BV1LyoTBRETn/" target="_blank" rel="noopener">BV1LyoTBRETn</a></div>
+</div>
+
+<h2 id="spawning">粒子的生成范围</h2>
+
+<p>
+  相机移动时粒子看起来到处都是，其实只在一个跟随相机的体积里生成。生成范围的参数在
+  <code>Shared Particle Settings</code> 分类：
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>设置</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>Max Spawn Distance</code>、<code>Spawn Distance Distribution</code></td><td>粒子在 X/Y 方向上距相机多远生成，以及在该范围内的分布。</td></tr>
+    <tr><td><code>Spawn Box Height</code></td><td>粒子可以在相机上方多高的位置生成。</td></tr>
+    <tr><td><code>World Spawn Offset</code>、<code>Camera Forward Spawn Offset</code></td><td>把整个生成区域的中心相对相机挪开（世界方向 / 相机前方）。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  如果不想围绕相机、而是要围绕一个固定位置生成，在分类的高级选项里用
+  <code>Custom Weather Particle Camera Transform</code> 指定即可。
+</p>
+
+<h2 id="lightning">闪电</h2>
+
+<p>UDW 里有两种闪电：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>类型</th><th>表现</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Lightning Flashes</td>
+      <td>完整的闪电柱，会向场景投射光照，并伴随一声雷响。</td>
+    </tr>
+    <tr>
+      <td>Obscured Lightning</td>
+      <td>藏在云层里的闪烁粒子效果，只有光，没有雷。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  <code>Lightning</code> 分类里可以调整两种闪电的间隔/频率、闪电平行光（可关掉）与颜色。
+  雷声相关设置在 <code>Sound Effects</code> 分类。两种闪电的数量都会随天气状态里的
+  <code>Thunder / Lightning</code> 值缩放。
+</p>
+
+<h3 id="手动触发一次闪电">手动触发一次闪电</h3>
+
+<p>
+  调用 UDW 的 <code>Flash Lightning</code> 可以生成一道闪电。它支持自定义位置：
+  传入的位置是<strong>闪电根部</strong>的位置，应在云层高度；<code>Custom Target Location</code>
+  非 0 时，闪电柱会结束于该点。
+</p>
+
+<figure>
+  <img src="assets/img/lightning.png" alt="Flash Lightning 函数" width="660" height="377">
+  <figcaption>手动生成闪电的 Flash Lightning 函数。</figcaption>
+</figure>
+
+<h3 id="让闪电劈指定-actor">让闪电劈指定 Actor</h3>
+
+<p>
+  如果希望随机闪电能落在关卡的特定物体上，给这些 Actor 实现蓝图接口
+  <code>UDW_Lightning Strikable Actor Interface</code>：
+</p>
+
+<ol class="steps">
+  <li>实现接口函数 <code>Test for Potential Lightning Strike</code>，输出该 Actor 当前是否可被劈中，以及被劈中的世界坐标。</li>
+  <li>在 UDW 的 <code>Lightning</code> 分类里打开 <code>Enable Lightning Flashes Striking Actors</code>，开启检测逻辑。</li>
+  <li>用 <code>Fraction Of Lightning Flashes Which Can Strike Actors</code> 控制有多大比例的闪电会去尝试劈 Actor（前提是范围内有可劈目标）。</li>
+</ol>
+
+<p>
+  接口里还有一个函数 <code>Struck by Lightning</code>，会在该 Actor 被劈中时由 UDW 调用，
+  可以用来加特效或触发游戏逻辑。
+</p>
+        </article>
+      </div>
+
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+        <nav class="md-nav md-nav--secondary" aria-label="本页目录">
+          <div class="md-nav__title">本页目录</div>
+          <ul class="md-nav__list">
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#rain" data-toc="rain">雨（Rain Particles）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#snow" data-toc="snow">雪（Snow Particles）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#dust" data-toc="dust">尘（Dust Particles）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#collision" data-toc="collision">粒子碰撞</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#spawning" data-toc="spawning">粒子的生成范围</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#lightning" data-toc="lightning">闪电</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#手动触发一次闪电" data-toc="手动触发一次闪电">手动触发一次闪电</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#让闪电劈指定-actor" data-toc="让闪电劈指定-actor">让闪电劈指定 Actor</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="翻页">
+      <a class="md-footer__link" href="weather.html"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><span><span class="md-footer__dir">上一篇</span><span class="md-footer__label">天气系统与天气状态</span></span></a>
+      <a class="md-footer__link md-footer__link--next" href="materials.html"><span><span class="md-footer__dir">下一篇</span><span class="md-footer__label">材质效果</span></span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-grid">
+<p>本页依据 Ultra Dynamic Sky 9.7 官方英文文档整理翻译（<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">ultradynamicsky.com</a>）。产品版权归 Very Interactive 所有；本手册为非官方中文资料。</p>
+        <p>配套视频：<a href="https://space.bilibili.com/3691001583503637" target="_blank" rel="noopener">B 站 · Gezhibuge</a> · 官方文档：<a href="https://www.ultradynamicsky.com/" target="_blank" rel="noopener">Ultra Dynamic Sky Documentation</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="md-overlay" id="overlay"></div>
+
+<div class="md-search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="md-search-box">
+    <div class="md-search-form">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="md-search-input" id="search-input" type="text" placeholder="搜索标题、参数名或正文…" autocomplete="off" spellcheck="false">
+      <span class="md-search-kbd">Esc</span>
+    </div>
+    <ul class="md-search-list" id="search-results"></ul>
+    <div class="md-search-hint">↑ ↓ 选择 · Enter 打开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 唤起</div>
+  </div>
+</div>
+
+<div id="lightbox"><img alt=""></div>
+<script src="assets/app.js"></script>
+<script src="assets/search-data.js"></script>
+</body>
+</html>
