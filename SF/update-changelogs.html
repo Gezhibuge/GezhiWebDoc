@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>更新日志 - Story Framework 5.2 中文文档</title>
+<meta name="description" content="Story Framework 从初始版本到 5.2 的全部公开更新记录。">
+<meta name="theme-color" content="#0f1116">
+<link rel="icon" href="assets/sf-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/palette.css">
+<link rel="stylesheet" href="assets/css/custom.css">
+<script>
+document.documentElement.classList.remove("no-js");
+(function(){try{var t=localStorage.getItem('sf-theme');if(t!=='default'&&t!=='slate')t='slate';document.documentElement.setAttribute('data-theme',t==='default'?'paper':'slate');}catch(e){}})();
+</script>
+</head>
+<body dir="ltr" data-md-color-scheme="slate">
+<script>
+(function(){try{var t=localStorage.getItem('sf-theme');if(t==='default'||t==='slate'){document.body.setAttribute('data-md-color-scheme',t);}}catch(e){}})();
+</script>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+<label class="md-overlay" for="__drawer" aria-label="关闭导航"></label>
+<div data-md-component="skip"><a href="#top" class="md-skip">跳到正文</a></div>
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" title="Story Framework 5.2 中文文档" class="md-header__button md-logo" aria-label="Story Framework 5.2 中文文档">
+      <img src="assets/sf-logo.svg" alt="" width="32" height="32">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="打开导航">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic"><span class="md-ellipsis">Story Framework 5.2 中文文档</span></div>
+        <div class="md-header__topic" data-md-component="header-topic"><span class="md-ellipsis">更新日志</span></div>
+      </div>
+    </div>
+    <div class="sf-header__actions">
+      <button type="button" class="sf-search-trigger" aria-label="搜索文档（Ctrl+K）" title="搜索文档（Ctrl+K）">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <span>搜索文档</span><kbd>Ctrl K</kbd>
+      </button>
+      <div class="sf-theme-toggle" role="group" aria-label="主题切换">
+        <button type="button" data-sf-theme="default" aria-pressed="false" title="纸张浅色主题" aria-label="纸张浅色主题">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+        </button>
+        <button type="button" data-sf-theme="slate" aria-pressed="true" title="深色主题（原版）" aria-label="深色主题（原版）">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+        <div class="md-sidebar__scrollwrap"><div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" aria-label="文档导航" data-md-level="0">
+<label class="md-nav__title" for="__drawer"><span class="md-nav__icon md-icon"></span>文档目录</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="index.html" class="md-nav__link"><span class="md-ellipsis">首页 · 欢迎</span></a></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_1">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0"><span class="md-ellipsis">开始使用</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_1"><span class="md-nav__icon md-icon"></span>开始使用</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="quickstart.html" class="md-nav__link"><span class="md-ellipsis">快速开始</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="content-overview.html" class="md-nav__link"><span class="md-ellipsis">内容概览</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="general-workflow.html" class="md-nav__link"><span class="md-ellipsis">通用工作流</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="customization-assets.html" class="md-nav__link"><span class="md-ellipsis">自定义资产</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="editor-tools.html" class="md-nav__link"><span class="md-ellipsis">编辑器工具</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_2">
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0"><span class="md-ellipsis">核心组件</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_2"><span class="md-nav__icon md-icon"></span>核心组件</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="referencing.html" class="md-nav__link"><span class="md-ellipsis">引用组件</span></a></li>
+<li class="md-nav__item"><a href="interaction-system.html" class="md-nav__link"><span class="md-ellipsis">交互系统</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="interaction-methods.html" class="md-nav__link"><span class="md-ellipsis">交互方式</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="quick-time-events.html" class="md-nav__link"><span class="md-ellipsis">快速反应事件（QTE）</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="perform-action.html" class="md-nav__link"><span class="md-ellipsis">执行动作</span></a></li>
+<li class="md-nav__item"><a href="inventory-manager.html" class="md-nav__link"><span class="md-ellipsis">物品栏管理器</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="quick-inventory.html" class="md-nav__link"><span class="md-ellipsis">快捷物品栏</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="journal-and-memoirs.html" class="md-nav__link"><span class="md-ellipsis">日志与回忆录</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="task-system.html" class="md-nav__link"><span class="md-ellipsis">任务系统</span></a></li>
+<li class="md-nav__item"><a href="sequence-manager.html" class="md-nav__link"><span class="md-ellipsis">序列管理器</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="story-choices.html" class="md-nav__link"><span class="md-ellipsis">剧情抉择</span></a></li>
+<li class="md-nav__item"><a href="npc-dialogue.html" class="md-nav__link"><span class="md-ellipsis">NPC 对话</span></a></li>
+<li class="md-nav__item"><a href="camera-controller.html" class="md-nav__link"><span class="md-ellipsis">摄像机控制器</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="camera-functions.html" class="md-nav__link"><span class="md-ellipsis">摄像机函数</span></a></li>
+<li class="md-nav__item"><a href="saving-loading.html" class="md-nav__link"><span class="md-ellipsis">保存与加载</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="saving-custom-values.html" class="md-nav__link"><span class="md-ellipsis">保存自定义值</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_3">
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0"><span class="md-ellipsis">用户界面</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_3"><span class="md-nav__icon md-icon"></span>用户界面</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="input-widgets.html" class="md-nav__link"><span class="md-ellipsis">输入控件</span></a></li>
+<li class="md-nav__item"><a href="interaction-prompts.html" class="md-nav__link"><span class="md-ellipsis">交互提示</span></a></li>
+<li class="md-nav__item"><a href="unified-menu-container.html" class="md-nav__link"><span class="md-ellipsis">统一菜单容器</span></a></li>
+<li class="md-nav__item"><a href="notifications.html" class="md-nav__link"><span class="md-ellipsis">通知</span></a></li>
+<li class="md-nav__item"><a href="sf-menus.html" class="md-nav__link"><span class="md-ellipsis">SF 菜单</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_4">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0"><span class="md-ellipsis">更多功能</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_4"><span class="md-nav__icon md-icon"></span>更多功能</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="trigger-volumes.html" class="md-nav__link"><span class="md-ellipsis">触发体积</span></a></li>
+<li class="md-nav__item"><a href="useful-actor-tags.html" class="md-nav__link"><span class="md-ellipsis">实用 Actor 标签</span></a></li>
+<li class="md-nav__item"><a href="function-libraries.html" class="md-nav__link"><span class="md-ellipsis">函数库</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_5" checked>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0"><span class="md-ellipsis">其他信息</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+<label class="md-nav__title" for="__nav_5"><span class="md-nav__icon md-icon"></span>其他信息</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="integrating-sf.html" class="md-nav__link"><span class="md-ellipsis">将 SF 接入你的项目</span></a></li>
+<li class="md-nav__item"><a href="more-topics.html" class="md-nav__link"><span class="md-ellipsis">更多主题</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="common-questions.html" class="md-nav__link"><span class="md-ellipsis">常见问题</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="unofficial-docs.html" class="md-nav__link"><span class="md-ellipsis">非官方文档</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="storyflow-editor.html" class="md-nav__link"><span class="md-ellipsis">StoryFlow 编辑器</span></a></li>
+<li class="md-nav__item md-nav__item--active"><a href="update-changelogs.html" class="md-nav__link md-nav__link--active" aria-current="page"><span class="md-ellipsis">更新日志</span></a></li>
+</ul></nav></li>
+</ul></nav>
+        </div></div>
+      </div>
+      <div class="md-sidebar md-sidebar--secondary sf-no-toc" data-md-component="sidebar" data-md-type="toc">
+        <div class="md-sidebar__scrollwrap"><div class="md-sidebar__inner">
+
+        </div></div>
+      </div>
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset" id="top">
+<div class="sf-breadcrumb"><a href="index.html">文档首页</a><span class="sep">/</span>其他信息<span class="sep">/</span><span aria-current="page">更新日志</span></div>
+<h1 id="更新日志">更新日志</h1>
+<p>每个版本更新中所做更改的列表。</p>
+<div class="sf-hint sf-hint--info">
+<p><strong>版本与日期：</strong> 本文以 GitBook 官方更新日志为准。Fab 商店页曾把 5.1 标为 2025 年 9 月 11 日，而 GitBook 更新日志记为 2025 年 11 月 20 日；此处保留 GitBook 的日期。</p>
+</div>
+<div class="sf-hint sf-hint--success">
+<p><strong>Update 5.2</strong> · 最新公开版本</p>
+<p><a href="https://youtu.be/r2PtnI4wajY"><strong>5.1 → 5.2 升级指南</strong></a></p>
+<ul>
+<li>在交互物可用的检视模式列表中，新增了“动画检视（Animation Inspect）”模式。了解更多请看<a href="https://youtu.be/cCyeP-NeUt8"><strong>这里</strong></a>。</li>
+<li>检视与字幕控件进行了 UI 布局改进，可读性更好。</li>
+<li><code>StoryFrameworkValues</code> 数据资产（SF 的配置区）中新增了一些对话与摄像机控制的 QoL 可配置值，以及一个用于控制 <code>CustomViewInteractArea</code> Actor 输入强度的值。</li>
+<li>在 SF 示例地图中新增了交互演示。</li>
+<li>修复了 <code>CustomViewInteractArea</code> 蓝图的一个问题：反复快速进入/退出这些自定义视图 Actor 时，玩家会被软锁在视图内。</li>
+<li>在 SF 的摄像机管理器中添加了 <code>摄像机抖动修改器(CameraShakeModifier)</code>，允许使用旧版摄像机抖动（Legacy Camera Shakes）。</li>
+<li>在 SF 的快速导航编辑器下拉菜单中新增了“数据表（Data Tables）”区域。</li>
+<li>新增了更多用于更方便地控制玩家 <code>后果标签(ConsequentialTags)</code> 的函数。</li>
+</ul>
+<p><sub>2026 年 2 月 3 日</sub></p>
+</div>
+<div class="sf-hint sf-hint--info">
+<p><strong>Update 5.1</strong></p>
+<p><a href="https://youtu.be/jw0J19qCARU"><strong>5.0 → 5.1 升级指南</strong></a></p>
+<ul>
+<li>使用 <code>编辑目标任务(Edit Target Task)</code> 函数时，如果该任务正是当前追踪的任务，现在会正确更新任务的“已追踪（tracked）”状态。</li>
+<li>SF 的“菜单”系统进行了适度修改，更易于使用。</li>
+<li>序列管理器中新增了 <code>播放附加到对象的带字幕声音(Play Sound Attached With Subtitles)</code> 事件，特别适合给移动中的角色添加对话（SF 对话现在默认使用它）。</li>
+<li>字幕和带字幕的声音现在会在游戏暂停时正确暂停。</li>
+<li>NPC 咕哝声（Grunt）的播放更动态。需要时，同一个 NPC 可以使用多个咕哝声。</li>
+<li>NPC 的摄像机组件现在可以针对玩家选择的特定回复进行设置，这意味着使用 NPC 的“Actor 摄像机（Actor Camera）”模式时，可以更自由地选择镜头。</li>
+<li>3D 检视的 Scene Capture 组件进行了调整，性能大幅提升。这一直是 SF 旗舰系统在性能方面最大的难关。新的设置在这个特定用例下，应该能把渲染目标的性能压到接近最佳水平。</li>
+<li>剧情抉择的选项不能再被多次选择。这更多是一个视觉 bug，而不是逻辑问题。</li>
+<li>在“对话图表 Actor（Dialogue Graph Actor）”中使用对话节点时，不再局限于当前所在关卡。对 <code>获取 NPC(Get NPC)</code> 与 <code>应用对话(Apply Dialogue)</code> 节点的修改，使得即使找不到/没有有效的 NPC，也能继续对话。</li>
+<li>通过“对话图表 Actor”中的对话节点应用的 NPC 回复操作进行了微调：运行时自动重新排序这些操作，并且把“只应在 NPC 设置结束时调用”的操作自动放到 NPC 对话操作列表末尾。这样就不再需要手动在“对话图表 Actor”中重排节点。</li>
+<li>暂停菜单中终于集成了“设置（Settings）”菜单。</li>
+<li>新增了 <code>Edit Journal Entry</code> 重叠/触发 Actor，使所有大型旗舰系统都有对应的触发 Actor。</li>
+<li>SFV（Story Framework Values / SF 的设置）已移动到 <code>SFGameInstance_BP</code> 类中，以便更可靠地访问数据。这意味着该设置数据资产中的数据不再依赖玩家控制器是否存在/有效。</li>
+<li>新增了 <code>InventoryIndicator_W</code>，用于在游戏过程中以视觉方式传达玩家物品栏的信息。</li>
+<li>修复了一个偶发 bug：玩家返回主菜单时，“自动保存（AutoSave）”功能有时会尝试保存数据。</li>
+<li>支持 UE 5.7。</li>
+</ul>
+<p><sub>2025 年 11 月 20 日</sub></p>
+</div>
+<div class="sf-hint sf-hint--info">
+<p><strong>Update 5</strong></p>
+<ul>
+<li>任务系统重构为“主线（Main）”与“可选（Optional）”任务。</li>
+<li>菜单重构为可统一导航的菜单（统一菜单容器，UMC）。</li>
+<li>新增一个包含大量 SF 自定义选项的数据资产（SFV）。</li>
+<li>新的“播放声音”框架（<code>从 SFV 播放声音(Play Sound From SFV)</code>）。</li>
+<li>NPC 系统全面重做。</li>
+<li>更多触发体积。</li>
+<li>修复了自定义视图交互区域（Custom View Interact Area）的旋转问题。</li>
+<li>通过 <code>MoreItemOptions</code> 数据表扩展了物品自定义能力。</li>
+<li>改进了初次检视物体时的内存占用。</li>
+<li>改进了处理物品栏物品时的内存占用。</li>
+<li>交互数据中的 <code>对象名称(Object Name)</code> 转换为 <code>文本(Text)</code> 变量，以支持本地化。</li>
+<li>主要存档变量现在支持在多个关卡之间分别保存/加载。</li>
+<li>在 SF 的函数库中新增了一些函数。</li>
+<li>字幕现在会根据当前视图目标的长宽比自动调整垂直位置。</li>
+<li>新增 <code>保存 Actor 标签(SaveActorTags)</code> 函数，用于保存任意 Actor 的标签，并在加载时重新应用。</li>
+<li>“Story Framework”文件夹中的大量资产分配了特定图标，以便更好地区分。</li>
+</ul>
+<p><sub>2025 年 9 月 11 日</sub></p>
+</div>
+<div class="sf-hint sf-hint--info">
+<p><strong>Update 4.1</strong></p>
+<ul>
+<li>新增<a href="story-choices.html">“剧情抉择（Story Choice）”</a>系统。</li>
+<li>修复了一个偶发问题：QTE 有时会执行之前创建的 QTE 所分发的事件。</li>
+<li><code>SoftLocked</code> 与 <code>IgnoreOutline</code> 标签现在也支持交互射线检测命中的组件，这意味着蓝图内部的单个组件也可以避开交互。</li>
+<li>修复了一些计时器在对应函数不再使用后仍继续执行的问题。现在它们会在不使用时正确停止。</li>
+<li>物品丢弃逻辑稍有改变：如果玩家正看着交互范围内的某个位置，丢弃的物品会生成在玩家准星位置；否则仍像以前一样生成在地面上。</li>
+<li>修复了 <code>检视 Actor 距摄像机距离(InspectActorDistanceFromCamera)</code> 值在 SF 编辑器实用工具中无法正确更新交互物的问题。</li>
+<li>修复了一个小 bug：玩家在检视物品时可以“翻页”，而不是正常阅读页面。</li>
+<li>字幕文本现在支持多行，较长的单条字幕可以正确换行。</li>
+<li>修复了一个 bug：玩家可以通过狂按“跳过对话”键来重置对话回复计时器。</li>
+<li>新增“电影黑边（Cinema Crop）”控件与函数，可以用黑条快速裁剪玩家屏幕。</li>
+<li>修复了一个问题：物品栏未打开，或玩家不满足所选物品物品栏设置中的对应条件时，仍能使用物品栏功能。</li>
+<li>新增“教程弹窗（Tutorial Popup）”与“创建字幕（Create Subtitles）”区域蓝图。</li>
+<li><code>检视时可拾取(CanPickupFromInspect)</code> 设为 true 的物品，在丢弃时现在会正确保留该值。以前物品被拾取后这个值会丢失。</li>
+<li>调用 <code>摄像机淡入淡出(WidgetFadeCamera)</code> 函数时，新增了调整 Z-Order 的选项，允许字幕或其他控件覆盖在淡入淡出层之上。</li>
+<li>修复了“自定义视图（Custom View）”固定摄像机区域的一个小计时问题。</li>
+</ul>
+<p><sub>2025 年 7 月 3 日</sub></p>
+</div>
+<div class="sf-hint sf-hint--info">
+<p><strong>Update 4</strong></p>
+<ul>
+<li>新增“拖拽（Drag）”交互方式（可定义移动/旋转距离值与钳制，以及摄像机聚焦模式）。</li>
+<li>新增“回忆录（Memoir）”菜单（让玩家追踪并查看之前的决定，或故事中发生的游戏事件）。</li>
+<li>“检视方式设置（Inspect Method Settings）”中的布尔变量现在可以勾选，允许玩家在检视物品时将其拾取。</li>
+<li>新增 <code>字符串转向量(FormatStringToVector)</code> 函数。</li>
+<li>新增 <code>字符串转旋转体(FormatStringToRotator)</code> 函数。</li>
+<li>序列管理器新增 <code>完成后保存(SaveAfterCompleted)</code> 布尔值，用于保存已经播放过的序列。如果序列已保存，再次尝试触发同一序列时它不会重播。适合片头/片尾序列。</li>
+<li>在玩家控制器中新增了一个摄像机头部晃动（Camera Shake）示例，演示简单的头部晃动如何进一步增强玩家的“脚踏实地”感。</li>
+<li>优化了交互提示，可见性与可自定义性更好。</li>
+<li>玩家物品栏改进。物品现在可以被“使用”，也可以与其他物品“组合”。</li>
+<li>NPC 对话改进（回复数量可以自定义，不再固定为 2 个，并增加“离开”选项；回复可以设置“回复计时器”，计时结束时执行自定义回复集）。</li>
+<li>新增“执行动作（Perform Action）”系统，进一步控制游戏节奏。</li>
+<li>控件弹窗如果紧接着连续显示，不会再与之前的弹窗实例重叠。创建新弹窗时，之前创建的弹窗会被移除。</li>
+<li>使用“可读（Readable）”检视方式的交互物，现在可以选择在页面上使用图像，并定义文本颜色。</li>
+<li>交互物现在包含一个编辑器广告牌（Billboard）组件，用于表示交互提示在游戏中的位置。</li>
+<li>可读文本页面现在可以更改文本颜色。</li>
+<li>重构 SF 的摄像机系统，改用更传统的摄像机组件工作流，而不是通过自定义玩家摄像机管理器类驱动摄像机变换。</li>
+<li>新增 <code>CustomViewInteractableArea</code> 交互物基类，可用于设置一个带自定义摄像机视图和交互物的区域。</li>
+<li>给任意交互物添加 <code>SoftLocked</code> 标签，会阻止玩家与其交互（在 <code>CustomViewInteractableArea</code> 示例中用于限制玩家只能在该“区域”内与特定物品交互）。</li>
+<li>给任意交互物添加 <code>IgnoreOutlines</code> 标签，会阻止该交互物在玩家可交互时显示描边。</li>
+<li><code>InputKey_W</code> 控件蓝图现在使用独立的“输入映射（Input Mapping）”数据表来获取数据，根据目标按键显示特定图标、文本或背景。这样就不必为每个控件实例单独设置数据，也为未来支持玩家自定义按键提供了可能（这就是你在屏幕上任何输入提示中看到的控件）。</li>
+</ul>
+<p><sub>2025 年 4 月 21 日</sub></p>
+</div>
+<div class="sf-hint sf-hint--info">
+<p><strong>Update 3.1</strong></p>
+<ul>
+<li><strong>需要道具（Has Item）</strong> 交互方式重做。</li>
+<li>修复了菜单层级问题。</li>
+<li>在物品栏管理器中新增 <code>物品数组中是否存在物品栏(DoItemsArrayExistInInventory)</code> 函数，以及 <code>任务初始化时(OnTaskInitialized)</code> 事件分发器。</li>
+<li>修复了字幕与字幕名称不一致的问题。</li>
+<li>修复了 <code>检视 Actor 偏移(Inspect Actor Offset)</code> 值，使其正确地从轴心偏移网格体。</li>
+<li>改进检视 Actor 的照明。</li>
+</ul>
+<p><sub>2025 年 2 月 23 日</sub></p>
+</div>
+<div class="sf-hint sf-hint--info">
+<p><strong>Update 3</strong></p>
+<ul>
+<li>在交互管理器中新增目标/任务框架，包含添加、编辑、移除与隐藏任务的函数。</li>
+<li>为“交互物”以及可检视/拾取的 Actor 增加骨骼网格体支持。</li>
+<li>在原始字幕文本上方增加字幕标题/名称。</li>
+<li>描边着色器不再穿透网格体渲染，并且现在支持遮挡。</li>
+<li>略微调整交互射线检测，以修复一些交互问题与交互提示问题。</li>
+<li>改变手柄检测方式，不再依赖玩家摄像机管理器类。</li>
+<li>开箱即支持保存/加载玩家最后所在的关卡，无需手动设置。</li>
+<li>控件提示动画示例。</li>
+<li>对“跳过字幕片段（Skip Subtitle Segment）”功能做了小幅调整。</li>
+<li>给任意 Actor 添加 <code>IgnorePromptTrace</code> 标签后，交互遮挡现在会忽略几何体/视线。</li>
+<li>为 <code>将交互物 Actor 转换为静态网格体(ConvertInteractableActorIntoStaticMesh)</code> 函数增加“返回值（Return Value）”输出引脚。</li>
+<li><code>保存生成的 Actor（SaveSpawnedActor，Save Game）</code> 函数现在也会保存/加载 Actor 标签。</li>
+<li>新增“门（Door）”演示道具。</li>
+</ul>
+<p><sub>2025 年 2 月 1 日</sub></p>
+</div>
+<div class="sf-hint sf-hint--info">
+<p><strong>Update 2</strong></p>
+<ul>
+<li>新增可自定义的快速反应事件，使用 <code>创建快速反应事件(CreateQuickTimeEvent)</code> 函数。</li>
+<li>通过 SFCameraManager 支持真正的第一人称。</li>
+<li>在示例地图中新增一个区域，演示在序列中使用快速反应事件。</li>
+<li>为交互物 Actor 与物品增加逐实例的自定义碰撞半径。</li>
+<li>新增一组事件分发器，方便 SF Actor 组件之间通信。</li>
+<li>修复了在“模拟（Simulate）”游玩模式下产生的问题。</li>
+<li>增加跳过对话字幕与语音片段的能力。</li>
+<li>移除未使用的蓝图部分。</li>
+<li>将一些功能迁移到更合适、更对应的蓝图中。</li>
+</ul>
+<p><sub>2024 年 11 月 3 日</sub></p>
+</div>
+<div class="sf-hint sf-hint--info">
+<p><strong>Update 1.2</strong></p>
+<ul>
+<li>在演示关卡中新增一个区域，进一步演示如何把 Story Framework 中一些故事相关功能结合使用。</li>
+<li>支持同时播放序列与检视 Actor。例如，如果你使用序列物体 Actor，并且既选择了序列、又选择了检视方式，那么序列完成或停止后，玩家会检视该 Actor。</li>
+<li>在“SFTools”编辑器实用控件中新增一个区域，用于编辑关卡内的 Actor。</li>
+<li>在交互管理器中新增一个 Story Framework 专用函数：<code>生成并保存交互物(Spawn Interactable Saved)</code>。它会生成一个交互物 Actor 类，更新其交互数据，并立即保存到“已生成 Actor（SpawnedActors）”列表中。（这样就不必先手动生成交互物 Actor、再设置交互数据、最后再保存到存档中。）</li>
+<li>新增一个可配置的自定义弹窗控件，可以填入你自己的信息。</li>
+<li>修复了一个未正确更新的检视 Actor 小数值。</li>
+<li>在可读 UI 覆盖层上增加一个小页码指示器，显示玩家当前在第几页、总共有多少页可读。</li>
+</ul>
+<p><sub>2024 年 9 月 13 日</sub></p>
+</div>
+<div class="sf-hint sf-hint--info">
+<p><strong>Update 1.1</strong></p>
+<ul>
+<li>在物品栏管理器中新增 <code>按名称编辑物品栏中的物品(EditItemInInventoryByName)</code> 函数，以便在运行时进行更多自定义。</li>
+<li>在游戏玩法函数库中新增 <code>重置 SF 摄像机状态(ResetSFCameraStates)</code> 函数。</li>
+<li>移除未使用的多余蓝图。</li>
+<li>修复了与 NPC 对话时保存/加载的摄像机问题。</li>
+<li>增加选项，可以退出 NPC 对话默认使用的自定义“固定（fixed）”摄像机预设。</li>
+<li>重做 NPC 交互，允许对话进一步分支。</li>
+</ul>
+<p>--- NPC 现在使用“对话集（Dialog Sets）”（一组对话选项，而不是单一选项）。</p>
+<p>--- 引入 <code>后果标签(ConsequentialTags)</code>，任何 NPC 都可以访问它来改变与玩家的对话。这些标签用于在开始对话时选择对话集。</p>
+<p>--- 增加在 NPC 对话时使用玩家摄像机的选项，而不是强制进入摄像机“过场”。</p>
+<p>--- 增加在开始与 NPC 对话时“允许玩家移动（AllowPlayerMovement）”的选项。</p>
+<ul>
+<li>打磨并优化摄像机管理器上的自动景深（Auto Depth of Field）。</li>
+<li>增加功能：交互提示控件不在玩家视线内时（例如墙后）会被遮挡。</li>
+<li>调整物体被检视时的照明。</li>
+<li>为交互增加新的追踪条件（如果使用 <code>WidgetMenu_IMC</code>）。</li>
+<li>新增 <code>加载 SF 组件到内存(LoadSFComponents (IntoMemory))</code> 函数，用于优化首次与物品交互时的卡顿。</li>
+</ul>
+<p><sub>2024 年 8 月 9 日</sub></p>
+</div>
+<div class="sf-hint sf-hint--info">
+<p><strong>Release Version</strong></p>
+<ul>
+<li>修复了摄像机管理器 Actor 组件中无效数组索引产生的警告信息。</li>
+<li>修复了开发期间的一个疏漏：开始运行时会在世界原点生成一个 Actor。</li>
+</ul>
+<p><sub>2024 年 7 月</sub></p>
+</div>
+<div class="sf-source">
+  <span class="sf-source__official">英文原文：<a href="https://visualonecompany.gitbook.io/home/other-information/update-changelogs" target="_blank" rel="noopener">GitBook · 更新日志</a></span>
+  <span>中文翻译整理；截图、视频与原始文案版权归 V1 Projects / 原作者所有。</span>
+</div>
+        </article>
+      </div>
+    </div>
+    <button type="button" class="md-top md-icon" data-md-component="top" hidden aria-label="回到顶部">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m16 12-4-4-4 4M12 16V8"></path></svg>
+    </button>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="页脚导航">
+      <a href="storyflow-editor.html" class="md-footer__link md-footer__link--prev" rel="prev" aria-label="上一页：StoryFlow 编辑器"><div class="md-footer__button md-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></div><div class="md-footer__title"><span class="md-footer__direction">上一页</span><div class="md-ellipsis">StoryFlow 编辑器</div></div></a>
+      <span style="flex:1"></span>
+      
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner">
+        <div class="md-copyright">
+          <div><strong>Story Framework 5.2 中文文档</strong> · 基于官方文档与 Fab 页面翻译整理</div>
+          非官方中文译本；遇到差异请以 <a href="https://visualonecompany.gitbook.io/home/other-information/update-changelogs" target="_blank" rel="noopener">英文原文</a> 为准。SF 5.2 · UE 5.6。
+        </div>
+        <div class="md-social">
+          <a href="https://www.fab.com/listings/108a7e42-a307-42fb-b1e9-e21a4c1905d7" target="_blank" rel="noopener" title="Fab 资产页" class="md-social__link" aria-label="Fab 资产页">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M9 22V12h6v10"></path></svg>
+          </a>
+          <a href="https://discord.gg/SNwgyAjQPs" target="_blank" rel="noopener" title="Discord 社区" class="md-social__link" aria-label="Discord 社区">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.6A19.7 19.7 0 0 0 15.4 3l-.3.6a18.4 18.4 0 0 1 4.4 2.2 17.8 17.8 0 0 0-15 0A18.4 18.4 0 0 1 8.9 3.6L8.6 3a19.7 19.7 0 0 0-4.9 1.6C.7 9.3-.2 13.8.3 18.3a19.8 19.8 0 0 0 6 3l.8-1.3a12.8 12.8 0 0 1-2-.9l.5-.4a14.1 14.1 0 0 0 12.8 0l.5.4a12.8 12.8 0 0 1-2 .9l.8 1.3a19.8 19.8 0 0 0 6-3c.6-5.2-.9-9.6-3.4-13.7ZM8 15.3c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.5 8 10.5s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/js/search-data.js"></script>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

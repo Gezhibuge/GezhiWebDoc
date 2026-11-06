@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>剧情抉择 - Story Framework 5.2 中文文档</title>
+<meta name="description" content="创建带镜头、计时器与后果标签的二选一剧情抉择，并处理选择后的黑屏淡入淡出。">
+<meta name="theme-color" content="#0f1116">
+<link rel="icon" href="assets/sf-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/palette.css">
+<link rel="stylesheet" href="assets/css/custom.css">
+<script>
+document.documentElement.classList.remove("no-js");
+(function(){try{var t=localStorage.getItem('sf-theme');if(t!=='default'&&t!=='slate')t='slate';document.documentElement.setAttribute('data-theme',t==='default'?'paper':'slate');}catch(e){}})();
+</script>
+</head>
+<body dir="ltr" data-md-color-scheme="slate">
+<script>
+(function(){try{var t=localStorage.getItem('sf-theme');if(t==='default'||t==='slate'){document.body.setAttribute('data-md-color-scheme',t);}}catch(e){}})();
+</script>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+<label class="md-overlay" for="__drawer" aria-label="关闭导航"></label>
+<div data-md-component="skip"><a href="#top" class="md-skip">跳到正文</a></div>
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" title="Story Framework 5.2 中文文档" class="md-header__button md-logo" aria-label="Story Framework 5.2 中文文档">
+      <img src="assets/sf-logo.svg" alt="" width="32" height="32">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="打开导航">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic"><span class="md-ellipsis">Story Framework 5.2 中文文档</span></div>
+        <div class="md-header__topic" data-md-component="header-topic"><span class="md-ellipsis">剧情抉择</span></div>
+      </div>
+    </div>
+    <div class="sf-header__actions">
+      <button type="button" class="sf-search-trigger" aria-label="搜索文档（Ctrl+K）" title="搜索文档（Ctrl+K）">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <span>搜索文档</span><kbd>Ctrl K</kbd>
+      </button>
+      <div class="sf-theme-toggle" role="group" aria-label="主题切换">
+        <button type="button" data-sf-theme="default" aria-pressed="false" title="纸张浅色主题" aria-label="纸张浅色主题">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+        </button>
+        <button type="button" data-sf-theme="slate" aria-pressed="true" title="深色主题（原版）" aria-label="深色主题（原版）">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+        <div class="md-sidebar__scrollwrap"><div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" aria-label="文档导航" data-md-level="0">
+<label class="md-nav__title" for="__drawer"><span class="md-nav__icon md-icon"></span>文档目录</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="index.html" class="md-nav__link"><span class="md-ellipsis">首页 · 欢迎</span></a></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_1">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0"><span class="md-ellipsis">开始使用</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_1"><span class="md-nav__icon md-icon"></span>开始使用</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="quickstart.html" class="md-nav__link"><span class="md-ellipsis">快速开始</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="content-overview.html" class="md-nav__link"><span class="md-ellipsis">内容概览</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="general-workflow.html" class="md-nav__link"><span class="md-ellipsis">通用工作流</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="customization-assets.html" class="md-nav__link"><span class="md-ellipsis">自定义资产</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="editor-tools.html" class="md-nav__link"><span class="md-ellipsis">编辑器工具</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_2" checked>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0"><span class="md-ellipsis">核心组件</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+<label class="md-nav__title" for="__nav_2"><span class="md-nav__icon md-icon"></span>核心组件</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="referencing.html" class="md-nav__link"><span class="md-ellipsis">引用组件</span></a></li>
+<li class="md-nav__item"><a href="interaction-system.html" class="md-nav__link"><span class="md-ellipsis">交互系统</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="interaction-methods.html" class="md-nav__link"><span class="md-ellipsis">交互方式</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="quick-time-events.html" class="md-nav__link"><span class="md-ellipsis">快速反应事件（QTE）</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="perform-action.html" class="md-nav__link"><span class="md-ellipsis">执行动作</span></a></li>
+<li class="md-nav__item"><a href="inventory-manager.html" class="md-nav__link"><span class="md-ellipsis">物品栏管理器</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="quick-inventory.html" class="md-nav__link"><span class="md-ellipsis">快捷物品栏</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="journal-and-memoirs.html" class="md-nav__link"><span class="md-ellipsis">日志与回忆录</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="task-system.html" class="md-nav__link"><span class="md-ellipsis">任务系统</span></a></li>
+<li class="md-nav__item"><a href="sequence-manager.html" class="md-nav__link"><span class="md-ellipsis">序列管理器</span></a></li>
+<li class="md-nav__item sf-nav-sub md-nav__item--active"><a href="story-choices.html" class="md-nav__link md-nav__link--active" aria-current="page"><span class="md-ellipsis">剧情抉择</span></a></li>
+<li class="md-nav__item"><a href="npc-dialogue.html" class="md-nav__link"><span class="md-ellipsis">NPC 对话</span></a></li>
+<li class="md-nav__item"><a href="camera-controller.html" class="md-nav__link"><span class="md-ellipsis">摄像机控制器</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="camera-functions.html" class="md-nav__link"><span class="md-ellipsis">摄像机函数</span></a></li>
+<li class="md-nav__item"><a href="saving-loading.html" class="md-nav__link"><span class="md-ellipsis">保存与加载</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="saving-custom-values.html" class="md-nav__link"><span class="md-ellipsis">保存自定义值</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_3">
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0"><span class="md-ellipsis">用户界面</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_3"><span class="md-nav__icon md-icon"></span>用户界面</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="input-widgets.html" class="md-nav__link"><span class="md-ellipsis">输入控件</span></a></li>
+<li class="md-nav__item"><a href="interaction-prompts.html" class="md-nav__link"><span class="md-ellipsis">交互提示</span></a></li>
+<li class="md-nav__item"><a href="unified-menu-container.html" class="md-nav__link"><span class="md-ellipsis">统一菜单容器</span></a></li>
+<li class="md-nav__item"><a href="notifications.html" class="md-nav__link"><span class="md-ellipsis">通知</span></a></li>
+<li class="md-nav__item"><a href="sf-menus.html" class="md-nav__link"><span class="md-ellipsis">SF 菜单</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_4">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0"><span class="md-ellipsis">更多功能</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_4"><span class="md-nav__icon md-icon"></span>更多功能</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="trigger-volumes.html" class="md-nav__link"><span class="md-ellipsis">触发体积</span></a></li>
+<li class="md-nav__item"><a href="useful-actor-tags.html" class="md-nav__link"><span class="md-ellipsis">实用 Actor 标签</span></a></li>
+<li class="md-nav__item"><a href="function-libraries.html" class="md-nav__link"><span class="md-ellipsis">函数库</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_5">
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0"><span class="md-ellipsis">其他信息</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_5"><span class="md-nav__icon md-icon"></span>其他信息</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="integrating-sf.html" class="md-nav__link"><span class="md-ellipsis">将 SF 接入你的项目</span></a></li>
+<li class="md-nav__item"><a href="more-topics.html" class="md-nav__link"><span class="md-ellipsis">更多主题</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="common-questions.html" class="md-nav__link"><span class="md-ellipsis">常见问题</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="unofficial-docs.html" class="md-nav__link"><span class="md-ellipsis">非官方文档</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="storyflow-editor.html" class="md-nav__link"><span class="md-ellipsis">StoryFlow 编辑器</span></a></li>
+<li class="md-nav__item"><a href="update-changelogs.html" class="md-nav__link"><span class="md-ellipsis">更新日志</span></a></li>
+</ul></nav></li>
+</ul></nav>
+        </div></div>
+      </div>
+      <div class="md-sidebar md-sidebar--secondary sf-no-toc" data-md-component="sidebar" data-md-type="toc">
+        <div class="md-sidebar__scrollwrap"><div class="md-sidebar__inner">
+
+        </div></div>
+      </div>
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset" id="top">
+<div class="sf-breadcrumb"><a href="index.html">文档首页</a><span class="sep">/</span>核心组件<span class="sep">/</span><a href="sequence-manager.html">序列管理器</a><span class="sep">/</span><span aria-current="page">剧情抉择</span></div>
+<h1 id="剧情抉择">剧情抉择</h1>
+<p>剧情抉择系统是一种基于决定的提示，会显示在屏幕上，用来强调叙事中更大、更重要的选择。这些抉择会给玩家一种“决定很有分量”的感觉，并意图在做出决定后，以某种方式改变玩家后续的故事。</p>
+<p>下面会简要介绍如何使用这些剧情抉择。</p>
+<hr />
+<p>要创建剧情抉择，可以在任意蓝图中通过序列管理器<a href="referencing.html">引用</a>调用 <code>创建剧情抉择(CreateStoryChoice)</code> 函数。设置方式大致如下图所示：</p>
+<figure class="sf-figure">
+  <img src="assets/img/core-components__sequence-manager__story-choices-01.png" alt="创建剧情抉择函数" loading="lazy">
+  <figcaption>从序列管理器引用调用 CreateStoryChoice。</figcaption>
+</figure>
+
+<p>设置好之后，我们可以通过“创建”一个连接到 <code>抉择数据(ChoiceData)</code> 结构体引脚的 <code>抉择数据(ChoiceData)</code>，来定义呈现给玩家的抉择数值。“创建结构体（Make）”节点应类似下图：</p>
+<figure class="sf-figure">
+  <img src="assets/img/core-components__sequence-manager__story-choices-02.png" alt="创建抉择数据结构体" loading="lazy">
+  <figcaption>ChoiceData 结构体包含显示名称、后果标签、摄像机变换与计时器。</figcaption>
+</figure>
+
+<p>下面会解释 <code>抉择数据(ChoiceData)</code> 中各个值的含义及用法。</p>
+<p><strong>— 抉择 A 显示名称(Choice A Display Name)</strong> <code>文本(Text)</code>
+设置呈现给玩家的第一个抉择（最左侧）在屏幕上显示的名称、词语或句子。</p>
+<p><strong>— 抉择 B 显示名称(Choice B Display Name)</strong> <code>文本(Text)</code>
+设置呈现给玩家的第二个抉择（最右侧）在屏幕上显示的名称、词语或句子。</p>
+<p><strong>— 抉择 A 后果标签(Choice A Con Tag)</strong> <code>名称(Name)</code>
+定义玩家选择 A 时获得的后果标签。</p>
+<p><strong>— 抉择 B 后果标签(Choice B Con Tag)</strong> <code>名称(Name)</code>
+定义玩家选择 B 时获得的后果标签。</p>
+<div class="sf-hint sf-hint--info">
+<p>后果标签用于分支 <a href="npc-dialogue.html">NPC 对话</a>，或添加新的<a href="journal-and-memoirs.html">回忆录</a>条目。</p>
+</div>
+<p><strong>— 设置摄像机位置(Set Camera Location)</strong> <code>变换(Transform)</code>
+设置创建剧情抉择时，玩家观看场景所用的摄像机位置/旋转。可以用它制作电影感镜头，进一步表现抉择的影响。</p>
+<p><strong>— 抉择计时器(Choice Timer)</strong> <code>浮点(Float)</code>
+定义玩家有多少时间（秒）做出决定。如果计时结束时玩家正悬停在某个选项上，该选项会被自动选择；如果玩家两个选项都没有选，计时结束时会随机选择一个。如果该值设为“0.0”，则不强制计时，玩家可以花任意长时间做决定。</p>
+<hr />
+<p>要绑定“玩家做出选择后”的逻辑，可以使用序列管理器中的 <code>剧情抉择被选择时(OnStoryChoiceChosen)</code> 事件分发器。下面是一个小示例：</p>
+<figure class="sf-figure">
+  <img src="assets/img/core-components__sequence-manager__story-choices-03.png" alt="剧情抉择被选择事件的逻辑示例" loading="lazy">
+  <figcaption>在 OnStoryChoiceChosen 后接 Switch on String，根据选择执行不同逻辑。</figcaption>
+</figure>
+
+<hr />
+<div class="sf-hint sf-hint--warning">
+<p>为什么选择后屏幕会淡入黑屏？</p>
+</div>
+<p>剧情抉择系统希望在选择后给开发者尽可能多的控制权。当玩家做出选择时，屏幕会通过 <code>摄像机淡入淡出(WidgetFadeCamera)</code> 函数淡入黑屏。</p>
+<figure class="sf-figure">
+  <img src="assets/img/core-components__sequence-manager__story-choices-04.png" alt="WidgetFadeCamera 函数" loading="lazy">
+  <figcaption>通过 WidgetFadeCamera 控制黑屏淡入淡出。</figcaption>
+</figure>
+
+<p>在玩家做出选择、屏幕已经淡入黑屏之后，可以再次调用同一个函数来淡出黑屏（把 <code>淡入淡出方向(FadeDirection)</code> 设为“-1.0”）；也可以直接在序列管理器组件内部的剧情抉择逻辑里修改。下面这张参考图展示了：在 <code>创建并显示剧情抉择(CreateAndDisplayStoryChoices)</code> 折叠图表中重新连接 <code>摄像机淡入淡出(WidgetFadeCamera)</code>，让选择后<strong>永久</strong>从黑屏淡出。</p>
+<figure class="sf-figure">
+  <img src="assets/img/core-components__sequence-manager__story-choices-05.png" alt="重新连接 WidgetFadeCamera 以永久淡出黑屏" loading="lazy">
+  <figcaption>（图片顶部标注了目录位置）</figcaption>
+</figure>
+
+<hr />
+<aside class="sf-supplement">
+<div class="sf-supplement__label">补充说明 · 非官方 · Jay Versluis 的剧情抉择笔记</div>
+<p>Jay 的补充强调了两个实战点：</p>
+<ul>
+<li>抉择只有<strong>两个</strong>选项。每个选项都需要显示名称，可以带一个可选的后果标签，并可设置计时器。计时器设为 0 表示不限时。</li>
+<li>要按选择执行不同代码，可以绑定 <code>剧情抉择被选择时(OnStoryChoiceChosen)</code>，然后用 <code>按字符串切换(Switch on String)</code> 比较选项的显示文本。后果标签在创建抉择时就已经自动设置好，后续做分支时可以直接依赖标签，不必再手动加。</li>
+</ul>
+<blockquote>
+<p><strong>版本差异提示：</strong> Jay 的文章基于较早版本，说“计时结束时默认选 B”。官方 5.2 文档写的是“没有悬停任何选项时随机选择”。请以官方当前行为为准；若你依赖固定默认项，建议在 <code>剧情抉择被选择时(OnStoryChoiceChosen)</code> 里自行兜底。</p>
+</blockquote>
+</aside>
+<div class="sf-source">
+  <span class="sf-source__official">英文原文：<a href="https://visualonecompany.gitbook.io/home/core-components/sequence-manager/story-choices" target="_blank" rel="noopener">GitBook · 剧情抉择</a></span>
+  <span>中文翻译整理；截图、视频与原始文案版权归 V1 Projects / 原作者所有。</span>
+</div>
+        </article>
+      </div>
+    </div>
+    <button type="button" class="md-top md-icon" data-md-component="top" hidden aria-label="回到顶部">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m16 12-4-4-4 4M12 16V8"></path></svg>
+    </button>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="页脚导航">
+      <a href="sequence-manager.html" class="md-footer__link md-footer__link--prev" rel="prev" aria-label="上一页：序列管理器"><div class="md-footer__button md-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></div><div class="md-footer__title"><span class="md-footer__direction">上一页</span><div class="md-ellipsis">序列管理器</div></div></a>
+      <span style="flex:1"></span>
+      <a href="npc-dialogue.html" class="md-footer__link md-footer__link--next" rel="next" aria-label="下一页：NPC 对话"><div class="md-footer__title"><span class="md-footer__direction">下一页</span><div class="md-ellipsis">NPC 对话</div></div><div class="md-footer__button md-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></div></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner">
+        <div class="md-copyright">
+          <div><strong>Story Framework 5.2 中文文档</strong> · 基于官方文档与 Fab 页面翻译整理</div>
+          非官方中文译本；遇到差异请以 <a href="https://visualonecompany.gitbook.io/home/core-components/sequence-manager/story-choices" target="_blank" rel="noopener">英文原文</a> 为准。SF 5.2 · UE 5.6。
+        </div>
+        <div class="md-social">
+          <a href="https://www.fab.com/listings/108a7e42-a307-42fb-b1e9-e21a4c1905d7" target="_blank" rel="noopener" title="Fab 资产页" class="md-social__link" aria-label="Fab 资产页">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M9 22V12h6v10"></path></svg>
+          </a>
+          <a href="https://discord.gg/SNwgyAjQPs" target="_blank" rel="noopener" title="Discord 社区" class="md-social__link" aria-label="Discord 社区">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.6A19.7 19.7 0 0 0 15.4 3l-.3.6a18.4 18.4 0 0 1 4.4 2.2 17.8 17.8 0 0 0-15 0A18.4 18.4 0 0 1 8.9 3.6L8.6 3a19.7 19.7 0 0 0-4.9 1.6C.7 9.3-.2 13.8.3 18.3a19.8 19.8 0 0 0 6 3l.8-1.3a12.8 12.8 0 0 1-2-.9l.5-.4a14.1 14.1 0 0 0 12.8 0l.5.4a12.8 12.8 0 0 1-2 .9l.8 1.3a19.8 19.8 0 0 0 6-3c.6-5.2-.9-9.6-3.4-13.7ZM8 15.3c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.5 8 10.5s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/js/search-data.js"></script>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

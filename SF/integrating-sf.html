@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>将 SF 接入你的项目 - Story Framework 5.2 中文文档</title>
+<meta name="description" content="从迁移内容、修改玩家控制器与角色，到输入映射、游戏实例和移动限制的完整接入步骤。">
+<meta name="theme-color" content="#0f1116">
+<link rel="icon" href="assets/sf-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/palette.css">
+<link rel="stylesheet" href="assets/css/custom.css">
+<script>
+document.documentElement.classList.remove("no-js");
+(function(){try{var t=localStorage.getItem('sf-theme');if(t!=='default'&&t!=='slate')t='slate';document.documentElement.setAttribute('data-theme',t==='default'?'paper':'slate');}catch(e){}})();
+</script>
+</head>
+<body dir="ltr" data-md-color-scheme="slate">
+<script>
+(function(){try{var t=localStorage.getItem('sf-theme');if(t==='default'||t==='slate'){document.body.setAttribute('data-md-color-scheme',t);}}catch(e){}})();
+</script>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+<label class="md-overlay" for="__drawer" aria-label="关闭导航"></label>
+<div data-md-component="skip"><a href="#top" class="md-skip">跳到正文</a></div>
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页头">
+    <a href="index.html" title="Story Framework 5.2 中文文档" class="md-header__button md-logo" aria-label="Story Framework 5.2 中文文档">
+      <img src="assets/sf-logo.svg" alt="" width="32" height="32">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="打开导航">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic"><span class="md-ellipsis">Story Framework 5.2 中文文档</span></div>
+        <div class="md-header__topic" data-md-component="header-topic"><span class="md-ellipsis">将 SF 接入你的项目</span></div>
+      </div>
+    </div>
+    <div class="sf-header__actions">
+      <button type="button" class="sf-search-trigger" aria-label="搜索文档（Ctrl+K）" title="搜索文档（Ctrl+K）">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <span>搜索文档</span><kbd>Ctrl K</kbd>
+      </button>
+      <div class="sf-theme-toggle" role="group" aria-label="主题切换">
+        <button type="button" data-sf-theme="default" aria-pressed="false" title="纸张浅色主题" aria-label="纸张浅色主题">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+        </button>
+        <button type="button" data-sf-theme="slate" aria-pressed="true" title="深色主题（原版）" aria-label="深色主题（原版）">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="md-container" data-md-component="container">
+  <main class="md-main" data-md-component="main">
+    <div class="md-main__inner md-grid">
+      <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+        <div class="md-sidebar__scrollwrap"><div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" aria-label="文档导航" data-md-level="0">
+<label class="md-nav__title" for="__drawer"><span class="md-nav__icon md-icon"></span>文档目录</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="index.html" class="md-nav__link"><span class="md-ellipsis">首页 · 欢迎</span></a></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_1">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0"><span class="md-ellipsis">开始使用</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_1"><span class="md-nav__icon md-icon"></span>开始使用</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="quickstart.html" class="md-nav__link"><span class="md-ellipsis">快速开始</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="content-overview.html" class="md-nav__link"><span class="md-ellipsis">内容概览</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="general-workflow.html" class="md-nav__link"><span class="md-ellipsis">通用工作流</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="customization-assets.html" class="md-nav__link"><span class="md-ellipsis">自定义资产</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="editor-tools.html" class="md-nav__link"><span class="md-ellipsis">编辑器工具</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_2">
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0"><span class="md-ellipsis">核心组件</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_2"><span class="md-nav__icon md-icon"></span>核心组件</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="referencing.html" class="md-nav__link"><span class="md-ellipsis">引用组件</span></a></li>
+<li class="md-nav__item"><a href="interaction-system.html" class="md-nav__link"><span class="md-ellipsis">交互系统</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="interaction-methods.html" class="md-nav__link"><span class="md-ellipsis">交互方式</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="quick-time-events.html" class="md-nav__link"><span class="md-ellipsis">快速反应事件（QTE）</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="perform-action.html" class="md-nav__link"><span class="md-ellipsis">执行动作</span></a></li>
+<li class="md-nav__item"><a href="inventory-manager.html" class="md-nav__link"><span class="md-ellipsis">物品栏管理器</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="quick-inventory.html" class="md-nav__link"><span class="md-ellipsis">快捷物品栏</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="journal-and-memoirs.html" class="md-nav__link"><span class="md-ellipsis">日志与回忆录</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="task-system.html" class="md-nav__link"><span class="md-ellipsis">任务系统</span></a></li>
+<li class="md-nav__item"><a href="sequence-manager.html" class="md-nav__link"><span class="md-ellipsis">序列管理器</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="story-choices.html" class="md-nav__link"><span class="md-ellipsis">剧情抉择</span></a></li>
+<li class="md-nav__item"><a href="npc-dialogue.html" class="md-nav__link"><span class="md-ellipsis">NPC 对话</span></a></li>
+<li class="md-nav__item"><a href="camera-controller.html" class="md-nav__link"><span class="md-ellipsis">摄像机控制器</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="camera-functions.html" class="md-nav__link"><span class="md-ellipsis">摄像机函数</span></a></li>
+<li class="md-nav__item"><a href="saving-loading.html" class="md-nav__link"><span class="md-ellipsis">保存与加载</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="saving-custom-values.html" class="md-nav__link"><span class="md-ellipsis">保存自定义值</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_3">
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0"><span class="md-ellipsis">用户界面</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_3"><span class="md-nav__icon md-icon"></span>用户界面</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="input-widgets.html" class="md-nav__link"><span class="md-ellipsis">输入控件</span></a></li>
+<li class="md-nav__item"><a href="interaction-prompts.html" class="md-nav__link"><span class="md-ellipsis">交互提示</span></a></li>
+<li class="md-nav__item"><a href="unified-menu-container.html" class="md-nav__link"><span class="md-ellipsis">统一菜单容器</span></a></li>
+<li class="md-nav__item"><a href="notifications.html" class="md-nav__link"><span class="md-ellipsis">通知</span></a></li>
+<li class="md-nav__item"><a href="sf-menus.html" class="md-nav__link"><span class="md-ellipsis">SF 菜单</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_4">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0"><span class="md-ellipsis">更多功能</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+<label class="md-nav__title" for="__nav_4"><span class="md-nav__icon md-icon"></span>更多功能</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item"><a href="trigger-volumes.html" class="md-nav__link"><span class="md-ellipsis">触发体积</span></a></li>
+<li class="md-nav__item"><a href="useful-actor-tags.html" class="md-nav__link"><span class="md-ellipsis">实用 Actor 标签</span></a></li>
+<li class="md-nav__item"><a href="function-libraries.html" class="md-nav__link"><span class="md-ellipsis">函数库</span></a></li>
+</ul></nav></li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_5" checked>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0"><span class="md-ellipsis">其他信息</span><span class="md-nav__icon md-icon"></span></label>
+<nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+<label class="md-nav__title" for="__nav_5"><span class="md-nav__icon md-icon"></span>其他信息</label>
+<ul class="md-nav__list" data-md-scrollfix>
+<li class="md-nav__item md-nav__item--active"><a href="integrating-sf.html" class="md-nav__link md-nav__link--active" aria-current="page"><span class="md-ellipsis">将 SF 接入你的项目</span></a></li>
+<li class="md-nav__item"><a href="more-topics.html" class="md-nav__link"><span class="md-ellipsis">更多主题</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="common-questions.html" class="md-nav__link"><span class="md-ellipsis">常见问题</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="unofficial-docs.html" class="md-nav__link"><span class="md-ellipsis">非官方文档</span></a></li>
+<li class="md-nav__item sf-nav-sub"><a href="storyflow-editor.html" class="md-nav__link"><span class="md-ellipsis">StoryFlow 编辑器</span></a></li>
+<li class="md-nav__item"><a href="update-changelogs.html" class="md-nav__link"><span class="md-ellipsis">更新日志</span></a></li>
+</ul></nav></li>
+</ul></nav>
+        </div></div>
+      </div>
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+        <div class="md-sidebar__scrollwrap"><div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary" aria-label="本页目录"><label class="md-nav__title">本页目录</label><ul class="md-nav__list" data-md-scrollfix><li class="md-nav__item"><a href="#quick-navigation-tools-optional" class="md-nav__link"><span class="md-ellipsis">快速导航工具（可选）</span></a></li>
+<li class="md-nav__item"><a href="#迁移前的项目设置" class="md-nav__link"><span class="md-ellipsis">迁移前的项目设置</span></a></li>
+<li class="md-nav__item"><a href="#将-sf-迁移到你的项目" class="md-nav__link"><span class="md-ellipsis">将 SF 迁移到你的项目</span></a></li>
+<li class="md-nav__item"><a href="#修改玩家控制器" class="md-nav__link"><span class="md-ellipsis">修改玩家控制器</span></a></li>
+<li class="md-nav__item"><a href="#修改玩家角色" class="md-nav__link"><span class="md-ellipsis">修改玩家角色</span></a></li>
+<li class="md-nav__item"><a href="#beginplay-逻辑" class="md-nav__link"><span class="md-ellipsis">BeginPlay 逻辑</span></a></li>
+<li class="md-nav__item"><a href="#游戏实例" class="md-nav__link"><span class="md-ellipsis">游戏实例</span></a></li>
+<li class="md-nav__item"><a href="#角色限制-如果你不使用-sf-的移动" class="md-nav__link"><span class="md-ellipsis">角色限制（如果你不使用 SF 的移动）</span></a></li></ul></nav>
+        </div></div>
+      </div>
+      <div class="md-content" data-md-component="content">
+        <article class="md-content__inner md-typeset" id="top">
+<div class="sf-breadcrumb"><a href="index.html">文档首页</a><span class="sep">/</span>其他信息<span class="sep">/</span><span aria-current="page">将 SF 接入你的项目</span></div>
+<h1 id="将-sf-接入你的项目">将 SF 接入你的项目</h1>
+<p>下面来谈谈如何把 SF 接入你自己的项目。你可能已经开始了自己的项目，但喜欢 SF 处理各种系统的方式。本指南会带你完成迁移，并启用 SF 提供的全部功能。</p>
+<hr />
+<div class="sf-steps">
+<section class="sf-step">
+<h3 id="quick-navigation-tools-optional">快速导航工具（可选）</h3>
+<p>在正式把 SF 迁移进项目之前，先看看如何设置 SF 的导航工具栏。这是一个可选的额外功能，不是必需的，但推荐配置。SF 非常重视快速迭代，而这些快速导航工具的目的，就是通过按钮快速打开 SF 核心组件或其他相关资产，让迭代更快。</p>
+<figure class="sf-figure sf-figure--sm">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-01.png" alt="Story Framework 快速导航工具栏" loading="lazy">
+  <figcaption>配置完成后，编辑器顶部会出现 Story Framework 工具栏。</figcaption>
+</figure>
+<p>要把这个工具栏加入项目，需要在项目设置中插入一个“启动 Python 脚本（Startup Py Script）”，让它在引擎启动时执行并创建上面的工具栏。找到启动 Python 脚本的方法：打开 <code>Project Settings</code> &gt; <code>Plugins</code> &gt; <code>Python</code>，在 <code>Startup Scripts</code> 区域新建一个条目。然后，把<a href="https://pastebin.com/raw/XhLTfnGV">这段 Python 代码</a>粘贴到新条目中，并重启项目。现在你应该能在编辑器顶部（PIE 按钮旁边）看到“Story Framework”工具栏了。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-02.png" alt="重启后出现的 Story Framework 工具栏" loading="lazy">
+  <figcaption>重启编辑器后，工具栏应出现在 PIE 控件附近。</figcaption>
+</figure>
+</section>
+<section class="sf-step">
+<h3 id="迁移前的项目设置">迁移前的项目设置</h3>
+<details>
+<summary>碰撞（Collision）</summary>
+<p>在迁移 SF 内容之前，需要先设置 <code>SFInteraction</code> 射线检测通道，多个系统会用它在关卡中识别 SF 交互物。打开 <code>Project Settings</code> &gt; <code>Collision</code>，新增一个追踪通道（Trace Channel），命名为 <code>SFInteraction</code>，并把默认响应设为“忽略（Ignore）”。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-03.png" alt="添加 SFInteraction 追踪通道" loading="lazy">
+  <figcaption>新增 SFInteraction 追踪通道，默认响应为 Ignore。</figcaption>
+</figure>
+</details>
+</section>
+<section class="sf-step">
+<h3 id="将-sf-迁移到你的项目">将 SF 迁移到你的项目</h3>
+<p>打开一份全新的 Story Framework 项目，右键单击主 <code>Story Framework</code> 文件夹，选择“迁移（Migrate）”。然后选择你项目里的 <code>Content</code> 文件夹目录。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-04.png" alt="将 Story Framework 文件夹迁移到项目 Content 目录" loading="lazy">
+  <figcaption>迁移时选择目标项目的 Content 目录。</figcaption>
+</figure>
+</section>
+<section class="sf-step">
+<h3 id="修改玩家控制器">修改玩家控制器</h3>
+<p>Story Framework 依赖玩家控制器蓝图来实现功能。如果你的项目还没有玩家控制器，需要先创建一个。如果已经有，打开它，添加并挂接下图所示的组件（在组件层级里直接搜索组件名即可找到）。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-05.png" alt="玩家控制器需要添加的 SF 组件" loading="lazy">
+  <figcaption>把五个 SF 管理器组件添加到玩家控制器。</figcaption>
+</figure>
+<p>然后，需要给玩家控制器实现 <code>SFPlayerControllerData_BPI</code> 蓝图接口：在蓝图顶部进入“类设置（Class Settings）”，添加该接口。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-06.png" alt="在类设置中添加 SFPlayerControllerData_BPI" loading="lazy">
+  <figcaption>在类设置（Class Settings）的接口（Interfaces）列表中添加 SFPlayerControllerData_BPI。</figcaption>
+</figure>
+<p>实现接口后，打开蓝图左下角的 <code>获取 SF 组件(Get SF Components)</code> 接口函数，把前面添加的 Actor 组件接到对应的引用上。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-07.png" alt="在 Get SF Components 中连接组件引用" loading="lazy">
+  <figcaption>Get SF Components 负责把管理器组件暴露给框架。</figcaption>
+</figure>
+<p>接着，在蓝图顶部的“类默认值（Class Defaults）”区域，添加 SF 的玩家摄像机管理器类。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-08.png" alt="设置 SF 的玩家摄像机管理器类" loading="lazy">
+  <figcaption>在类默认值（Class Defaults）中指定 SF 的玩家摄像机管理器类（Player Camera Manager Class）。</figcaption>
+</figure>
+<p>最后，把 Story Framework 项目里的所有输入操作（Input Actions）复制到你自己项目的玩家控制器蓝图中。如果你已经有自己的角色移动方案，可以移除 <code>通用移动(Generic Movement)</code> 图表。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-09.png" alt="复制 SF 的输入操作到玩家控制器" loading="lazy">
+  <figcaption>复制输入操作；已有移动方案时可删掉通用移动（Generic Movement）图表。</figcaption>
+</figure>
+</section>
+<section class="sf-step">
+<h3 id="修改玩家角色">修改玩家角色</h3>
+<details>
+<summary>SF 摄像机组件</summary>
+<p>玩家控制器设置好之后，还需要在玩家角色蓝图里做一些小调整。把当前的摄像机组件替换为 <code>SFDefaultCamera_CC</code> 摄像机组件（建议挂在弹簧臂组件上，以获得更平滑的摄像机移动和额外控制）。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-10.png" alt="用 SFDefaultCamera_CC 替换角色摄像机" loading="lazy">
+  <figcaption>SFDefaultCamera_CC 的用法与普通摄像机组件一致，只多了 SF 的摄像机功能。</figcaption>
+</figure>
+<p>这是处理摄像机系统的常见做法，唯一区别是 SF 的摄像机组件包含一些用于特定摄像机操作的功能。</p>
+</details>
+<details>
+<summary>动画检视依赖（Anim Inspect Dependencies）</summary>
+<p><a href="https://youtu.be/cCyeP-NeUt8"><strong>动画检视（Animation Inspect）</strong></a> 是一种独立的检视模式，允许玩家在角色手中旋转物品。这个检视模式需要在玩家角色蓝图和角色动画蓝图中设置一些组件与逻辑。</p>
+<p>首先，把 <code>AnimInspectAnchor_SC</code> 场景组件添加到玩家角色蓝图（最好挂到角色的胶囊体组件下）。下图给出了这个场景组件的一些默认变换值。你需要把这个场景组件放在角色右肩上方；如果你的角色比例与默认 UE Manny 不同，请相应调整位置。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-11.png" alt="AnimInspectAnchor_SC 的默认变换值" loading="lazy">
+  <figcaption>AnimInspectAnchor_SC 默认位置在右肩附近，按角色比例微调。</figcaption>
+</figure>
+<p>接下来，需要对自定义角色的动画蓝图做一些增改。首先打开 SF 的示例角色动画蓝图 <code>ABP_Manny</code>，复制事件图表中标记为 <sup><em>“Copy over to your own Anim BP”</em></sup> 的注释区块，粘贴到你自己的动画蓝图事件图表中，并连接到 <code>蓝图更新动画(BlueprintUpdateAnimation)</code> 事件（点击“编译”，并创建缺失的 <code>检视手部旋转(InspectHandRotation)</code> 变量）。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-12.png" alt="复制 ABP_Manny 事件图表中的动画检视逻辑" loading="lazy">
+  <figcaption>把事件图表中的动画检视逻辑复制到自己的 Anim BP。</figcaption>
+</figure>
+<p>然后进入 SF 示例动画蓝图 <code>ABP_Manny</code> 的动画图表（Anim Graph），再次复制标记为 <sup><em>“Copy over to your own Anim BP”</em></sup> 的注释区块，粘贴到你自己的角色动画蓝图动画图表中，并连接到当前已有的节点上。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-13.png" alt="复制 ABP_Manny 动画图表中的动画检视逻辑" loading="lazy">
+  <figcaption>动画图表中的逻辑同样整段复制，再接入自己的 Anim Graph。</figcaption>
+</figure>
+<p>如果你更想看视频教程，可以在 <a href="https://youtu.be/r2PtnI4wajY"><strong>SF 5.1 到 5.2 升级指南</strong></a>的 <strong>11:15 到 13:53</strong> 部分看到这个过程的完整讲解。</p>
+</details>
+</section>
+<section class="sf-step">
+<h3 id="beginplay-逻辑">BeginPlay 逻辑</h3>
+<p>有几件事必须在任意蓝图的 <code>开始运行(BeginPlay)</code> 事件中定义。为了方便以后维护，建议放在玩家控制器或玩家角色蓝图中。</p>
+<p>我们需要把 SF 的输入映射添加到玩家，可以使用 <code>更新输入映射上下文(Update Input Mapping Context)</code> 函数。（如果你已经有输入映射，要么把当前输入迁移到 SF 的 <code>SFGameplay_IMC</code> 输入映射上下文中，要么完全移除自己的输入映射。）</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-14.png" alt="在 BeginPlay 中添加输入映射上下文" loading="lazy">
+  <figcaption>用 Update Input Mapping Context 把 SFGameplay_IMC 加到玩家身上。</figcaption>
+</figure>
+<p>然后，也可以在这里添加 <code>SFSaveManager_AC</code> Actor 组件上的 <code>自动保存(Auto-Save)</code> 函数（可选）。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-15.png" alt="在 BeginPlay 中调用自动保存" loading="lazy">
+  <figcaption>自动保存是可选步骤，按项目需要决定是否启用。</figcaption>
+</figure>
+</section>
+<section class="sf-step">
+<h3 id="游戏实例">游戏实例</h3>
+<p>接下来，需要在项目设置中把游戏实例类设为 <code>SFGameInstance_BP</code>。这样才能引用 <code>StoryFrameworkValues</code> 数据资产，并完整使用 SF 的存档系统。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-16.png" alt="把游戏实例类设为 SFGameInstance_BP" loading="lazy">
+  <figcaption>项目设置 &gt; 地图和模式（Maps &amp; Modes）&gt; 游戏实例类（Game Instance Class）。</figcaption>
+</figure>
+</section>
+<section class="sf-step">
+<h3 id="角色限制-如果你不使用-sf-的移动">角色限制（如果你不使用 SF 的移动）</h3>
+<p>SF 会在特定时刻限制移动和摄像机旋转。如果你希望 SF 的某些系统按预期工作，也应该在玩家的移动（Movement）与视角（Look）输入上设置这些限制。移动限制使用 <code>SF 移动条件(SF Movement Condition)</code> 函数。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-17.png" alt="SF 移动条件函数" loading="lazy">
+  <figcaption>在移动输入上接入 SF Movement Condition。</figcaption>
+</figure>
+<p>最后，复制 SF 的 <code>SF 摄像机视角条件(SF Camera Look Condition)</code> 图表，并把它连接到你的“视角（Look）”输入上。</p>
+<figure class="sf-figure">
+  <img src="assets/img/other-information__integrating-sf-into-your-project-18.png" alt="SF 摄像机视角条件图表" loading="lazy">
+  <figcaption>在 Look 输入上接入 SF Camera Look Condition。</figcaption>
+</figure>
+</section>
+</div>
+<div class="sf-hint sf-hint--info">
+<p><strong>接入检查清单：</strong> 碰撞通道 <code>SFInteraction</code> 已添加；玩家控制器挂好 5 个组件并实现 <code>SFPlayerControllerData_BPI</code>；玩家角色使用 <code>SFDefaultCamera_CC</code>；BeginPlay 添加了 <code>SFGameplay_IMC</code>；游戏实例类为 <code>SFGameInstance_BP</code>；不使用 SF 移动时，Movement/Look 都接入了条件函数。</p>
+</div>
+<div class="sf-source">
+  <span class="sf-source__official">英文原文：<a href="https://visualonecompany.gitbook.io/home/other-information/integrating-sf-into-your-project" target="_blank" rel="noopener">GitBook · 将 SF 接入你的项目</a></span>
+  <span>中文翻译整理；截图、视频与原始文案版权归 V1 Projects / 原作者所有。</span>
+</div>
+        </article>
+      </div>
+    </div>
+    <button type="button" class="md-top md-icon" data-md-component="top" hidden aria-label="回到顶部">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m16 12-4-4-4 4M12 16V8"></path></svg>
+    </button>
+  </main>
+
+  <footer class="md-footer">
+    <nav class="md-footer__inner md-grid" aria-label="页脚导航">
+      <a href="function-libraries.html" class="md-footer__link md-footer__link--prev" rel="prev" aria-label="上一页：函数库"><div class="md-footer__button md-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></div><div class="md-footer__title"><span class="md-footer__direction">上一页</span><div class="md-ellipsis">函数库</div></div></a>
+      <span style="flex:1"></span>
+      <a href="more-topics.html" class="md-footer__link md-footer__link--next" rel="next" aria-label="下一页：更多主题"><div class="md-footer__title"><span class="md-footer__direction">下一页</span><div class="md-ellipsis">更多主题</div></div><div class="md-footer__button md-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></div></a>
+    </nav>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner">
+        <div class="md-copyright">
+          <div><strong>Story Framework 5.2 中文文档</strong> · 基于官方文档与 Fab 页面翻译整理</div>
+          非官方中文译本；遇到差异请以 <a href="https://visualonecompany.gitbook.io/home/other-information/integrating-sf-into-your-project" target="_blank" rel="noopener">英文原文</a> 为准。SF 5.2 · UE 5.6。
+        </div>
+        <div class="md-social">
+          <a href="https://www.fab.com/listings/108a7e42-a307-42fb-b1e9-e21a4c1905d7" target="_blank" rel="noopener" title="Fab 资产页" class="md-social__link" aria-label="Fab 资产页">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M9 22V12h6v10"></path></svg>
+          </a>
+          <a href="https://discord.gg/SNwgyAjQPs" target="_blank" rel="noopener" title="Discord 社区" class="md-social__link" aria-label="Discord 社区">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.6A19.7 19.7 0 0 0 15.4 3l-.3.6a18.4 18.4 0 0 1 4.4 2.2 17.8 17.8 0 0 0-15 0A18.4 18.4 0 0 1 8.9 3.6L8.6 3a19.7 19.7 0 0 0-4.9 1.6C.7 9.3-.2 13.8.3 18.3a19.8 19.8 0 0 0 6 3l.8-1.3a12.8 12.8 0 0 1-2-.9l.5-.4a14.1 14.1 0 0 0 12.8 0l.5.4a12.8 12.8 0 0 1-2 .9l.8 1.3a19.8 19.8 0 0 0 6-3c.6-5.2-.9-9.6-3.4-13.7ZM8 15.3c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.5 8 10.5s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/js/search-data.js"></script>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
