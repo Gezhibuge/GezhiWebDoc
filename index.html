@@ -4,12 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>文档库 · gezhibuge</title>
+  <title>UE5 文档库 · 鸽纸不鸽</title>
   <meta name="description"
-    content="虚幻引擎资产中文文档合集：Ultra Dynamic Sky（动态天空与天气）、Story Framework（蓝图叙事框架）、Easy Game UI（UI 框架）。">
+    content="虚幻引擎中文文档的存档站：Ultra Dynamic Sky（动态天空与天气）、Story Framework（蓝图叙事框架）、Easy Game UI（UI 框架）三份旧文档与特殊格式文档的备用阅读仓库。">
   <meta name="theme-color" content="#f2eee5">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/portal.css">
+  <link rel="stylesheet" href="assets/site.css">
   <script>
     (function () {
       try {
@@ -22,155 +22,255 @@
 
 <body>
 
-  <header class="top">
-    <div class="grid top__inner">
+  <header class="site-header">
+    <div class="wrap site-header__inner">
       <a class="brand" href="index.html">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
-          stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
-        </svg>
-        文档库
+        <span class="brand__mark">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 7v14" />
+            <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__title">UE5 文档库</span>
+          <span class="brand__sub">文档存档</span>
+        </span>
       </a>
-      <span class="top__spacer"></span>
-      <button class="icon-btn" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式" aria-pressed="true">
+
+      <nav class="site-nav" aria-label="主导航">
+        <a href="index.html" aria-current="page">首页</a>
+        <a href="https://doc.gezhibuge.com/blog" target="_blank" rel="noopener">博客</a>
+        <a href="https://doc.gezhibuge.com/about" target="_blank" rel="noopener">关于</a>
+      </nav>
+
+      <div class="header-tools">
+        <button class="icon-btn" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式"
+          aria-pressed="true">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
+        </button>
+        <button class="icon-btn" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式"
+          aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+          </svg>
+        </button>
+        <button class="icon-btn nav-toggle" type="button" data-menu-open aria-label="打开菜单" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section class="hero">
+      <div class="hero__eyebrow">Unreal Engine 5 · 中文文档</div>
+      <h1 class="hero__title">UE5 文档库</h1>
+      <p class="hero__lede">
+        这里是虚幻引擎中文文档的存档站，收录几份旧版文档与特殊格式文档，原样保留各自的排版与截图。
+        新的文档与更新都会发布在 doc.gezhibuge.com。
+      </p>
+      <div class="hero__stats">
+        <div class="stat"><b>3</b><span>份文档</span></div>
+        <div class="stat"><b>77</b><span>个页面</span></div>
+        <div class="stat"><b>2</b><span>套主题</span></div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <div class="layout__main">
+
+        <section class="notice reveal" aria-label="站点公告">
+          <div class="notice__label">公告</div>
+          <div class="notice__body">
+            <p>该网站基本不再更新</p>
+            <p>请前往<a href="https://doc.gezhibuge.com" target="_blank" rel="noopener">gezhibuge.com</a>查看其他文档</p>
+          </div>
+        </section>
+
+        <div class="section-head">
+          <h2>全部文档</h2>
+          <span>共 3 份 · 点击进入</span>
+        </div>
+
+        <article class="post reveal">
+          <header class="post__head">
+            <span class="post__kicker">天空与天气</span>
+            <h3 class="post__title"><a href="UDS/index.html">Ultra Dynamic Sky 中文文档</a></h3>
+            <div class="post__meta">
+              <span>UDS 9.7</span>
+              <i>·</i>
+              <span>18 页</span>
+              <i>·</i>
+              <span>27 个视频</span>
+            </div>
+          </header>
+          <p class="post__excerpt">
+            一套用蓝图实现的天空系统：昼夜循环、体积云、日月与星空、雾与光照都在同一个 Actor 里完成，
+            并配套 Ultra Dynamic Weather 扩展出完整的天气系统。这份文档翻译自官方 9.7 版说明，按功能模块重新分页。
+          </p>
+          <div class="post__tags">
+            <span class="tag">昼夜循环</span>
+            <span class="tag">体积云</span>
+            <span class="tag">天气</span>
+            <span class="tag">纯蓝图</span>
+          </div>
+          <div class="read-more">
+            <a href="UDS/index.html">进入文档 <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
+        <article class="post reveal">
+          <header class="post__head">
+            <span class="post__kicker">叙事框架</span>
+            <h3 class="post__title"><a href="SF/index.html">Story Framework 5.2 中文文档</a></h3>
+            <div class="post__meta">
+              <span>SF 5.2</span>
+              <i>·</i>
+              <span>36 页</span>
+              <i>·</i>
+              <span>6 个官方视频</span>
+            </div>
+          </header>
+          <p class="post__excerpt">
+            UE5 蓝图叙事框架：引用、交互、对话、抉择、任务、日志、物品与存档，一套模板凑齐叙事游戏的基础系统，
+            并说明如何接入自己的 UE5 项目。章节顺序与官方 GitBook 一致。
+          </p>
+          <div class="post__tags">
+            <span class="tag">交互与对话</span>
+            <span class="tag">任务与日志</span>
+            <span class="tag">物品栏</span>
+            <span class="tag">存档</span>
+          </div>
+          <div class="read-more">
+            <a href="SF/index.html">进入文档 <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
+        <article class="post reveal">
+          <header class="post__head">
+            <span class="post__kicker">界面框架</span>
+            <h3 class="post__title"><a href="EDU/index.html">Easy Game UI 3.0 中文文档</a></h3>
+            <div class="post__meta">
+              <span>EGU 3.0</span>
+              <i>·</i>
+              <span>23 页</span>
+              <i>·</i>
+              <span>更新至 3.0.2</span>
+            </div>
+          </header>
+          <p class="post__excerpt">
+            一套开箱即用的 UI 框架：界面布局、控件与数据绑定、菜单与弹窗，以及跟着做就能跑通的入门流程，
+            适合把菜单、HUD 与设置界面快速铺起来。
+          </p>
+          <div class="post__tags">
+            <span class="tag">控件</span>
+            <span class="tag">数据绑定</span>
+            <span class="tag">菜单</span>
+            <span class="tag">弹窗</span>
+          </div>
+          <div class="read-more">
+            <a href="EDU/index.html">进入文档 <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
+      </div>
+
+      <aside class="layout__aside" aria-label="站点信息">
+
+        <section class="widget reveal">
+          <h3 class="widget__title">关于本站</h3>
+          <p class="widget__note">
+            这里是 doc.gezhibuge.com 的备用仓库，专门存放旧版文章与格式特殊的文档，
+            页面保持各自的原始排版，方便直接翻阅与分享。
+          </p>
+          <p class="widget__note">
+            新的文档、更新与检索都在主站，本站不再同步。
+          </p>
+        </section>
+
+        <section class="widget reveal">
+          <h3 class="widget__title">文档索引</h3>
+          <ul class="widget__list">
+            <li><a href="UDS/index.html">Ultra Dynamic Sky</a><small>UDS 9.7 · 18 页</small></li>
+            <li><a href="SF/index.html">Story Framework</a><small>SF 5.2 · 36 页</small></li>
+            <li><a href="EDU/index.html">Easy Game UI</a><small>EGU 3.0 · 23 页</small></li>
+          </ul>
+        </section>
+
+        <section class="widget reveal">
+          <h3 class="widget__title">阅读说明</h3>
+          <ul class="widget__list">
+            <li>右上角切换纸张 / 石板两套配色，选择会被记住。</li>
+            <li>三份文档保留原有样式，主题以各文档内的按钮为准。</li>
+            <li>参数名与蓝图节点保留英文原文，方便在引擎里搜索。</li>
+          </ul>
+        </section>
+
+        <section class="widget reveal">
+          <h3 class="widget__title">相关页面</h3>
+          <ul class="widget__list">
+            <li><a href="https://doc.gezhibuge.com" target="_blank" rel="noopener">主站首页</a><small>最新文档入口</small></li>
+            <li><a href="https://doc.gezhibuge.com/blog" target="_blank" rel="noopener">博客</a><small>更新与笔记</small></li>
+            <li><a href="https://doc.gezhibuge.com/about" target="_blank" rel="noopener">关于</a><small>站点说明</small></li>
+          </ul>
+        </section>
+
+      </aside>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <span><strong>UE5 文档库</strong> · 旧文档与特殊格式文档的存档站</span>
+      <span>非官方中文译本，版权归各资产作者所有 · <span data-year>2026</span></span>
+    </div>
+  </footer>
+
+  <div class="menu" data-open="false" role="dialog" aria-modal="true" aria-label="导航菜单">
+    <button class="icon-btn menu__close" type="button" data-menu-close aria-label="关闭菜单">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+        stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18 6 6 18M6 6l12 12" />
+      </svg>
+    </button>
+    <a href="index.html">首页</a>
+    <a href="https://doc.gezhibuge.com/blog" target="_blank" rel="noopener">博客</a>
+    <a href="https://doc.gezhibuge.com/about" target="_blank" rel="noopener">关于</a>
+    <div class="menu__tools">
+      <button class="icon-btn" type="button" data-theme-btn="paper" title="浅色模式" aria-label="浅色模式"
+        aria-pressed="true">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
-          stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="12" cy="12" r="4" />
           <path
             d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
         </svg>
       </button>
-      <button class="icon-btn" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式" aria-pressed="false">
+      <button class="icon-btn" type="button" data-theme-btn="slate" title="深色模式" aria-label="深色模式"
+        aria-pressed="false">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
-          stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
           <path
             d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
         </svg>
       </button>
     </div>
-  </header>
+  </div>
 
-  <main class="grid">
-    <section class="hero">
-      <div class="hero__eyebrow">DOCS · UNREAL ENGINE</div>
-      <h1>虚幻引擎资产 · 中文文档</h1>
-      <p>
-        把官方英文文档按新手视角重写、按功能模块重新分页的中文手册。所有参数名保留引擎里的英文原文，
-        配套 B 站视频直接嵌在对应小节里，点开就能看。
-      </p>
-      <div class="hero__meta">
-        <span class="tag">3 份文档</span>
-        <span class="tag">77 个页面</span>
-        <span class="tag">浅色 / 深色两套主题</span>
-        <span class="tag">全文搜索 · 支持 Ctrl + K</span>
-      </div>
-    </section>
-
-    <div class="section-head">
-      <h2>全部文档</h2>
-      <span>点卡片进入</span>
-    </div>
-
-    <div class="cards">
-
-      <a class="doc-card" href="UDS/index.html">
-        <div class="doc-card__art">
-          <img src="assets/thumb-uds.png" alt="Ultra Dynamic Sky 中文文档首页截图" loading="lazy">
-          <span class="doc-card__badge">UDS 9.7</span>
-        </div>
-        <div class="doc-card__body">
-          <div class="doc-card__title">Ultra Dynamic Sky <small>中文文档</small></div>
-          <div class="doc-card__desc">
-            动态天空与天气系统：昼夜循环、体积云、日月与星空、雾与光照，以及 Ultra Dynamic Weather 天气扩展。
-          </div>
-          <div class="doc-card__foot">
-            <span>18 页 · 27 个视频</span>
-            <span class="doc-card__go">进入 →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="doc-card" href="SF/index.html">
-        <div class="doc-card__art">
-          <img src="assets/thumb-sf.png" alt="Story Framework 中文手册首页截图" loading="lazy">
-          <span class="doc-card__badge">SF 5.2</span>
-        </div>
-        <div class="doc-card__body">
-          <div class="doc-card__title">Story Framework <small>中文手册</small></div>
-          <div class="doc-card__desc">
-            UE5 蓝图叙事框架：交互、对话、抉择、任务、日志、物品与存档，一套模板凑齐叙事游戏的基础系统。
-          </div>
-          <div class="doc-card__foot">
-            <span>36 页 · 6 个官方视频</span>
-            <span class="doc-card__go">进入 →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="doc-card" href="EDU/index.html">
-        <div class="doc-card__art">
-          <img src="assets/thumb-edu.png" alt="Easy Game UI 3.0 中文文档首页截图" loading="lazy">
-          <span class="doc-card__badge">EGU 3.0</span>
-        </div>
-        <div class="doc-card__body">
-          <div class="doc-card__title">Easy Game UI <small>中文文档</small></div>
-          <div class="doc-card__desc">
-            UI 框架：界面布局、控件与数据绑定、菜单与弹窗，以及跟着做就能跑通的入门流程。
-          </div>
-          <div class="doc-card__foot">
-            <span>23 页 · 更新至 3.0.2</span>
-            <span class="doc-card__go">进入 →</span>
-          </div>
-        </div>
-      </a>
-
-    </div>
-  </main>
-
-  <footer class="foot">
-    <div class="grid">
-      <p><a href="https://space.bilibili.com/615931229" target="_blank" rel="noopener">鸽纸不鸽 </a> · <a
-          href="https://github.com/Gezhibuge/GezhiWebDoc" target="_blank" rel="noopener"> Github 页面</a></p>
-    </div>
-  </footer>
-
-  <script>
-    (function () {
-      var root = document.documentElement;
-      var KEY = 'doc-theme';
-
-      function applyTheme(t, save) {
-        var theme = t === 'slate' ? 'slate' : 'paper';
-        root.setAttribute('data-theme', theme);
-        var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', theme === 'slate' ? '#0e0f0b' : '#f2eee5');
-        document.querySelectorAll('[data-theme-btn]').forEach(function (b) {
-          b.setAttribute('aria-pressed', String(b.dataset.themeBtn === theme));
-        });
-        if (save) {
-          try {
-            localStorage.setItem(KEY, theme);
-          } catch (e) { }
-        }
-      }
-
-      var saved = null;
-      try {
-        saved = localStorage.getItem(KEY);
-      } catch (e) { }
-      applyTheme(root.getAttribute('data-theme') || saved || 'paper', false);
-
-      document.querySelectorAll('[data-theme-btn]').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          applyTheme(btn.dataset.themeBtn, true);
-        });
-      });
-    })();
-  </script>
+  <script src="assets/site.js"></script>
 </body>
 
 </html>
-
-
-
