@@ -88,25 +88,25 @@
 <h2 id="components">灯光组件</h2>
 
 <p>
-  UDS 内部自带三个灯光组件：代表太阳的平行光、代表月亮的平行光，以及一盏天光（Sky Light）。
-  具体用哪个组件、以何种方式工作，由 <code>Sun</code>、<code>Moon</code>、<code>Sky Light</code> 三个分类里的设置决定；
-  天光还额外受 <code>Sky Light Mode</code> 影响。
+  UDS 内部自带三个灯光组件：代表太阳和月亮的两盏平行光，以及一盏<code>天光（Sky Light）</code>。
+  具体每个组件如何工作，由 <code>太阳（Sun）</code>、<code>月亮（Moon）</code>、<code>天光（Sky Light）</code> 三个分类里的设置决定；
+  天光还额外受 <code>天光模式（Sky Light Mode）</code> 影响。
 </p>
 
 <p>
-  也可以让 UDS 去引用关卡里现成的灯光 Actor，而不是用内置组件，但<strong>除了第三方资产或插件明确要求引用灯光 Actor 的情况，都不建议这么做</strong>。
+  也可以让 UDS 去引用关卡里现成的灯光 Actor，而不是用内置组件，但<strong>除非第三方资产或插件明确要求引用灯光 Actor，否则都不建议这么做</strong>。
   如果确实要用，有两步必须手动补上：
 </p>
 
 <ul>
   <li>
-    <strong>平行光</strong>：组件上有一个 <code>Cloud Scattered Luminance Scale</code>，控制灯光对云的影响。
-    这个值无法通过蓝图设置到你的灯光 Actor 上，需要从 UDS 的 Sun 或 Moon 组件里抄到你的平行光 Actor。
+    <strong>平行光</strong>：组件上有一个 <code>云散射亮度缩放（Cloud Scattered Luminance Scale）</code>，控制灯光对云的影响。
+    这个值 UDS 没法通过蓝图写到你的灯光 Actor 上，需要自己从 UDS 的太阳或月亮组件上照抄过来。
   </li>
   <li>
-    <strong>天光</strong>：天光组件上的 <code>Source Type</code> 也无法被 UDS 控制，必须与 UDS 的 <code>Sky Light Mode</code> 对应：
-    使用 <code>Cubemap with Dynamic Color Tinting</code> 或 <code>Custom Cubemap</code> 时，Source Type 要设为
-    <code>Specified Cubemap</code>；使用 <code>Capture Based</code> 时设为 <code>Captured Scene</code>。
+    <strong>天光</strong>：天光组件上的 <code>源类型（Source Type）</code> 也无法被 UDS 控制，必须与 UDS 的 <code>天光模式（Sky Light Mode）</code> 对应：
+    使用 <code>动态色调立方体贴图（Cubemap with Dynamic Color Tinting）</code> 或 <code>自定义立方体贴图（Custom Cubemap）</code> 时，源类型要设为
+    <code>指定立方体贴图（Specified Cubemap）</code>；使用 <code>基于捕获（Capture Based）</code> 时设为 <code>捕获场景（Captured Scene）</code>。
   </li>
 </ul>
 
@@ -114,55 +114,55 @@
 
 <p>
   太阳与月亮这两个平行光组件，有一部分属性由蓝图每帧驱动：颜色、强度、是否投射阴影、光源角度。
-  其余属性保持开放，你可以直接在组件上改——选中 UDS 后，在细节面板顶部的组件列表里选 <code>Sun</code> 或 <code>Moon</code>，
+  其余属性不会被每帧覆盖，可以直接在组件上改——选中 UDS 后，在细节面板顶部的组件列表里选 <code>太阳（Sun）</code> 或 <code>月亮（Moon）</code>，
   看到的就是一个标准平行光组件的属性面板。
 </p>
 
 <p>
-  影响两者的公共参数在 <code>Directional Light</code> 分类里；只影响单个的分别在 <code>Sun</code>、<code>Moon</code> 分类里。
+  影响两者的公共参数在 <code>平行光（Directional Light）</code> 分类里；只影响其中一个的参数，则分别在 <code>太阳（Sun）</code>、<code>月亮（Moon）</code> 分类里。
   日月的位置、运动与外观见 <a href="time-sun.html">时间、日月与模拟</a>。
 </p>
 
 <h2 id="cloud-shadows">云影</h2>
 
 <p>
-  云影默认开启，并且<strong>与所有 Sky Mode 兼容</strong>，包括没有云的 <code>No Clouds</code>。
-  不需要的话可以在 <code>Cloud Shadows</code> 分类里关闭。
+  云影默认开启，并且<strong>与所有天空模式兼容</strong>，包括没有云的 <code>无云（No Clouds）</code>。
+  不需要的话可以在 <code>云阴影（Cloud Shadows）</code> 分类里关闭。
 </p>
 
 <p>同一个分类里还能调：</p>
 
 <ul>
   <li>云量高/低时阴影的强度与柔和度。默认云量高时完全遮挡平行光，云量低时只部分遮挡。</li>
-  <li><code>Fog</code> 或 <code>Dust Amount</code> 较高时，对平行光的遮挡比例。</li>
+  <li><code>雾（Fog）</code> 或 <code>沙尘量（Dust Amount）</code> 较高时，对平行光的遮挡比例。</li>
 </ul>
 
 <p>
-  Sky Mode 为体积云时，云影是按 3D 云层真实计算的，每一朵云都会在场景里投下对应的影子。
-  其他模式没有三维云层可投射，云影来自一张阴影纹理，其移动速度与尺度由
-  <code>2D Cloud Shadows Speed</code> 与 <code>2D Cloud Shadows Scale</code> 控制。
+  天空模式为体积云时，云影按三维云层的实际形状计算，每一朵云都会在场景里投下对应的影子。
+  其他模式没有三维云层可投射，云影来自一张阴影贴图，其移动速度与尺度由
+  <code>2D 云影速度（2D Cloud Shadows Speed）</code> 与 <code>2D 云阴影缩放（2D Cloud Shadows Scale）</code> 控制。
 </p>
 
 <h2 id="skylight">天光（Sky Light）</h2>
 
-<p><code>Sky Light Mode</code> 决定天光立方体贴图从哪来，以及 UDS 如何控制它的强度与颜色。</p>
+<p><code>天光模式（Sky Light Mode）</code> 决定天光立方体贴图从哪来，以及 UDS 如何控制它的强度与颜色。</p>
 
 <div class="table-wrap">
 <table>
   <thead><tr><th>模式</th><th>做法</th><th>适用</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>Capture Based</code></td>
-      <td>通过捕获天空生成立方体贴图。默认使用实时捕获，<code>Sky Light</code> 分类里可以开关。</td>
+      <td><code>基于捕获（Capture Based）</code></td>
+      <td>通过捕获天空生成立方体贴图。默认使用实时捕获，<code>天光（Sky Light）</code> 分类里可以开关。</td>
       <td>画质优先，接受捕获开销</td>
     </tr>
     <tr>
-      <td><code>Custom Cubemap</code></td>
-      <td>使用一张静态立方体贴图，在下方 <code>Sky Light Cubemap</code> 指定。</td>
-      <td>天空固定、或想要特定环境光</td>
+      <td><code>自定义立方体贴图（Custom Cubemap）</code></td>
+      <td>使用一张静态立方体贴图，在下方 <code>天光立方体贴图（Sky Light Cubemap）</code> 指定。</td>
+      <td>天空固定，或需要特定的环境光</td>
     </tr>
     <tr>
-      <td><code>Cubemap with Dynamic Color Tinting</code></td>
+      <td><code>动态色调立方体贴图（Cubemap with Dynamic Color Tinting）</code></td>
       <td>用一张中性灰立方体贴图，按雾色动态染色，使环境光随昼夜变化。</td>
       <td>动态昼夜项目，性能友好且全平台可用</td>
     </tr>
@@ -171,18 +171,18 @@
 </div>
 
 <p>
-  <code>Sky Light Color Multiplier</code> 可以按时段分别给天光染色。这些倍率允许大于 1，
+  <code>天光颜色乘数（Sky Light Color Multiplier）</code> 可以按时段分别给天光染色。这些乘数可以大于 1，
   超过 1 时该时段的光照强度会按比例放大。
 </p>
 
 <h2 id="exposure">曝光</h2>
 
 <p>
-  UDS 默认会应用自动曝光（Auto Exposure，引擎里也叫 Eye Adaptation）。相关设置都在 <code>Exposure</code> 分类里，
-  可以调整或关闭。
+  UDS 默认会应用<code>自动曝光（Auto Exposure）</code>，引擎里也叫 Eye Adaptation。相关设置都在 <code>曝光（Exposure）</code> 分类里，
+  可以逐项调整，也可以关闭。
 </p>
 
-<p>勾选 <code>Apply Exposure Settings</code> 后，UDS 会接管以下几项：</p>
+<p>勾选 <code>应用曝光设置（Apply Exposure Settings）</code> 后，UDS 会接管以下几项：</p>
 
 <div class="table-wrap">
 <table>
@@ -195,17 +195,17 @@
     </tr>
     <tr>
       <td>Exposure Compensation</td>
-      <td><code>Exposure Bias</code>（分时段、分天气）</td>
-      <td>针对性地让夜晚更亮、阴天更暗。</td>
+      <td><code>曝光偏移（Exposure Bias）</code>（分时段、分天气）</td>
+      <td>可以单独把夜晚调亮、把阴天调暗。</td>
     </tr>
     <tr>
       <td>Metering Mode</td>
-      <td><code>Exposure Metering Mode</code></td>
-      <td>是否启用自动曝光以及用哪种测光方式。改成 <code>Manual</code> 会关闭自动曝光，但仍可使用下面的曝光偏移。</td>
+      <td><code>曝光测光模式（Exposure Metering Mode）</code></td>
+      <td>是否启用自动曝光以及用哪种测光方式。改成 <code>手动（Manual）</code> 会关闭自动曝光，但仍可使用曝光偏移。</td>
     </tr>
     <tr>
       <td>MinEV100 / MaxEV100</td>
-      <td><code>Exposure Brightness Range</code></td>
+      <td><code>曝光亮度范围（Exposure Brightness Range）</code></td>
       <td>自动曝光试图适应的亮度区间。</td>
     </tr>
   </tbody>
@@ -213,21 +213,21 @@
 </div>
 
 <p>
-  如果调不准，可以在视口里打开 <code>Show → Visualize → HDR (Eye Adaptation)</code>，
-  直接看到自动曝光内部在做什么，再对照后处理体积或相机里的曝光设置一起调。
+  如果曝光调不准，可以在视口里打开 <code>显示 → 可视化 → HDR 人眼适应（Show → Visualize → HDR (Eye Adaptation)）</code>，
+  直接看到自动曝光当前算出的数值，再对照后处理体积或相机里的曝光设置一起调。
 </p>
 
 <h2 id="static">使用静态 / 固定光照</h2>
 
 <p>
   UDS 默认全部使用可移动（Movable）光源，但也支持静态光照。要改成静态或固定（Stationary），
-  请在 UDS 细节面板里对应分类（<code>Sun</code>、<code>Moon</code>、<code>Sky Light</code>）中找到 Mobility 设置，
-  <strong>从暴露出来的这一项改，不要直接改灯光组件上的 Mobility</strong>。
+  请到 UDS 细节面板里对应的分类（<code>太阳（Sun）</code>、<code>月亮（Moon）</code>、<code>天光（Sky Light）</code>）中找到 Mobility 设置，
+  <strong>改这一项即可，不要直接改灯光组件上的 Mobility</strong>。
 </p>
 
 <p>
-  构建光照之后，仍可以调整部分天空设置，但任何改变光源本身或位置的设置都会让光照构建失效，需要重新构建。
-  另外，太阳如果是静态或固定光照，运行时 <code>Time of Day</code> 就无法变化了。
+  构建光照之后，仍可以调整部分天空设置，但任何改动光源属性或位置的设置都会让已构建的光照失效，需要重新构建。
+  另外，太阳如果设为静态或固定，运行时 <code>时刻（Time of Day）</code> 就无法变化了。
 </p>
         </article>
       </div>

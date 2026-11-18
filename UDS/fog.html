@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>雾与天空颜色 - UDS 中文文档</title>
-<meta name="description" content="雾的密度、高度衰减与起始距离如何由云量和尘埃推导；体积雾的开启与全局体积材质；以及 Sky Atmosphere 与 Simplified Color 两种配色方式。">
+<meta name="description" content="雾的密度、高度衰减与起始距离如何由云量和沙尘推导；体积雾的开启与全局体积材质；以及天空大气（Sky Atmosphere）与简化颜色（Simplified Color）两种配色方式。">
 <meta name="theme-color" content="#f2eee5">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
@@ -81,37 +81,37 @@
           <header class="doc-head">
             <div class="eyebrow">Sky · 05</div>
             <h1>雾与天空颜色</h1>
-            <p class="lede">雾的密度、高度衰减与起始距离如何由云量和尘埃推导；体积雾的开启与全局体积材质；以及 Sky Atmosphere 与 Simplified Color 两种配色方式。</p>
+            <p class="lede">雾的密度、高度衰减与起始距离如何由云量和沙尘推导；体积雾的开启与全局体积材质；以及<code>天空大气（Sky Atmosphere）</code><code>与简化颜色（Simplified Color）</code>两种配色方式。</p>
             <div class="meta-row"><span class="chip">雾与能见度</span><span class="chip">两种配色方案</span></div>
           </header>
 
 <h2 id="density">雾密度（Fog Density）</h2>
 
 <p>
-  <code>Fog Density</code> 分类决定高度雾的密度、高度衰减和起始距离。其中密度部分不是单一数值，而是
-  “基础值 + 由云量、雾、尘埃各自追加的量”：
+  <code>雾密度（Fog Density）</code> 分类决定高度雾的密度、高度衰减和起始距离。其中密度和高度衰减都不是单一数值，而是
+  “基础值 + 由云量、雾、沙尘各自追加的量”。两个基础项如下：
 </p>
 
 <ul>
-  <li><strong>Density</strong>：雾随距离变浓的程度，也就是浓淡。</li>
+  <li><strong>Density</strong>：雾的浓淡。值越大，雾越浓，能见度越低。</li>
   <li><strong>Height Falloff</strong>：雾在雾组件高度之上消散得多快。</li>
 </ul>
 
 <p>
-  密度有基础值，另有 <code>Cloud Coverage</code>、<code>Fog</code>、<code>Dust Amount</code> 三项的追加值；
-  高度衰减则是基础值加上“多云 / 有雾 / 有尘”三种状态的取值——这三种是<strong>直接取用，不是相加</strong>。
+  密度有基础值，另有 <code>云量（Cloud Coverage）</code>、<code>雾（Fog）</code>、<code>沙尘量（Dust Amount）</code> 三项的追加值；
+  高度衰减则是基础值加上“多云 / 有雾 / 有尘”中当前适用的那一个，这三者<strong>直接取用，不是相加</strong>。
 </p>
 
 <p>
-  雾的起始距离由密度推导：一个“低密度时的起始距离”加上一个“密度达到多少时起始距离归零”，
-  后者用于让雾能紧贴镜头。
+  雾的起始距离同样由密度推导：先给一个“低密度时的起始距离”，再给一个“密度达到多少时起始距离归零”，
+  密度升到该值时起始距离归零，雾就能紧贴镜头。
 </p>
 
 <h2 id="color">雾颜色（Fog Color）</h2>
 
 <p>
   这个分类里是高度雾的颜色设置，但它们实际怎么被使用，取决于项目设置
-  <code>Support Sky Atmosphere Affecting Height Fog</code>：
+  <code>天空大气影响高度雾（Support Sky Atmosphere Affecting Height Fog）</code>：
 </p>
 
 <div class="table-wrap">
@@ -120,12 +120,12 @@
   <tbody>
     <tr>
       <td>开启（新项目默认）</td>
-      <td>雾色直接由天空大气推导。多数情况下 UDS 上的 <code>Fog Color</code> 设置只有一部分会生效。</td>
+      <td>雾色直接由天空大气推导。多数情况下，UDS 里的 <code>雾颜色（Fog Color）</code> 设置只有一部分会生效。</td>
       <td>保持开启，通常能得到正确的结果</td>
     </tr>
     <tr>
       <td>关闭</td>
-      <td>雾完全使用 <code>Fog Color</code> 分类里的设置。</td>
+      <td>雾完全使用 <code>雾颜色（Fog Color）</code> 分类里的设置。</td>
       <td>需要单独、精确控制雾色时使用</td>
     </tr>
   </tbody>
@@ -133,20 +133,20 @@
 </div>
 
 <p>
-  如果 <code>Color Mode</code> 用的是 <code>Simplified Color</code>，上面这段可以忽略——该模式下根本没有启用天空大气，
-  <code>Fog Color</code> 里的设置会全部生效。
+  如果 <code>颜色模式（Color Mode）</code> 用的是 <code>简化颜色（Simplified Color）</code>，上面这段可以忽略——该模式下根本没有启用天空大气，
+  <code>雾颜色（Fog Color）</code> 里的设置会全部生效。
 </p>
 
 <h2 id="volumetric">体积雾（Volumetric Fog）</h2>
 
 <p>
   体积雾是引擎的渲染特性：在镜头附近渲染更精细的雾，能接收并散射本地光源的光，还能被体积材质或粒子改变颜色与消光。
-  UDS 在 <code>Volumetric Fog</code> 分类里提供了开关与参数。
+  UDS 在 <code>体积雾（Volumetric Fog）</code> 分类里提供了开关与参数。
 </p>
 
 <p>
   分类顶部是开关、整体消光（extinction）和渲染距离。下面还有太阳与月亮的
-  <code>Volumetric Scattering Intensity</code>，分别控制这两个光源把体积雾照亮的程度。
+  <code>体积散射强度（Volumetric Scattering Intensity）</code>，分别控制这两个光源把体积雾照亮的程度。
 </p>
 
 <div class="video-embed" data-bvid="BV1zyoFBkE8f">
@@ -163,38 +163,38 @@
 <h3 id="全局体积材质-global-volumetric-material">全局体积材质（Global Volumetric Material）</h3>
 
 <p>
-  同一分类里可以开启全局体积材质，从而对消光与颜色做统一的控制。它包含四项，均可在此开关：
+  同一分类里可以开启全局体积材质，从而对消光与颜色做统一的控制。它包含四项，都能在这里分别打开或关闭：
 </p>
 
 <div class="table-wrap">
 <table>
   <thead><tr><th>功能</th><th>作用</th><th>前置条件</th></tr></thead>
   <tbody>
-    <tr><td>基于纹理的 3D 噪声</td><td>给消光叠加噪声，让雾有层次和变化。</td><td>—</td></tr>
+    <tr><td>基于贴图的 3D 噪声</td><td>给消光叠加噪声，让雾有层次和变化。</td><td>—</td></tr>
     <tr><td>用天气遮罩笔刷遮住体积雾</td><td>指定哪些区域不生成体积雾。</td><td>使用 UDW 的天气遮罩工具</td></tr>
-    <tr><td>地面雾（Ground Fog）</td><td>在距离场正上方增加额外的雾消光。</td><td>项目需开启生成 Mesh Distance Fields</td></tr>
-    <tr><td>水下雾</td><td>在水位以下使用单独的消光与反照率。</td><td>使用 UDS 的 <code>Water Level</code> 分类</td></tr>
+    <tr><td>地面雾（Ground Fog）</td><td>在距离场表面附近追加额外的雾消光。</td><td>项目设置需开启 Mesh Distance Fields</td></tr>
+    <tr><td>水下雾</td><td>在水位以下使用单独的消光与反照率。</td><td>使用 UDS 的 <code>水位（Water Level）</code> 分类</td></tr>
   </tbody>
 </table>
 </div>
 
-<h2 id="dust">尘埃（Dust）</h2>
+<h2 id="dust">沙尘（Dust）</h2>
 
 <p>
-  <code>Dust</code> 分类用来模拟空气里充满灰尘、烟尘或其它悬浮颗粒的状态。
-  <code>Dust Amount</code> 会同时影响雾的密度、高度衰减和雾色；当它为 1 时，雾色取 <code>Dust Color</code>。
-  尘埃对密度的具体影响方式在 <code>Fog Density</code> 分类里设置。
+  <code>沙尘（Dust）</code> 分类用来模拟空气里充满沙尘、烟尘或其它悬浮颗粒的状态。
+  <code>沙尘量（Dust Amount）</code> 会同时影响雾的密度、高度衰减和雾色；当它为 1 时，雾色取 <code>沙尘颜色（Dust Color）</code>。
+  沙尘对密度的具体影响方式在 <code>雾密度（Fog Density）</code> 分类里设置。
 </p>
 
 <div class="callout note">
   <div class="co-title">注意</div>
-  <p>关卡里存在 UDW 时，<code>Dust Amount</code> 会由天气状态接管。</p>
+  <p>关卡里存在 UDW 时，<code>沙尘量（Dust Amount）</code> 会由天气状态接管。</p>
 </div>
 
-<h2 id="atmosphere">天空颜色：Sky Atmosphere</h2>
+<h2 id="atmosphere">天空颜色：天空大气（Sky Atmosphere）</h2>
 
 <p>
-  <code>Color Mode</code> 为 <code>Sky Atmosphere</code> 时，配色的主要控制在 <code>Sky Atmosphere</code> 分类里：
+  <code>颜色模式（Color Mode）</code> 为 <code>天空大气（Sky Atmosphere）</code> 时，配色的主要控制项在 <code>天空大气（Sky Atmosphere）</code> 分类里：
 </p>
 
 <div class="table-wrap">
@@ -202,16 +202,16 @@
   <thead><tr><th>设置</th><th>作用</th></tr></thead>
   <tbody>
     <tr><td>Rayleigh Scattering</td><td>决定天空的主色调，可以按白天、夜晚、晨昏分别调。</td></tr>
-    <tr><td>Sunset / Sunrise / Twilight</td><td>对应天空大气组件的 Absorption 参数，用来加强落日的色彩、或改变暮色的调子。</td></tr>
-    <tr><td>Sky Atmosphere Overcast Luminance</td><td>云量高时，按这个值缩放所有天空颜色的强度，让阴天整体压暗。</td></tr>
+    <tr><td><code>日落 / 日出 / 暮光（Sunset / Sunrise / Twilight）</code></td><td>对应天空大气组件的 Absorption 参数，用来加强落日的色彩、或改变暮色的调子。</td></tr>
+    <tr><td><code>天空大气·阴天亮度（Sky Atmosphere Overcast Luminance）</code></td><td>云量高时，按这个值缩放所有天空颜色的强度，让阴天整体压暗。</td></tr>
   </tbody>
 </table>
 </div>
 
-<h2 id="simple-color">天空颜色：Simplified Color</h2>
+<h2 id="simple-color">天空颜色：简化颜色（Simplified Color）</h2>
 
 <p>
-  <code>Color Mode</code> 为 <code>Simplified Color</code> 时，控制在 <code>Simplified Color</code> 分类里：
+  <code>颜色模式（Color Mode）</code> 为 <code>简化颜色（Simplified Color）</code> 时，控制项在 <code>简化颜色（Simplified Color）</code> 分类里：
 </p>
 
 <div class="table-wrap">
@@ -220,19 +220,19 @@
   <tbody>
     <tr>
       <td>颜色变量</td>
-      <td>控制天空的基础色，以及 2D 动态云和静态云的亮部、暗部颜色。体积云的颜色不在这里，在 <code>Volumetric Clouds</code> 分类。</td>
+      <td>控制天空的基础色，以及 2D 动态云和静态云的亮部、暗部颜色。体积云的颜色不在这里，而在 <code>体积云（Volumetric Clouds）</code> 分类。</td>
     </tr>
     <tr>
-      <td><code>Directional Intensity</code> 曲线</td>
+      <td><code>平行光强度（Directional Intensity）</code> 曲线</td>
       <td>平行光接近地平线时被压暗多少。</td>
     </tr>
     <tr>
-      <td><code>Directional Light Scattering</code> 颜色曲线</td>
+      <td><code>平行光散射（Directional Light Scattering）</code> 颜色曲线</td>
       <td>平行光接近地平线时颜色如何被过滤。</td>
     </tr>
     <tr>
-      <td>太阳 / 月亮大气 LUT 体积纹理</td>
-      <td>天空材质据此结合相机方向与光线方向推导大气颜色。默认的 LUT 是经过复杂流程烘焙的，能贴近 Sky Atmosphere 的效果；需要改动时官方建议只对现成纹理做颜色变换，而不是重新制作。</td>
+      <td>太阳 / 月亮大气 LUT 体积贴图</td>
+      <td>天空材质据此结合相机方向与光线方向推导大气颜色。默认的 LUT 是经过复杂流程烘焙的，能贴近 Sky Atmosphere 的效果；需要改动时官方建议只对现成贴图做颜色变换，而不是重新制作。</td>
     </tr>
   </tbody>
 </table>
@@ -248,7 +248,7 @@
             <li><a class="md-nav__link md-nav__link--lvl2" href="#color" data-toc="color">雾颜色（Fog Color）</a></li>
             <li><a class="md-nav__link md-nav__link--lvl2" href="#volumetric" data-toc="volumetric">体积雾（Volumetric Fog）</a></li>
             <li><a class="md-nav__link md-nav__link--lvl3" href="#全局体积材质-global-volumetric-material" data-toc="全局体积材质-global-volumetric-material">全局体积材质（Global Volumetric Material）</a></li>
-            <li><a class="md-nav__link md-nav__link--lvl2" href="#dust" data-toc="dust">尘埃（Dust）</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#dust" data-toc="dust">沙尘（Dust）</a></li>
             <li><a class="md-nav__link md-nav__link--lvl2" href="#atmosphere" data-toc="atmosphere">天空颜色：Sky Atmosphere</a></li>
             <li><a class="md-nav__link md-nav__link--lvl2" href="#simple-color" data-toc="simple-color">天空颜色：Simplified Color</a></li>
           </ul>

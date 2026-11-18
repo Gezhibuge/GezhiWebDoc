@@ -87,38 +87,38 @@
 
 <p>
   这一页把 UDS 里那些“不属于主线流程、但很实用”的功能集中在一起。它们大多是可选的：
-  不用不影响基础天空，需要时再回来查。
+  不启用也不影响基础天空，需要时再回来查。
 </p>
 
 <h2 id="config">配置的保存与套用</h2>
 
 <p>
   可以把 UDS（或 UDW）的全部设置存成配置，用于其它关卡/项目复用，或在运行时按游戏事件切换。
-  入口是 <code>Configuration Manager</code>：工具栏 <code>Ultra Dynamic Sky</code> 下拉菜单，或
-  <code>Blueprints</code> 文件夹里的编辑器工具。
+  入口是 <code>配置管理器（Configuration Manager）</code>：工具栏 <code>超动态天空（Ultra Dynamic Sky）</code> 下拉菜单，或
+  <code>蓝图（Blueprints）</code> 文件夹里的编辑器工具。
 </p>
 
 <ul>
   <li>在管理器里选中已有配置并应用到当前 UDS；没有选中任何配置时，用右下角的保存按钮新建。</li>
   <li>保存时会让你命名并选择位置：<strong>项目内</strong>（放进项目的 Ultra Dynamic Sky 文件夹，仅本项目可用）或
     <strong>引擎内容</strong>（放进引擎目录下的同名文件夹，同版本引擎的任意项目都能用）。</li>
-  <li>配置缩略图角上的数字是保存时所用的 UDS 版本。旧版本保存的配置仍可使用，但不包含后来新增的变量；
+  <li>配置缩略图角上的数字是保存时所用的 UDS 版本。旧版本保存的配置仍可使用，只是不包含后来新增的变量；
     如果在意完整性，用新版本重新保存一次。</li>
 </ul>
 
 <p>
-  运行时套用：UDS 调 <code>Apply Sky Configuration</code>，UDW 调 <code>Apply Weather Configuration</code>。
+  运行时套用：UDS 调 <code>应用天空配置（Apply Sky Configuration）</code>，UDW 调 <code>应用天气配置（Apply Weather Configuration）</code>。
   两者都要套用时，官方建议<strong>先套天气配置，再套天空配置</strong>。
 </p>
 
 <p>
-  另一种用法是<strong>配置覆盖（Override）</strong>：在 UDS/UDW 的 <code>Basic Controls</code> 高级选项里指定一个配置资产，
+  另一种用法是<strong>配置覆盖（Override）</strong>：在 UDS/UDW 的 <code>基础控制（Basic Controls）</code> 高级选项里指定一个配置资产，
   让 Actor 的设置直接由该资产控制。适合多个关卡里各有一份 UDS、但希望它们共用同一套配置的情况。
   注意启用覆盖后，Actor 上的设置就不能再手动改了——它们由配置资产决定。覆盖在启动时生效，运行中仍可正常读写 UDS 变量。
 </p>
 
 <p>
-  如果经常在同一关卡里来回切换几套配置，可以用 <code>Configuration Buttons</code> 工具把配置做成按钮固定到编辑器面板上。
+  如果经常在同一关卡里来回切换几套配置，可以用 <code>配置按钮（Configuration Buttons）</code> 工具把配置做成按钮固定到编辑器面板上。
 </p>
 
 <div class="video-embed" data-bvid="BV1LyoTBREwY">
@@ -140,15 +140,15 @@
 </p>
 
 <p>
-  修改器资产用 <code>Sky Modifier Editor</code> 制作（工具栏下拉菜单或 <code>Blueprints/Tools</code>）。
+  修改器资产用 <code>天空修改器编辑器（Sky Modifier Editor）</code> 制作（工具栏下拉菜单或 <code>Blueprints/Tools</code>）。
   在编辑器里：
 </p>
 
 <ul>
-  <li><code>Modifiable Sky Properties</code> 列出该机制能接管的天空属性。改某一项的值即表示本修改器要覆盖它；
+  <li><code>可修改天空属性（Modifiable Sky Properties）</code> 列出该机制能接管的天空属性。勾选某一项就表示本修改器要覆盖它；
     取消勾选则移除这项覆盖。</li>
-  <li><code>Modifier Settings</code> 里可以设置淡入淡出的缓动方式、最大 alpha，以及是否附带自己的后处理设置。</li>
-  <li>编辑过程中，效果会实时预览在场景里的 UDS 上。</li>
+  <li><code>修改器设置（Modifier Settings）</code> 里可以设置淡入淡出的缓动方式、最大 alpha，以及是否附带自己的后处理设置。</li>
+  <li>编辑过程中可以直接在场景里的 UDS 上实时预览效果。</li>
 </ul>
 
 <p>运行时控制的函数：</p>
@@ -157,17 +157,17 @@
 <table>
   <thead><tr><th>函数</th><th>作用</th></tr></thead>
   <tbody>
-    <tr><td><code>Add Modifier</code></td><td>添加修改器（若尚未添加），并在指定秒数内淡入。</td></tr>
-    <tr><td><code>Remove Modifier</code></td><td>移除已应用的修改器，并在指定秒数内淡出。</td></tr>
-    <tr><td><code>Set Modifier State</code></td><td>直接把 alpha 设为某个值，之后不再自动变化。适合用玩家位置等任意数值驱动。若修改器尚未添加，会自动添加。</td></tr>
-    <tr><td><code>Clear Modifiers</code></td><td>立即清除全部已应用的修改器。</td></tr>
-    <tr><td><code>Set Unmodified Property Values</code></td><td>UDS 启动时会保存一份“未修改”的属性作为插值基准。需要在运行时重新取基准时调用它。</td></tr>
+    <tr><td><code>添加修改器（Add Modifier）</code></td><td>添加修改器（若尚未添加），并在指定秒数内淡入。</td></tr>
+    <tr><td><code>移除修改器（Remove Modifier）</code></td><td>移除已应用的修改器，并在指定秒数内淡出。</td></tr>
+    <tr><td><code>设置修改器状态（Set Modifier State）</code></td><td>直接把 alpha 设为某个值，之后不再自动变化。适合用玩家位置等任意数值驱动。若修改器尚未添加，会自动添加。</td></tr>
+    <tr><td><code>清除修改器（Clear Modifiers）</code></td><td>立即清除全部已应用的修改器。</td></tr>
+    <tr><td><code>设置未修改属性值（Set Unmodified Property Values）</code></td><td>UDS 启动时会保存一份“未修改”的属性作为插值基准。需要在运行时重新取基准时调用它。</td></tr>
   </tbody>
 </table>
 </div>
 
 <p>
-  如果想按时间段自动生效，用 <code>Sky Modifiers</code> 分类里的 <code>Time of Day Specific Modifiers</code> 映射表：
+  如果想按时间段自动生效，用 <code>天空修改器（Sky Modifiers）</code> 分类里的 <code>时刻专用修改器（Time of Day Specific Modifiers）</code> 映射表：
   把修改器加进去，展开条目即可设置淡入区间与淡出区间。淡入可以晚于淡出（用于跨夜的修改器），
   但两个区间的结束时间都必须晚于各自的开始时间。
   <strong>以这种方式自动应用时，不要再用上面的函数去控制它</strong>，两者会冲突。
@@ -187,95 +187,95 @@
 <h2 id="save-state">保存天空与天气状态</h2>
 
 <p>
-  需要把当前天空（以及天气）状态写进存档、或跨关卡保留时，用两个函数：
+  需要把当前天空（以及天气）状态写进存档，或跨关卡保留时，用两个函数：
 </p>
 
 <div class="table-wrap">
 <table>
   <thead><tr><th>函数</th><th>作用</th></tr></thead>
   <tbody>
-    <tr><td><code>Create UDS and UDW State for Saving</code></td><td>把 UDS 与 UDW 的状态打包成一个结构体，包含时间与当前天气状态的全部变量，可随存档一起保存。</td></tr>
-    <tr><td><code>Apply Saved UDS and UDW State</code></td><td>读档或进入新关卡时，把该结构体应用回去。</td></tr>
+    <tr><td><code>创建 UDS 与 UDW 保存状态（Create UDS and UDW State for Saving）</code></td><td>把 UDS 与 UDW 的状态打包成一个结构体，包含时间与当前天气状态的全部变量，可随存档一起保存。</td></tr>
+    <tr><td><code>应用已保存 UDS 与 UDW 状态（Apply Saved UDS and UDW State）</code></td><td>读档或进入新关卡时，把该结构体应用回去。</td></tr>
   </tbody>
 </table>
 </div>
 
 <figure>
   <img src="assets/img/save-state.png" alt="保存与恢复状态的两个函数" width="801" height="451">
-  <figcaption>生成状态结构、以及把结构应用回去的两个函数。</figcaption>
+  <figcaption>生成状态结构，以及把结构应用回去的两个函数。</figcaption>
 </figure>
 
 <h2 id="lens-flare">太阳镜头光晕</h2>
 
 <p>
-  UDS 自带一套太阳专用的电影感光晕，与引擎后处理里基于图像的光晕（Image Based Lens Flare）是两套完全独立的实现。
+  UDS 自带一套太阳专用的电影感光晕，与引擎后处理里<code>基于图像的光晕（Image Based Lens Flare）</code>是两套完全独立的实现。
 </p>
 
 <p>
-  在 <code>Lens Flare</code> 分类勾选 <code>Enable Sun Lens Flare</code>，再选择 <code>Lens Flare Type</code> 即可。
-  想自定义时，在分类的高级选项里找到 <code>Custom Lens Flare Parent Instance</code>，
+  在 <code>镜头光晕（Lens Flare）</code> 分类勾选 <code>启用太阳镜头光晕（Enable Sun Lens Flare）</code>，再选择 <code>镜头光晕类型（Lens Flare Type）</code> 即可。
+  想自定义时，在分类的高级选项里找到 <code>自定义镜头光晕父实例（Custom Lens Flare Parent Instance）</code>，
   以 <code>Materials/Material_Instances/Lens_Flares</code> 下的现成实例为父级新建一个实例，
-  调整纹理、颜色与光晕各元素的映射参数，再把这个实例填入该选项。
+  调整贴图、颜色与光晕各元素的映射参数，再把这个实例填入该选项。
 </p>
 
 <h2 id="interior">室内调整与玩家遮挡</h2>
 
 <p>
-  <code>Player Occlusion</code> 是 UDS 里持续检测“相机/角色被场景碰撞遮挡了多少”的系统，
+  <code>玩家遮挡（Player Occlusion）</code> 是 UDS 里持续检测“相机/角色被场景碰撞遮挡了多少”的系统，
   换句话说就是判断玩家现在有多“室内”。它的结果被三处使用：
 </p>
 
 <ul>
-  <li>UDS 的 <code>Interior Adjustments</code>：按遮挡程度调整部分天空属性；</li>
-  <li>UDW 的 <code>Sound Occlusion</code>：室内时把天气音效压低、闷住；</li>
+  <li>UDS 的 <code>室内调整（Interior Adjustments）</code>：按遮挡程度调整部分天空属性；</li>
+  <li>UDW 的 <code>声音遮挡（Sound Occlusion）</code>：室内时把天气音效压低、闷住；</li>
   <li>UDW 的温度计算：可选地在室内套用另一个温度。</li>
 </ul>
 
 <p>
-  要启用室内调整，先在 <code>Interior Adjustments</code> 分类勾选 <code>Apply Interior Adjustments</code>，
-  再设置进入室内时各属性如何变化。遮挡值的来源与精度在 <code>Player Occlusion</code> 分类里配置：
+  要启用室内调整，先在 <code>室内调整（Interior Adjustments）</code> 分类勾选 <code>应用室内调整（Apply Interior Adjustments）</code>，
+  再设置进入室内时各属性如何变化。遮挡值的来源与精度在 <code>玩家遮挡（Player Occlusion）</code> 分类里配置：
   每次更新耗时、使用的碰撞射线数量、检测的碰撞通道等。
 </p>
 
 <p>
   需要强制某些空间“永远算室内”时，把 <code>Blueprints/Occlusion</code> 下的
-  <code>UDS Occlusion Volume</code> 放进关卡。<code>Player Occlusion</code> 分类里的
-  <code>Occlusion Mode</code> 决定遮挡是按碰撞射线判定、按遮挡体积判定，还是两者结合。
+  <code>UDS 遮挡体积（UDS Occlusion Volume）</code> 放进关卡。<code>玩家遮挡（Player Occlusion）</code> 分类里的
+  <code>遮挡模式（Occlusion Mode）</code> 决定遮挡是按碰撞射线判定、按遮挡体积判定，还是两者结合。
 </p>
 
 <h2 id="light-shafts">屏幕空间光轴</h2>
 
 <p>
-  <code>Screen Space Light Shafts</code> 是引擎自带的平行光特性（Light Shaft Bloom）：通过采样已渲染画面的颜色与深度，
+  <code>屏幕空间光轴（Screen Space Light Shafts）</code> 是引擎自带的平行光特性（Light Shaft Bloom）：通过采样已渲染画面的颜色与深度，
   用很低的成本做出光束/神光效果。因为它基于屏幕空间，只有<strong>朝向光源</strong>时才看得到。
   这个效果与体积雾无关——体积雾也能做出类似光束，但原理完全不同。
 </p>
 
-<p>UDS 的 <code>Screen Space Light Shafts</code> 分类就是用来给太阳和月亮这两盏平行光开关该效果的。</p>
+<p>UDS 的 <code>屏幕空间光轴（Screen Space Light Shafts）</code> 分类就是用来给太阳和月亮这两盏平行光开关该效果的。</p>
 
 <h2 id="painter">绘制体积云覆盖</h2>
 
 <p>
-  体积云支持手动“画”出云量分布。画出来的值会叠加在全局 <code>Cloud Coverage</code> 之上
+  体积云支持手动“画”出云量分布。画出来的值会叠加在全局 <code>云量（Cloud Coverage）</code> 之上
   （如果场上有 UDW，则叠加在天气状态给出的云量之上）。
 </p>
 
 <ol class="steps">
   <li>确认场景里有 UDS，且 Sky Mode 为体积云。</li>
-  <li>从工具栏 <code>Ultra Dynamic Sky</code> 下拉菜单启动 <code>Volumetric Cloud Painter</code>（或运行 <code>Blueprints</code> 里的编辑器工具）。</li>
-  <li>新建或打开一个 <code>UDS Cloud Paint Container</code>——它保存绘制数据，一个关卡里可以有多个。</li>
-  <li>在顶部栏调整笔刷（纹理、强度、衰减、笔刷间距），在视口里左键绘制、右键拖动视图、中键缩放。</li>
+  <li>从工具栏 <code>超动态天空（Ultra Dynamic Sky）</code> 下拉菜单启动 <code>体积云绘制器（Volumetric Cloud Painter）</code>（或运行 <code>蓝图（Blueprints）</code> 里的编辑器工具）。</li>
+  <li>新建或打开一个 <code>UDS 云层绘制容器（UDS Cloud Paint Container）</code>——它保存绘制数据，一个关卡里可以有多个。</li>
+  <li>在顶部栏调整笔刷（贴图、强度、衰减、笔刷间距），在视口里左键绘制、右键拖动视图、中键缩放。</li>
   <li>左侧切换绘制/擦除模式：可画三档云量（视口中以红、绿、蓝表示），也可以擦除（画黑）。</li>
-  <li>完成后点底部的 <code>Save to Textures</code>。画好的格子会存成纹理，放在关卡所在目录的 <code>UDS_LevelData</code> 子文件夹里。</li>
+  <li>完成后点底部的 <code>保存到贴图（Save to Textures）</code>。画好的格子会存成贴图，放在关卡所在目录的 <code>UDS_LevelData</code> 子文件夹里。</li>
 </ol>
 
 <p>
-  这些纹理最终被画进 UDS 上的一个云量渲染目标，渲染目标的尺寸、分辨率与用法在
-  <code>Volumetric Cloud Painting</code> 分类里设置。
+  这些贴图最终被画进 UDS 上的一个云量渲染目标，渲染目标的尺寸、分辨率与用法在
+  <code>体积云绘制（Volumetric Cloud Painting）</code> 分类里设置。
 </p>
 
 <p>
-  关卡里有多个绘制容器、需要切换生效的那一个时，对该 Actor 调用 <code>Activate</code> / <code>Deactivate</code>，
+  关卡里有多个绘制容器，需要切换生效的那一个时，对该 Actor 调用 <code>激活（Activate）</code> / <code>停用（Deactivate）</code>，
   编辑器细节面板里也能切换。
 </p>
 
@@ -293,39 +293,39 @@
 <h2 id="water">水位（Water Level）</h2>
 
 <p>
-  <code>Water Level</code> 分类用来定义关卡水面高度，这个高度会被多个功能复用：
+  <code>水位（Water Level）</code> 分类用来定义关卡水面高度，这个高度会被多个功能复用：
 </p>
 
 <ul>
-  <li>日月的焦散折射：UDS 上开启 <code>Render Water Caustics</code>，参数在同分类里。</li>
-  <li>体积雾在水下的消光与反照率：属于全局体积材质的一部分，在 <code>Volumetric Fog</code> 分类里配置。</li>
-  <li>UDW 的 <code>Use UDS Water Level</code>：把水位应用到天气粒子、声音遮挡等系统。</li>
+  <li>日月的焦散折射：UDS 上开启 <code>渲染水焦散（Render Water Caustics）</code>，参数在同分类里。</li>
+  <li>体积雾在水下的消光与反照率：属于全局体积材质的一部分，在 <code>体积雾（Volumetric Fog）</code> 分类里配置。</li>
+  <li>UDW 的 <code>使用 UDS 水位（Use UDS Water Level）</code>：把水位应用到天气粒子、声音遮挡等系统。</li>
 </ul>
 
 <p>
-  <code>Global Water Level</code> 是全局的最低水面高度（例如海平面），设成关卡里海面的 Z 高度即可。
+  <code>全局水位（Global Water Level）</code> 是全局的最低水面高度（例如海平面），设成关卡里海面的 Z 高度即可。
 </p>
 
 <p>
-  地图里有多种水面（海、湖、河）时，用 <code>Water Body Classes</code> 数组：把某个 Actor 类加进去，
-  关卡里该类的水体就会通过把静态网格渲染到渲染目标的方式，局部影响水位。
+  关卡里有多种水面（海、湖、河）时，用 <code>水体类（Water Body Classes）</code> 数组：把某个 Actor 类加进去，
+  关卡里该类的水体会把自身的静态网格渲染到渲染目标，从而局部影响水位。
   用 Water 插件的话通常无需配置——分类里默认已包含该插件的 Lake、Ocean、River 类。
 </p>
 
 <p>
-  水体在关卡里加载/卸载后需要刷新水位目标时，调用 UDS 的 <code>Update Water Level Target</code> 强制更新。
+  关卡里有水体加载或卸载、需要刷新水位目标时，调用 UDS 的 <code>更新水位目标（Update Water Level Target）</code> 强制更新。
 </p>
 
 <h2 id="light-rays">体积云光柱</h2>
 
 <p>
   阴天时用云绘制器在云层上开一个洞，会看到远处有光束从洞口斜射下来——这就是
-  <code>Volumetric Cloud Light Rays</code>，默认开启，参数在同名分类里。
+  <code>体积云光线（Volumetric Cloud Light Rays）</code>，默认开启，参数在同名分类里。
 </p>
 
 <p>
-  它是一套自定义效果：用 Niagara 控制大量加法卡片来渲染光束，<strong>与体积雾、屏幕空间光轴都没有关系</strong>。
-  分类里可以调光束卡片的颜色与间距；开启 <code>Individual Cloud Light Rays</code> 后，
+  它是一套自定义效果：用 Niagara 驱动大量加法混合卡片来渲染光束，<strong>与体积雾、屏幕空间光轴都没有关系</strong>。
+  分类里可以调光束卡片的颜色与间距；开启 <code>单独云光线（Individual Cloud Light Rays）</code> 后，
   即使没有手绘的缺口，只要整体云量很高、云团之间存在缝隙，也会尝试从缝隙里投射光束。
   这个选项的卡片数量可能显著增加，性能开销也更高。
 </p>
@@ -333,7 +333,7 @@
 <h2 id="post">后处理</h2>
 
 <p>
-  <code>Post Processing</code> 分类里有一个 <code>Post Process Components</code> 数组，每加一条，系统就会创建一个后处理组件。
+  <code>后处理（Post Processing）</code> 分类里有一个 <code>后处理组件（Post Process Components）</code> 数组，每加一条，系统就会创建一个后处理组件。
   每条可以覆盖任意后处理设置（泛光、调色、暗角等），并额外提供三类遮罩：
 </p>
 
@@ -342,7 +342,7 @@
   <thead><tr><th>遮罩</th><th>效果</th></tr></thead>
   <tbody>
     <tr><td>按时间启用/停用</td><td>控制该组件的混合权重，随当前时间淡入淡出。</td></tr>
-    <tr><td>按云量、雾、尘埃、室内遮挡遮罩</td><td>例如勾选 <code>Mask Blend Weight When Overcast</code>，天转阴时这组后处理会逐渐消失。</td></tr>
+    <tr><td>按云量、雾、沙尘、室内遮挡遮罩</td><td>例如勾选 <code>阴天时遮罩混合权重（Mask Blend Weight When Overcast）</code>，天转阴时这组后处理会逐渐消失。</td></tr>
     <tr><td>按下雨/下雪遮罩</td><td>依赖 UDW；没有 UDW 时不生效。</td></tr>
   </tbody>
 </table>
@@ -352,13 +352,13 @@
 
 <p>
   想让环境声随昼夜或天气改变音量，用 <code>Blueprints/Sound</code> 里的
-  <code>AmbientSound-Time and Weather Controlled</code>。它是标准 Ambient Sound 的子类，用法完全一致，
+  <code>环境声-时间与天气控制（AmbientSound-Time and Weather Controlled）</code>。它是标准 Ambient Sound 的子类，用法完全一致，
   只是多了按时间与天气控制音量倍率的逻辑。
 </p>
 
 <p>
-  在 <code>Sound</code> 分类顶部可以设置白天/夜晚的音量倍率，以及雪天/雨天/无天气各自的倍率；
-  <code>Volume Multiplier Transition Time</code> 控制倍率变化时的过渡时长。
+  在 <code>声音（Sound）</code> 分类顶部可以设置白天/夜晚的音量倍率，以及雪天/雨天/无天气各自的倍率；
+  <code>音量倍数过渡时间（Volume Multiplier Transition Time）</code> 控制倍率变化时的过渡时长。
 </p>
 
 <p>
@@ -368,15 +368,15 @@
 <h2 id="onscreen">屏幕控制控件</h2>
 
 <p>
-  项目需要一个简单的屏上界面让玩家调时间和天气时，UDS 自带控件 <code>UDS Onscreen Controls</code>，
-  在控件设计器面板的 <code>Ultra Dynamic Sky Widgets</code> 分类里。
+  如果项目需要一个简单的屏上界面让玩家调时间和天气，UDS 自带控件 <code>UDS 屏幕控件（UDS Onscreen Controls）</code>，
+  在控件设计器面板的 <code>超动态天空控件（Ultra Dynamic Sky Widgets）</code> 分类里。
 </p>
 
 <ul>
-  <li>默认所有控件都启用，可以在细节面板里关掉不需要的部分。例如只留 <code>Show Time Control</code>，就是一个紧凑的时间滑块。</li>
+  <li>默认所有控件都启用，可以在细节面板里关掉不需要的部分。例如只留 <code>显示时间控制（Show Time Control）</code>，就是一个紧凑的时间滑块。</li>
   <li>可以设置显示的时间/日期格式，以及天气控件里可选的天气预设。</li>
   <li>多人游戏里，如果客户端要用它控制服务器上的 UDS/UDW，在玩家控制器里加上
-    <code>UDS Client Controller</code> 组件即可，控件会自动通过它把时间/天气操作同步到服务器。</li>
+    <code>UDS 客户端控制器（UDS Client Controller）</code> 组件即可，控件会自动通过它把时间/天气操作同步到服务器。</li>
 </ul>
 
 <div class="video-embed" data-bvid="BV15yoTBRE81">

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>技术说明 - UDS 中文文档</title>
-<meta name="description" content="UDS 与 UDW 的蓝图结构：启动流程、静态与动态属性、缓存系统、时间与光照的推导、云移动、材质状态管理，以及多人复制方式。">
+<meta name="description" content="UDS 与 UDW 的蓝图结构：启动流程、静态与动态属性、缓存系统、时间与光照的推导、云层移动、材质状态管理，以及多人复制方式。">
 <meta name="theme-color" content="#f2eee5">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
@@ -81,7 +81,7 @@
           <header class="doc-head">
             <div class="eyebrow">Reference · 16</div>
             <h1>技术说明</h1>
-            <p class="lede">UDS 与 UDW 的蓝图结构：启动流程、静态与动态属性、缓存系统、时间与光照的推导、云移动、材质状态管理，以及多人复制方式。</p>
+            <p class="lede">UDS 与 UDW 的蓝图结构：启动流程、静态与动态属性、缓存系统、时间与光照的推导、云层移动、材质状态管理，以及多人复制方式。</p>
             <div class="meta-row"><span class="chip">给改源码的人</span><span class="chip">结构说明</span></div>
           </header>
 
@@ -95,9 +95,9 @@
 <h3 id="启动">启动</h3>
 
 <p>
-  <code>Startup Sky</code> 函数包含全部启动逻辑：编辑器里由 Construction Script 调用，
+  <code>启动天空（Startup Sky）</code> 函数包含全部启动逻辑：编辑器里由 Construction Script 调用，
   运行时由 Begin Play 调用，另外在运行时重启天空（套用配置、切换 Sky Mode）时也会调用。
-  它负责一次性设置，并执行一遍 Update 函数。
+  它负责一次性设置，并执行一遍更新（Update）流程。
 </p>
 
 <h3 id="两个-update-函数">两个 Update 函数</h3>
@@ -107,12 +107,12 @@
   <thead><tr><th>函数</th><th>职责</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>Update Active Variables</code></td>
+      <td><code>更新活动变量（Update Active Variables）</code></td>
       <td>应用随时间、天气等经常变化的属性。运行时频繁调用。</td>
     </tr>
     <tr>
-      <td><code>Update Static Variables</code></td>
-      <td>应用不预期在运行时变化的属性。只在 Construction Script 与 Begin Play 各跑一次，
+      <td><code>更新静态变量（Update Static Variables）</code></td>
+      <td>应用不打算在运行时改变的属性。只在 Construction Script 与 Begin Play 各跑一次，
         之后除非手动调用，否则不再执行。</td>
     </tr>
   </tbody>
@@ -120,82 +120,82 @@
 </div>
 
 <p>
-  这也是“改静态属性没反应”的根源：它们属于 <code>Update Static Variables</code> 的管辖范围，
-  改完要调对应的 <code>Static Properties - XXX</code> 函数。
+  这也是“改静态属性没反应”的根源：它们属于 <code>更新静态变量（Update Static Variables）</code> 的管辖范围，
+  改完要调对应的 <code>静态属性 - XXX（Static Properties - XXX）</code> 函数。
 </p>
 
 <p>
-  函数按功能分类命名，例如镜头光晕的静态属性函数就叫 <code>Static Properties - Lens Flare</code>，
+  函数按功能分类命名，例如镜头光晕的静态属性函数就叫 <code>静态属性 - 镜头光晕（Static Properties - Lens Flare）</code>，
   放在 Lens Flare 分类下。几乎每个函数都有说明。
 </p>
 
 <h2 id="cache">缓存系统</h2>
 
 <p>
-  Project Mode 为 <code>Game / Real-Time</code> 时，UDS 用一套缓存把复杂计算摊开：
-  <code>Cache Properties</code> 把不同类型的数据缓存成“新旧两组值”的数组，两次缓存更新之间在新旧值之间插值。
+  <code>项目模式（Project Mode）</code>为 <code>游戏与实时（Game / Real-Time）</code> 时，UDS 用一套缓存把复杂计算摊开：
+  <code>缓存属性（Cache Properties）</code> 把不同类型的数据缓存成“新旧两组值”的数组，在两次缓存更新之间对这两组值插值。
 </p>
 
 <ul>
   <li><strong>更新周期不是固定的</strong>：变化越快，缓存刷新越频繁。</li>
-  <li><code>Monitor for Changes</code> 每帧观察时间与天气变量的变化速度，必要时立刻调整缓存节奏；
-    节奏本身由 <code>Increment Cache Timer</code> 管理。</li>
-  <li>缓存独立于 Update 函数运行，因此它自己有 <code>Cached Sun Vector</code>、<code>Cached Moon Phase</code>
+  <li><code>监视变化（Monitor for Changes）</code> 每帧观察时间与天气变量的变化速度，必要时立刻调整缓存节奏；
+    节奏本身由 <code>递增缓存计时器（Increment Cache Timer）</code> 管理。</li>
+  <li>缓存独立于 Update 函数运行，因此它自己有 <code>缓存太阳向量（Cached Sun Vector）</code>、<code>缓存月相（Cached Moon Phase）</code>
     这类变量——这些值需要被多处共享，但不一定等于当前的真实值。</li>
-  <li>应用缓存值的函数统一以 <code>AP</code>（Apply Properties）开头，由 <code>Update Active Variables</code>
+  <li>应用缓存值的函数统一以 <code>AP（Apply Properties）</code> 开头，由 <code>更新活动变量（Update Active Variables）</code> 中
     触发的事件分发器调用。</li>
 </ul>
 
 <h2 id="time-lighting">时间与光照的实现</h2>
 
 <p>
-  时间由 <code>Time of Day</code> 与 <code>Date</code> 两个变量驱动。日月旋转由时间推导（除非启用手动定位），
-  而它们的旋转又被缓存系统与 Update 函数用来推导雾色、光照强度等。
+  时间由 <code>时刻（Time of Day）</code> 与 <code>日期（Date）</code> 两个变量驱动。日月旋转由时间推导（除非启用手动定位），
+  这两个旋转又被缓存系统与 Update 函数用来推导雾色、光照强度等。
 </p>
 
 <ul>
-  <li><code>Time of Day</code> 在 Tick 里由 <code>Time of Day Animation</code> 与 <code>Apply System Time</code> 推进（对应功能开启时）。</li>
-  <li><code>Date</code> 只在午夜由 <code>Offset Date</code> 推进一天。</li>
-  <li>日月旋转是缓存值，在 <code>Cache Sun and Moon Orientation</code> 里计算；启用模拟时改由
-    <code>Approximate Real Sun Moon and Stars</code> 依据时间、日期与经纬度计算。</li>
-  <li>缓存出来的朝向只写入 <code>Sun World Rotation</code> 与 <code>Moon World Rotation</code> 两个“视觉用”变量。
-    灯光本体有自己的 <code>Lights Update</code> 设置，可以只按周期改变朝向——这两个变量就是中间层。</li>
-  <li><code>Update Active Variables</code> 再用这两个旋转的前向量推导各种随光照朝向变化的属性。</li>
+  <li><code>时刻（Time of Day）</code> 在 Tick 里由 <code>时刻动画（Time of Day Animation）</code> 与 <code>应用系统时间（Apply System Time）</code> 推进（这两项功能开启时）。</li>
+  <li><code>日期（Date）</code> 只在午夜由 <code>日期偏移（Offset Date）</code> 推进一天。</li>
+  <li>日月旋转是缓存值，在 <code>缓存日月朝向（Cache Sun and Moon Orientation）</code> 里计算；启用模拟时改由
+    <code>近似真实日月星辰（Approximate Real Sun Moon and Stars）</code> 依据时间、日期与经纬度计算。</li>
+  <li>缓存出来的朝向只写入 <code>太阳世界旋转（Sun World Rotation）</code> 与 <code>月亮世界旋转（Moon World Rotation）</code> 两个“视觉用”变量。
+    灯光本体另有 <code>灯光更新（Lights Update）</code> 设置，可以只按周期改变朝向——这两个变量就是中间的传递层。</li>
+  <li><code>更新活动变量（Update Active Variables）</code> 再用这两个旋转的前向向量推导各种随光照朝向变化的属性。</li>
 </ul>
 
-<h2 id="cloud-move">云移动的实现</h2>
+<h2 id="cloud-move">云层移动的实现</h2>
 
 <p>
-  云的移动单独处理，不在 Update 函数里：
+  云层移动单独处理，不在 Update 函数里：
 </p>
 
 <ul>
-  <li><code>Increment Cloud Movement Cache</code> 默认每秒执行几次，算出当前位置应按什么速度、朝什么方向偏移，缓存新旧位置。</li>
-  <li><code>Update Cloud Movement</code> 每帧把缓存值写进材质参数。</li>
+  <li><code>递增云层移动缓存（Increment Cloud Movement Cache）</code> 默认每秒执行几次，算出当前位置应按什么速度、朝什么方向偏移，缓存新旧位置。</li>
+  <li><code>更新云层移动（Update Cloud Movement）</code> 每帧把缓存值写进材质参数。</li>
 </ul>
 
 <p>
   体积云相关属性写入共享材质参数集合 <code>UDS_VolumetricClouds_MPC</code>，
-  这样云雾、云影等其它材质也能用同一批参数近似云量。
+  这样雾、云影等其它材质也能用同一批参数近似云量。
 </p>
 
 <h2 id="fog-color">雾色与环境光色</h2>
 
 <p>
-  雾与环境光的颜色主要由 <code>Get Current Base Fog Colors</code> 计算，输出环境雾色、方向雾色，
+  雾与环境光的颜色主要由 <code>获取当前基础雾颜色（Get Current Base Fog Colors）</code> 计算，输出环境雾色、方向雾色，
   以及太阳与月亮各自的贡献。这些颜色既写进雾组件，也被其它逻辑复用——例如天光模式为
-  <code>Cubemap with Dynamic Color Tinting</code> 时，环境雾色会参与天光的颜色与强度计算。
+  <code>动态色调立方体贴图（Cubemap with Dynamic Color Tinting）</code> 时，环境雾色会参与天光的颜色与强度计算。
 </p>
 
 <h2 id="uds-replication">UDS 的复制（Replication）</h2>
 
 <p>
-  多人环境下 <code>Time of Day</code> 与 <code>Date</code> 会复制。做法不是每帧同步时间，而是：
+  多人环境下 <code>时刻（Time of Day）</code> 与 <code>日期（Date）</code> 会复制。做法不是每帧同步时间，而是：
 </p>
 
 <ul>
-  <li>服务端周期性更新 <code>Replicated Time of Day</code> 变量，通知客户端用这个值校正；</li>
-  <li><code>Day Length</code>、<code>Night Length</code>、<code>Time Speed</code>、<code>Simulation Speed</code>
+  <li>服务端周期性更新 <code>时刻网络复制（Replicated Time of Day）</code> 变量，通知客户端用这个值校正；</li>
+  <li><code>一天时长（Day Length）</code>、<code>夜晚时长（Night Length）</code>、<code>时间流速（Time Speed）</code>、<code>模拟速度（Simulation Speed）</code>
     这些“决定时间走多快”的参数本身也复制。</li>
 </ul>
 
@@ -211,12 +211,12 @@
 <table>
   <thead><tr><th>函数</th><th>职责</th></tr></thead>
   <tbody>
-    <tr><td><code>Start Weather System</code></td><td>对应 UDS 的 Startup Sky：创建天气设置对象等必要对象、启动随机天气等系统，并跑一遍 Update。</td></tr>
-    <tr><td><code>Update Current Global and Local Weather State</code></td><td>每帧构造全局状态，以及（需要时）局部状态。</td></tr>
-    <tr><td><code>Monitor Local Weather Changes</code></td><td>局部状态生成后检查各项是否越过阈值，越过的项会把相应函数绑定到
-      <code>Update Active Variables</code> 里的分发器上，以驱动所有响应这些值的系统。</td></tr>
-    <tr><td><code>Update Active Variables</code></td><td>把变化应用到 Niagara、声音组件与材质效果。</td></tr>
-    <tr><td><code>Update Static Variables</code></td><td>应用不随天气变化的属性，例如粒子的最大生成距离。</td></tr>
+    <tr><td><code>启动天气系统（Start Weather System）</code></td><td>对应 UDS 的<code>启动天空（Startup Sky）</code>：创建天气设置对象等必要对象，启动随机天气等系统，并执行一遍更新（Update）。</td></tr>
+    <tr><td><code>更新全局局部天气状态（Update Current Global and Local Weather State）</code></td><td>每帧构造全局状态，以及（需要时）局部状态。</td></tr>
+    <tr><td><code>监听本地天气变化（Monitor Local Weather Changes）</code></td><td>局部状态生成后检查各项是否越过阈值，越过的项会把相应函数绑定到
+      <code>更新活动变量（Update Active Variables）</code> 里的分发器上，以驱动所有响应这些值的系统。</td></tr>
+    <tr><td><code>更新活动变量（Update Active Variables）</code></td><td>把变化应用到 Niagara、声音组件与材质效果。</td></tr>
+    <tr><td><code>更新静态变量（Update Static Variables）</code></td><td>应用不随天气变化的属性，例如粒子的最大生成距离。</td></tr>
   </tbody>
 </table>
 </div>
@@ -228,10 +228,10 @@
 <h3 id="全局状态-global-weather-state">全局状态（Global Weather State）</h3>
 
 <p>
-  由 UDW 自身的设置决定：天气预设、<code>Change Weather</code> 函数、随机天气变化。
-  当影响全局状态的东西发生变化（例如开始一次过渡）时，<code>Bind Global State Update Functions</code>
-  会把需要的更新函数绑定到 <code>Construct Global Weather</code> 分发器，该分发器由
-  <code>Update Current Global and Local Weather State</code> 调用。
+  由 UDW 自身的设置决定：天气预设、<code>切换天气（Change Weather）</code> 函数、随机天气变化。
+  当影响全局状态的因素发生变化（例如开始一次过渡）时，<code>绑定全局状态更新函数（Bind Global State Update Functions）</code>
+  会把需要的更新函数绑定到 <code>构建全局天气（Construct Global Weather）</code> 分发器，该分发器由
+  <code>更新全局局部天气状态（Update Current Global and Local Weather State）</code> 调用。
 </p>
 
 <p>
@@ -241,33 +241,33 @@
 <h3 id="局部状态-local-weather-state">局部状态（Local Weather State）</h3>
 
 <p>
-  构造方式一致：按需绑定函数到 <code>Construct Local Weather</code>。局部绑定处理
+  构造方式一致：按需绑定函数到 <code>构造本地天气（Construct Local Weather）</code>。局部绑定处理
   天气覆盖体积、径向风暴、云层之上的调整等。
 </p>
 
 <p>
-  <code>Update Active Variables</code> 里设置的属性几乎都在读取 Local Weather State 对象的值——
+  <code>更新活动变量（Update Active Variables）</code> 里设置的属性几乎都在读取<code>局部天气状态（Local Weather State）</code>对象的值——
   因为它代表玩家所在位置的天气。
 </p>
 
 <h2 id="niagara">Niagara 系统</h2>
 
 <p>
-  UDW 使用的 Niagara 系统都在 <code>Particles</code> 文件夹。Rain、Dust、Snow、Wind Debris
+  UDW 使用的 Niagara 系统都在 <code>粒子（Particles）</code> 文件夹。<code>雨（Rain）</code>、<code>沙尘（Dust）</code>、<code>雪（Snow）</code>、<code>风中碎屑（Wind Debris）</code>
   共享大量模块与父发射器，行为大体相同。
 </p>
 
 <p>
   它们都包含一个 CPU 碰撞发射器与一个 GPU 碰撞发射器，用来把有效的粒子路径填进 Niagara 数组；
-  UDW 在构造系统时按 <code>Particle Collision Mode</code> 关掉其中一个。
+  UDW 在构造系统时按 <code>粒子碰撞模式（Particle Collision Mode）</code> 关掉其中一个。
   其余发射器从数组里随机取一条有效路径，据此决定位置、速度与寿命。
 </p>
 
 <p>
-  闪电方面：<code>Lightning Strike</code> 系统负责有可见闪电柱的落雷，
-  <code>Obscured Lightning</code> 负责只在云层里闪一下的被动效果。
+  闪电方面：<code>闪电击中（Lightning Strike）</code> 系统负责有可见闪电柱的落雷，
+  <code>被遮挡闪电（Obscured Lightning）</code> 负责只在云层里闪一下、看不到闪电柱的效果。
   天气粒子与云中闪电的 Niagara 组件主要由 Update 函数控制，落雷则由
-  <code>Lightning Flash</code> 图表生成。
+  <code>闪电闪光（Lightning Flash）</code> 蓝图图表生成。
 </p>
 
 <h2 id="sound-tech">声音的实现</h2>
@@ -278,18 +278,18 @@
 </p>
 
 <ul>
-  <li>天气声分 <strong>Global</strong> 与 <strong>Directional</strong> 两路：Global 不做声像/空间化，
-    Directional 会空间化，并且按方向应用遮挡（+X 方向被挡，则来自该方向的定向声衰减）。</li>
+  <li>天气声分 <strong>Global</strong> 与 <strong>Directional</strong> 两路：Global 不做声像与空间化，
+    Directional 会空间化，并且按方向应用遮挡（若 +X 方向被挡住，来自该方向的定向声就会衰减）。</li>
   <li>两路都输出到音频总线 <code>UDS_Weather_AudioBus</code>，再由 UDW 上的 Sound Mixer 统一做立体声像与遮挡处理，
     输出到 Base Submix。</li>
-  <li>遮挡值由 UDS 的 Player Occlusion 组件计算。</li>
+  <li>遮挡值由 UDS 的<code>玩家遮挡（Player Occlusion）</code>组件计算。</li>
 </ul>
 
 <h2 id="material-state-tech">材质状态管理</h2>
 
 <p>
-  <code>Material State Manager</code>（<code>Blueprints/Weather_Effects/System</code>）负责在开启
-  “Simulate Changing Material State Over Time” 时随时间推进全局材质状态。
+  <code>材质状态管理器（Material State Manager）</code>（<code>Blueprints/Weather_Effects/System</code>）负责在开启
+  <code>模拟材质状态随时间变化（Simulate Changing Material State Over Time）</code> 时随时间推进全局材质状态。
   关闭该选项时，材质状态直接取自参与构造全局状态的天气对象。
 </p>
 
@@ -317,7 +317,7 @@
             <li><a class="md-nav__link md-nav__link--lvl3" href="#两个-update-函数" data-toc="两个-update-函数">两个 Update 函数</a></li>
             <li><a class="md-nav__link md-nav__link--lvl2" href="#cache" data-toc="cache">缓存系统</a></li>
             <li><a class="md-nav__link md-nav__link--lvl2" href="#time-lighting" data-toc="time-lighting">时间与光照的实现</a></li>
-            <li><a class="md-nav__link md-nav__link--lvl2" href="#cloud-move" data-toc="cloud-move">云移动的实现</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl2" href="#cloud-move" data-toc="cloud-move">云层移动的实现</a></li>
             <li><a class="md-nav__link md-nav__link--lvl2" href="#fog-color" data-toc="fog-color">雾色与环境光色</a></li>
             <li><a class="md-nav__link md-nav__link--lvl2" href="#uds-replication" data-toc="uds-replication">UDS 的复制（Replication）</a></li>
             <li><a class="md-nav__link md-nav__link--lvl2" href="#udw-overview" data-toc="udw-overview">UDW 的蓝图结构</a></li>

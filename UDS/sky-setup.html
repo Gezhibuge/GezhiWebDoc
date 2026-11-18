@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>安装与基础设置 - UDS 中文文档</title>
-<meta name="description" content="把 UDS 放进关卡要做哪些清理、Basic Controls 里的设置各管什么，以及 Sky Mode / Color Mode / Project Mode / Feature Level 四个模式开关的区别。">
+<meta name="description" content="把 UDS 放进关卡要做哪些清理、基础控制（Basic Controls）里的设置各管什么，以及天空模式（Sky Mode）、颜色模式（Color Mode）、项目模式（Project Mode）、特性级别（Feature Level）四个模式开关的区别。">
 <meta name="theme-color" content="#f2eee5">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
@@ -81,32 +81,33 @@
           <header class="doc-head">
             <div class="eyebrow">Sky · 01</div>
             <h1>安装与基础设置</h1>
-            <p class="lede">把 UDS 放进关卡要做哪些清理、Basic Controls 里的设置各管什么，以及 Sky Mode / Color Mode / Project Mode / Feature Level 四个模式开关的区别。</p>
+            <p class="lede">把 UDS 放进关卡要做哪些清理、<code>基础控制（Basic Controls）</code>里的设置各管什么，以及<code>天空模式（Sky Mode）</code>、<code>颜色模式（Color Mode）</code>、<code>项目模式（Project Mode）</code>、<code>特性级别（Feature Level）</code>四个模式开关的区别。</p>
             <div class="meta-row"><span class="chip">所有项目的第一步</span><span class="chip">四个模式开关</span></div>
           </header>
 
 <h2 id="add">把 UDS 加入关卡</h2>
 
 <p>
-  先把关卡里原有的天空与光照清理干净。需要删除以下 Actor：
+  先把关卡里原有的天空与光照清理干净。UDS 自带平行光、天光和大气，关卡里原来那套留着
+  会和它叠在一起，出现双重光照，所以一般要把下面几个 Actor 删掉：
 </p>
 
 <ul>
-  <li>Directional Light（平行光）</li>
-  <li>Sky Light（天光）</li>
-  <li>Exponential Height Fog（高度雾）</li>
-  <li>Sky Atmosphere（天空大气）</li>
-  <li>Volumetric Cloud（体积云）</li>
+  <li><code>平行光（Directional Light）</code></li>
+  <li><code>天光（Sky Light）</code></li>
+  <li><code>指数高度雾（Exponential Height Fog）</code></li>
+  <li><code>天空大气（Sky Atmosphere）</code></li>
+  <li><code>体积云（Volumetric Cloud）</code></li>
 </ul>
 
 <p>
-  删完之后如果场景里仍有环境光，说明关卡的 Lightmap 里还残留静态光照。从主工具栏的
-  <code>Build</code> 下拉菜单执行一次光照构建（Build Lighting）即可清除。
+  删完之后如果场景里仍有环境光，多半是关卡的<code>光照贴图（Lightmap）</code>里还残留着烘焙的静态光照。从主工具栏的
+  <code>构建（Build）</code> 下拉菜单执行一次<code>光照构建（Build Lighting）</code>即可清除。
 </p>
 
 <p>
-  然后从 Blueprints 文件夹把 <code>Ultra Dynamic Sky</code> 拖进场景。默认配置就是白天的光照加体积云，
-  拖进去应该立刻能看到天空。
+  然后从 <code>Blueprints</code> 文件夹把 <code>超动态天空（Ultra Dynamic Sky）</code> 拖进场景。默认配置就是白天的光照与体积云，
+  拖进去应该就能看到天空。
 </p>
 
 <div class="video-embed" data-bvid="BV1LpdpBwELx">
@@ -121,13 +122,13 @@
 </div>
 
 <p>
-  如果关卡里已经有一套用标准光源搭好的基础光照、并且你想保留它，可以<strong>不删除</strong>这些光源直接放入 UDS，
+  如果关卡里已经有一套用引擎自带光源搭好的基础光照、并且你想保留它，可以<strong>不删除</strong>这些光源直接放入 UDS，
   它会提示你执行一次转换（conversion），把那套光照参数读进自己的配置里。
 </p>
 
 <p>
-  UDS 通常放在地面高度即可。想调整云的高度不要移动 Actor，而是改 <code>Volumetric Clouds</code> 分类下的
-  <code>Bottom Altitude</code>，否则整个天空的相对位置都会跟着变。
+  UDS 通常放在地面高度即可。想调整云的高度，不要移动 Actor，而是改 <code>体积云（Volumetric Clouds）</code> 分类下的
+  <code>底部高度（Bottom Altitude）</code>，否则整个天空都会跟着挪位置。
 </p>
 
 <div class="callout warn">
@@ -139,78 +140,78 @@
 
 <h2 id="basic">基础控制（Basic Controls）</h2>
 
-<p>选中关卡里的 UDS，细节面板最上方就是 <code>Basic Controls</code> 分类。常用的几组设置：</p>
+<p>选中关卡里的 UDS，细节面板最上方就是 <code>基础控制（Basic Controls）</code> 分类。常用的几组设置：</p>
 
 <div class="table-wrap">
 <table>
   <thead><tr><th>设置</th><th>作用</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>Time of Day</code></td>
-      <td>时间的主控参数，默认情况下决定太阳与月亮的位置。取值是 0–24 的小时数。</td>
+      <td><code>时刻（Time of Day）</code></td>
+      <td>时刻的主控参数，默认情况下决定太阳与月亮的位置。取值是 0–24 的小时数。</td>
     </tr>
     <tr>
-      <td><code>Sky Mode</code> / <code>Color Mode</code> / <code>Project Mode</code> / <code>Feature Level</code></td>
+      <td><code>天空模式（Sky Mode）</code> / <code>颜色模式（Color Mode）</code> / <code>项目模式（Project Mode）</code> / <code>特性级别（Feature Level）</code></td>
       <td>四个模式开关，决定 UDS 用哪套云、怎么算颜色、按什么目标优化、以及面向哪个渲染级别。见下文。</td>
     </tr>
     <tr>
-      <td><code>Cloud Coverage</code>、<code>Fog</code></td>
-      <td>云量与雾浓度。如果关卡里同时放了 UDW（天气系统），这两项会改由天气状态控制。</td>
+      <td><code>云量（Cloud Coverage）</code>、<code>雾（Fog）</code></td>
+      <td>云量与雾浓度。如果关卡里同时放了超动态天气（UDW），这两项会改由天气状态控制。</td>
     </tr>
     <tr>
-      <td><code>Saturation</code>、<code>Contrast</code>、<code>Overall Intensity</code>、<code>Night Brightness</code></td>
+      <td><code>饱和度（Saturation）</code>、<code>对比度（Contrast）</code>、<code>整体强度（Overall Intensity）</code>、<code>夜晚亮度（Night Brightness）</code></td>
       <td>整体观感的快速微调，不影响物理计算。</td>
     </tr>
     <tr>
-      <td><code>Day / Dawn-Dusk / Night Lighting Brightness</code></td>
+      <td><code>白天黄昏夜晚光照亮度（Day / Dawn-Dusk / Night Lighting Brightness）</code></td>
       <td>分别控制白天、晨昏、夜晚的光照强度，用来在“天空颜色亮度”和“场景受光”之间做美术取舍。</td>
     </tr>
     <tr>
-      <td><code>Dusk Time</code>、<code>Dawn Time</code></td>
-      <td>太阳越过地平线的时间点。若太阳启用了 <code>Simulate Real Sun</code>，这两项不生效。</td>
+      <td><code>黄昏时间（Dusk Time）</code>、<code>黎明时间（Dawn Time）</code></td>
+      <td>太阳越过地平线的时间点。若太阳启用了 <code>模拟真实太阳（Simulate Real Sun）</code>，这两项不生效。</td>
     </tr>
   </tbody>
 </table>
 </div>
 
-<h2 id="sky-mode">Sky Mode：用哪种云</h2>
+<h2 id="sky-mode">天空模式（Sky Mode）：用哪种云</h2>
 
-<p>这个开关主要决定云（或体积极光）的表现形式，共有七个选项：</p>
+<p>这个开关决定用哪种方式渲染天空，共有七个选项：</p>
 
 <div class="table-wrap">
 <table>
   <thead><tr><th>模式</th><th>说明</th><th>开销</th></tr></thead>
   <tbody>
-    <tr><td><code>Volumetric Clouds</code></td><td>默认选项。完整的 3D 体积云，观感最真实。</td><td>最高，部分平台可能吃不消</td></tr>
-    <tr><td><code>Static Clouds</code></td><td>用静态云纹理模拟体积云的观感。</td><td>很低</td></tr>
-    <tr><td><code>2D Dynamic Clouds</code></td><td>用平移的 2D 纹理绘制动态云。</td><td>低</td></tr>
-    <tr><td><code>No Clouds</code></td><td>完全不使用动态云。</td><td>最低</td></tr>
-    <tr><td><code>Volumetric Aurora</code></td><td>放弃云层，改为渲染完整 3D 极光，参数在 <code>Aurora</code> 分类里。</td><td>较高</td></tr>
-    <tr><td><code>Space</code></td><td>外太空场景：取消云、大气与天空着色，只保留日月与星星，且没有地面。</td><td>低</td></tr>
-    <tr><td><code>Voxel Clouds</code></td><td>把云层渲染成立方体素，用于体素美术风格的项目，本质是体积云的另一套渲染方式。</td><td>与体积云接近</td></tr>
+    <tr><td><code>体积云（Volumetric Clouds）</code></td><td>默认选项。完整的 3D 体积云，观感最真实。</td><td>最高，部分平台可能吃不消</td></tr>
+    <tr><td><code>静态云（Static Clouds）</code></td><td>用静态云贴图模拟体积云的观感。</td><td>很低</td></tr>
+    <tr><td><code>2D 动态云（2D Dynamic Clouds）</code></td><td>用平移的 2D 贴图绘制动态云。</td><td>低</td></tr>
+    <tr><td><code>无云（No Clouds）</code></td><td>完全不显示云。</td><td>最低</td></tr>
+    <tr><td><code>体积极光（Volumetric Aurora）</code></td><td>放弃云层，改为渲染完整 3D 极光，参数在 <code>极光（Aurora）</code> 分类里。</td><td>较高</td></tr>
+    <tr><td><code>空间（Space）</code></td><td>外太空场景：取消云、大气与天空着色，只保留日月与星星，天空里看不到地面。</td><td>低</td></tr>
+    <tr><td><code>体素云（Voxel Clouds）</code></td><td>把云层渲染成立方体素，用于体素美术风格的项目，本质是体积云的另一套渲染方式。</td><td>与体积云接近</td></tr>
   </tbody>
 </table>
 </div>
 
-<h2 id="color-mode">Color Mode：颜色从哪来</h2>
+<h2 id="color-mode">颜色模式（Color Mode）：颜色从哪来</h2>
 
 <div class="table-wrap">
 <table>
   <thead><tr><th>模式</th><th>说明</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>Sky Atmosphere</code></td>
-      <td>使用虚幻自带的天空大气系统，模拟真实的散射效果。相关参数在 <code>Sky Atmosphere</code> 分类里继续调。</td>
+      <td><code>天空大气（Sky Atmosphere）</code></td>
+      <td>使用虚幻自带的天空大气系统，模拟真实的散射效果。相关参数在 <code>天空大气（Sky Atmosphere）</code> 分类里继续调。</td>
     </tr>
     <tr>
-      <td><code>Simplified Color</code></td>
-      <td>通过采样大气散射 LUT 体积纹理，加上可调的颜色值来决定天空颜色。材质开销更低，也更好直接控制；参数在 <code>Simplified Color</code> 分类里。</td>
+      <td><code>简化颜色（Simplified Color）</code></td>
+      <td>通过采样大气散射 LUT 体积贴图，加上可调的颜色值来决定天空颜色。材质开销更低，也更容易直接控制颜色；参数在 <code>简化颜色（Simplified Color）</code> 分类里。</td>
     </tr>
   </tbody>
 </table>
 </div>
 
-<h2 id="project-mode">Project Mode：按什么目标优化</h2>
+<h2 id="project-mode">项目模式（Project Mode）：按什么目标优化</h2>
 
 <p>这个开关决定 UDS 在<strong>运行时</strong>的行为方式。</p>
 
@@ -219,17 +220,17 @@
   <thead><tr><th>模式</th><th>行为</th><th>适用</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>Game / Real-time (Non VR)</code></td>
+      <td><code>游戏与实时（非 VR）（Game / Real-time (Non VR)）</code></td>
       <td>开启运行时优化，把一部分计算分摊到多帧完成。</td>
       <td>游戏与需要实时性能的项目（VR 除外）</td>
     </tr>
     <tr>
-      <td><code>Cinematic / Offline</code></td>
+      <td><code>影视级与离线（Cinematic / Offline）</code></td>
       <td>关闭上述优化，天空的所有动态项每帧完整更新，同时自动提高多项画质设置。</td>
       <td>渲染影片、静帧，或不需要实时的项目</td>
     </tr>
     <tr>
-      <td><code>Virtual Reality</code></td>
+      <td><code>虚拟现实（Virtual Reality）</code></td>
       <td>与实时模式类似，额外针对立体渲染做了若干调整以避免画面问题。</td>
       <td>VR 游戏或仿真</td>
     </tr>
@@ -237,17 +238,17 @@
 </table>
 </div>
 
-<h2 id="feature-level">Feature Level：面向哪个渲染级别</h2>
+<h2 id="feature-level">特性级别（Feature Level）：面向哪个渲染级别</h2>
 
 <p>
-  把 <code>Feature Level</code> 设成你项目的目标渲染级别——例如打包到移动端渲染器时，必须改成
-  <code>Mobile</code>。UDS 会用这个值来规避当前级别不支持的写法：选了 Mobile 之后，
-  <code>Volumetric Clouds</code>、<code>Volumetric Aurora</code> 这类不兼容的 Sky Mode 会被替换成兼容模式，
-  替换成什么可以在 <code>Mobile</code> 分类里指定。
+  把 <code>特性级别（Feature Level）</code> 设成你项目的目标渲染级别——例如打包到移动端时，就要改成
+  <code>移动端（Mobile）</code>。UDS 会用这个值来避开当前级别不支持的功能：设成移动端之后，
+  <code>体积云（Volumetric Clouds）</code>、<code>体积极光（Volumetric Aurora）</code> 这类不兼容的 Sky Mode 会被换成别的模式，
+  换成哪个可以在 <code>移动端（Mobile）</code> 分类里指定。
 </p>
 
 <p>
-  如果项目要发布到多个不同渲染级别的平台，可以打开 <code>Mobile</code> 分类里的选项，让 UDS 在启动时根据
+  如果项目要发布到多个渲染级别不同的平台，可以打开 <code>移动端（Mobile）</code> 分类里的选项，让 UDS 在启动时根据
   Platform Name 自动设置 Feature Level。
 </p>
         </article>

@@ -92,42 +92,42 @@
 <p>几乎都是曝光问题。依次检查：</p>
 <ul>
   <li>关卡里是否有后处理体积在接管曝光？有的话关掉它的曝光覆盖，让 UDS 来控制。</li>
-  <li>视口的 <code>Lit</code> 下拉里，曝光是否勾选了 <code>Game Settings</code>。</li>
-  <li>在 UDS 的曝光分类里临时关闭 <code>Apply Exposure Settings</code>，看画面是否恢复。</li>
+  <li>视口的 <code>受光（Lit）</code> 下拉里，确认曝光选的是 <code>游戏设置（Game Settings）</code>。</li>
+  <li>在 UDS 细节面板的曝光分类里临时关闭 <code>应用曝光设置（Apply Exposure Settings）</code>，看画面是否恢复。</li>
 </ul>
 
 <h3 id="天光不随时间变化">天光不随时间变化</h3>
 
 <p>初始正常、时间一走动环境光就不更新，通常是天光没有刷新：</p>
 <ul>
-  <li>某些平台不支持实时天光捕获。改用 <code>Cubemap with Dynamic Color Tinting</code>，它全平台可用且能随时间变化。</li>
-  <li>如果只是“入夜后环境光仍然很亮”，可能是关卡里残留了旧的静态光照，执行一次光照构建清掉。</li>
+  <li>某些平台不支持实时天光捕获。在 UDS 细节面板的天光分类里把天光模式换成 <code>动态色调立方体贴图（Cubemap with Dynamic Color Tinting）</code>，它全平台可用，也能随时间变化。</li>
+  <li>如果只是“入夜后环境光仍然很亮”，可能是关卡里残留了旧的静态光照，重新构建一次光照就能清掉。</li>
 </ul>
 
 <h3 id="天光更新很慢">天光更新很慢</h3>
 
 <p>
   天空快速变化（时间跳变、云量突变）时，环境光要很久才跟上——这是 Lumen 的默认行为，UDS 不干预它的参数。
-  在后处理体积的 <code>Lumen Global Illumination</code> 里调 <code>Update Speed</code> 可以加快，
+  在后处理体积的 <code>Lumen 全局光照（Lumen Global Illumination）</code> 里把 <code>更新速度（Update Speed）</code> 调高可以加快，
   代价是 GPU 开销上升。
 </p>
 
 <h3 id="运行时改变量要等一两秒才生效">运行时改变量要等一两秒才生效</h3>
 
 <p>
-  UDS 会尽量少地重算属性，多数帧在缓存值之间插值，所以从设置到生效会有 1–2 秒延迟。
+  UDS 会尽量减少属性重算，大部分帧只是在缓存值之间插值，所以从设置到生效会有 1–2 秒延迟。
   需要立刻生效时：
 </p>
 <ul>
-  <li>调用 <code>Hard Reset Cache</code>，清空缓存并立即应用全部改动；</li>
-  <li>或调小 <code>Scalability / Performance</code> 分类里的 <code>Max Property Cache Period</code>。</li>
+  <li>调用 <code>强制重置缓存（Hard Reset Cache）</code>，清空缓存并立即应用全部改动；</li>
+  <li>或在 UDS 细节面板的 <code>可扩展性/性能（Scalability / Performance）</code> 分类里把 <code>最大属性缓存周期（Max Property Cache Period）</code> 调小。</li>
 </ul>
 
 <h3 id="运行时改变量完全没用">运行时改变量完全没用</h3>
 
 <p>
-  有些属性被标记为静态属性，只在启动时应用，不会每帧刷新。改完变量后需要调用对应的
-  <code>Static Properties</code> 函数，例如改 <code>Sun Softness</code> 后调用 <code>Static Properties - Sun</code>。
+  有些属性被标记为静态属性，只在启动时应用一次，不会每帧刷新。改完这些变量后，要调用对应的
+  <code>静态属性（Static Properties）</code> 函数才会生效，例如改完 <code>太阳柔和度（Sun Softness）</code> 后调用 <code>静态属性 - 太阳（Static Properties - Sun）</code>。
 </p>
 
 <h3 id="阴天时水面-海洋着色仍然被阳光照亮">阴天时水面/海洋着色仍然被阳光照亮</h3>
@@ -135,12 +135,12 @@
 <p>
   单层水（Single Layer Water）着色模型在计算平行光时不考虑 Light Function。
   UDS 的云影支持 Light Function Atlas，在项目设置里开启
-  <code>Single Layer Water Uses Light Function Atlas</code> 即可让水面近似接收云影。
+  <code>单层水用光照函数图集（Single Layer Water Uses Light Function Atlas）</code> 即可让水面近似接收云影。
 </p>
 
 <p>
-  如果是日落前后水面反射与云量不匹配，在 UDS 的 <code>Cloud Shadows</code> 分类里开启
-  <code>Correct Specular Scale For Low Angle Cloud Shadows</code>。
+  如果是日落前后水面反射与云量对不上，在 UDS 细节面板的 <code>云阴影（Cloud Shadows）</code> 分类里开启
+  <code>低角度云影高光修正（Correct Specular Scale For Low Angle Cloud Shadows）</code>。
 </p>
 
 <h2 id="clouds">体积云</h2>
@@ -148,39 +148,39 @@
 <h3 id="云与网格交界处很硬-质量差">云与网格交界处很硬、质量差</h3>
 
 <p>
-  默认的渲染模式把云当作纯背景元素，网格相交部分质量很低。把
-  <code>Volumetric Cloud Rendering Mode</code> 换成偏向 <em>Mesh Intersections</em> 的模式即可。
+  默认的渲染模式把云当作纯背景元素，网格相交部分质量很低。把 UDS 细节面板里的
+  <code>体积云渲染模式（Volumetric Cloud Rendering Mode）</code> 换成名字里带 <em>Mesh Intersections</em> 的那一档即可。
 </p>
 
 <h3 id="透明材质没有被云挡住">透明材质没有被云挡住</h3>
 
 <p>
-  半透明材质需要额外配置才会被体积云遮挡：材质 Translucency 设置里同时开启
-  <code>Apply Fogging</code> 与 <code>Apply Cloud Fogging</code>。
-  视网格情况，可能还要开 <code>Compute Fog Per Pixel</code>，否则云雾是按顶点计算的。
+  半透明材质需要额外配置才会被体积云遮挡：在材质的 Translucency 设置里同时开启
+  <code>应用雾效（Apply Fogging）</code> 与 <code>应用云层雾化（Apply Cloud Fogging）</code>。
+  视网格情况，可能还要开 <code>逐像素计算雾（Compute Fog Per Pixel）</code>，否则雾效是按顶点计算的。
 </p>
 
-<h3 id="进入云层内部有噪点-条带-光照瑕疵">进入云层内部有噪点/条带/光照瑕疵</h3>
+<h3 id="进入云层内部有噪声-条带-光照瑕疵">进入云层内部有噪声/条带/光照瑕疵</h3>
 
-<p>默认设置是按“从地面看”优化的。进云之后可以尝试：</p>
+<p>默认设置是按“从地面看”调好的，进云之后可以再调：</p>
 <ul>
-  <li>提高 <code>View Sample Count Scale</code>（开销随之上升）；</li>
-  <li>降低 <code>Tracing Max Distance</code>——云层内、云层外各有一个；</li>
-  <li>调整 <code>Close View Sample Ratio</code>，它控制采样数如何随穿过云层的距离缩放。</li>
+  <li>提高 <code>视图采样数缩放（View Sample Count Scale）</code>（开销随之上升）；</li>
+  <li>降低 <code>追踪最大距离（Tracing Max Distance）</code>——云层内、云层外各有一个；</li>
+  <li>调整 <code>近景采样比例（Close View Sample Ratio）</code>，它控制采样数如何随穿过云层的距离缩放。</li>
 </ul>
 
-<h3 id="云移动很快时发糊-有拖影">云移动很快时发糊、有拖影</h3>
+<h3 id="云层移动很快时发糊-有拖影">云层移动很快时发糊、有拖影</h3>
 
 <p>
   默认渲染模式会用过去多帧累积解算，快速移动（例如延时摄影）时就会出现糊和重影。
-  换用其它 <code>Volumetric Cloud Rendering Mode</code> 即可。
+  把 <code>体积云渲染模式（Volumetric Cloud Rendering Mode）</code> 换成其它档位即可。
 </p>
 
 <h3 id="云异常发黑-发灰">云异常发黑 / 发灰</h3>
 
 <ul>
-  <li>如果用了 <code>Custom Sun Light Actor</code> / <code>Custom Moon Light Actor</code>：内置日月组件上有个
-    <code>Cloud Scattered Luminance Scale</code>，你自己的灯光也要设置同样的值，最好连颜色也照抄。</li>
+  <li>如果用了 <code>自定义太阳光 Actor（Custom Sun Light Actor）</code> / <code>自定义月光 Actor（Custom Moon Light Actor）</code>：内置日月组件上有个
+    <code>云散射亮度缩放（Cloud Scattered Luminance Scale）</code>，你自己的灯光组件也要设成同样的值，颜色最好也一并对齐。</li>
   <li>否则检查关卡里是否还残留着未删除的平行光 Actor/组件。</li>
 </ul>
 
@@ -190,28 +190,28 @@
 
 <p>
   通常是天空大气组件与场景的相对位置不对。确保 UDS Actor 放在地面高度，
-  相机不会明显低于它。
+  且相机不会明显低于它。
 </p>
 
 <h3 id="移动相机时天空闪成纯黑">移动相机时天空闪成纯黑</h3>
 
 <p>
-  这是天空大气在相机落到其“地面”以下时触发的引擎 Bug。选中 UDS 的天空大气组件
+  这是天空大气在相机落到它的“地面”以下时触发的引擎 Bug。选中 UDS 的天空大气组件
   （细节面板顶部的组件列表），把它下移到关卡最低点、相机到不了的位置。
 </p>
 
 <h3 id="体积雾像素化-质量差">体积雾像素化、质量差</h3>
 
 <p>
-  体积雾的画质由项目可扩展性设置决定，UDS 不接管。它的 cvar 属于 <code>Shadow Quality</code> 组，
-  调高该组即可。
+  体积雾的画质由项目可扩展性设置决定，UDS 不接管。它的 cvar 归在 <code>阴影质量（Shadow Quality）</code> 组里，
+  把这一组的画质调高即可。
 </p>
 
 <h3 id="太空层不渲染">太空层不渲染</h3>
 
 <p>
-  太空层用 DBuffer 网格贴花渲染，再由天空材质采样。所以项目里必须启用
-  <code>Dbuffer Decals</code>（移动端为 <code>Mobile DBuffer Decals</code>），且平台要支持。
+  太空层是用 DBuffer 网格贴花渲染的，再由天空材质采样。所以项目里必须启用
+  <code>DBuffer 贴花（Dbuffer Decals）</code>（移动端为 <code>移动端 DBuffer 贴花（Mobile DBuffer Decals）</code>），并且目标平台要支持这一特性。
 </p>
 
 <h2 id="weather">天气</h2>
@@ -219,26 +219,26 @@
 <h3 id="天气粒子完全看不到">天气粒子完全看不到</h3>
 
 <ul>
-  <li>可能被关卡里不可见的碰撞挡住了。把 <code>Shared Particle Settings</code> 的
-    <code>Particle Collision Mode</code> 临时设为 <code>No Collision</code> 验证一下。</li>
-  <li>检查视口的 Show 标记是否隐藏了粒子，切回 <code>Use Defaults</code>。</li>
-  <li>极少数情况下首次加载时 Niagara 系统编译失败：打开 <code>Particles</code> 里对应的系统资产
-    （Rain / Snow / Dust），用主工具栏 <code>Compile</code> 下拉里的 <code>Full Rebuild</code> 重建。</li>
+  <li>粒子可能被关卡里看不见的碰撞体挡住了。把 <code>共享粒子设置（Shared Particle Settings）</code> 的
+    <code>粒子碰撞模式（Particle Collision Mode）</code> 临时设为 <code>无碰撞（No Collision）</code> 验证一下。</li>
+  <li>检查视口 Show 菜单里是否把粒子关掉了，切回 <code>使用默认值（Use Defaults）</code>。</li>
+  <li>极少数情况下首次加载时 Niagara 系统编译失败：打开 <code>粒子（Particles）</code> 里对应的系统资产
+    （Rain / Snow / Dust），在打开后的主工具栏上用 <code>编译（Compile）</code> 下拉里的 <code>完整重建（Full Rebuild）</code> 重建。</li>
 </ul>
 
 <h3 id="simulate-模式下看不到天气粒子">Simulate 模式下看不到天气粒子</h3>
 
 <p>
   这是 Simulate 模式的限制：它用编辑器相机渲染，蓝图与 Niagara 都取不到相机位置。
-  换用其它 Play 模式即可。
+  换用 Simulate 以外的 Play 模式即可。
 </p>
 
 <h3 id="dlwe-的痕迹不出现">DLWE 的痕迹不出现</h3>
 <ul>
-  <li>地形需要有 World Static 的简单碰撞，响应查询且阻挡 Visibility 通道；用非地形网格时要按 DLWE 章节的说明配置物理材质。</li>
-  <li>检查 DLWE Interaction 组件的位置与 <code>Size</code> 是否足够。</li>
-  <li>痕迹只能画在控制点周围那块渲染目标范围内，而控制点由 <code>Basic Controls</code> 高级选项里的
-    <code>Control Point Location Source</code> 决定。相机离控制点太远时效果不可见。</li>
+  <li>地形需要有 World Static 的简单碰撞，能响应查询并阻挡 Visibility 通道；用非地形网格时，还要按 DLWE 章节的说明配置物理材质。</li>
+  <li>检查<code>DLWE 交互（DLWE Interaction）</code>组件的位置与 <code>尺寸（Size）</code> 是否足够。</li>
+  <li>痕迹只能画在控制点周围那一小块渲染目标的范围内，而控制点在哪由 <code>基础控制（Basic Controls）</code> 高级选项里的
+    <code>控制点位置来源（Control Point Location Source）</code> 决定。相机离控制点太远时就看不到痕迹。</li>
 </ul>
 
 <h3 id="天气粒子挡不住物体">天气粒子挡不住物体</h3>
@@ -250,25 +250,25 @@
   <thead><tr><th>模式</th><th>检查项</th></tr></thead>
   <tbody>
     <tr>
-      <td rowspan="3"><code>Simple Collision</code></td>
+      <td rowspan="3"><code>简单碰撞（Simple Collision）</code></td>
       <td>物体必须有<strong>简单碰撞</strong>，粒子只检测简单碰撞。</td>
     </tr>
     <tr>
-      <td>碰撞配置要阻挡 UDW 上 <code>Weather Particle Collision Channel</code> 指定的通道（默认 Visibility），
-        且碰撞响应为 <code>Collision Enabled</code> 或 <code>Query Only</code>。</td>
+      <td>碰撞配置要阻挡 UDW 上 <code>天气粒子碰撞通道（Weather Particle Collision Channel）</code> 指定的通道（默认 Visibility），
+        且碰撞启用状态要是 <code>启用碰撞（Collision Enabled）</code> 或 <code>仅查询（Query Only）</code>。</td>
     </tr>
     <tr>
-      <td>高天花板建筑“漏雨”：粒子生成时没有检测到那么高的顶。调大 UDW 上的 <code>Ceiling Check Height</code>。</td>
+      <td>高天花板建筑“漏雨”：粒子生成时没有检测到那么高的顶。调大 UDW 上的 <code>天花板检测高度（Ceiling Check Height）</code>。</td>
     </tr>
     <tr>
-      <td rowspan="3"><code>Distance Field Collision</code></td>
-      <td>项目需开启生成 Mesh Distance Fields。</td>
+      <td rowspan="3"><code>距离场碰撞（Distance Field Collision）</code></td>
+      <td>项目里要开启 Mesh Distance Fields 的生成。</td>
     </tr>
     <tr>
-      <td>用 <code>Show → Visualize → Global Distance Field</code> 查看实际的距离场，定位个别网格的问题。</td>
+      <td>用 <code>显示 → 可视化 → 全局距离场（Show → Visualize → Global Distance Field）</code> 查看实际的距离场，定位个别网格的问题。</td>
     </tr>
     <tr>
-      <td>用于阻挡的网格要开启 <code>Affect Distance Field Lighting</code>，否则不会出现在全局距离场里。</td>
+      <td>用于阻挡的网格要开启 <code>影响距离场光照（Affect Distance Field Lighting）</code>，否则不会出现在全局距离场里。</td>
     </tr>
   </tbody>
 </table>
@@ -277,7 +277,7 @@
 <h3 id="天气声音在不对的时候变小">天气声音在不对的时候变小</h3>
 
 <p>
-  声音遮挡的射线打到了不该打的东西。在 UDS 的 <code>Player Occlusion</code> 分类里调整遮挡检测的射线数量、
+  声音遮挡的射线打到了不该打的东西。在 UDS 细节面板的 <code>玩家遮挡（Player Occlusion）</code> 分类里调整遮挡检测的射线数量、
   通道与更新频率。
 </p>
 
@@ -285,7 +285,7 @@
 
 <p>
   常见表现：雾只在一只眼睛里正常、雨溅只渲染在左眼、单眼出现线条/色块。
-  把 UDS 的 <code>Project Mode</code> 设为 <code>Virtual Reality</code>，它会针对立体渲染的限制做调整。
+  在 UDS 细节面板里把 <code>项目模式（Project Mode）</code> 设为 <code>虚拟现实（Virtual Reality）</code>，它会针对立体渲染的限制做调整。
 </p>
         </article>
       </div>
@@ -304,8 +304,8 @@
             <li><a class="md-nav__link md-nav__link--lvl2" href="#clouds" data-toc="clouds">体积云</a></li>
             <li><a class="md-nav__link md-nav__link--lvl3" href="#云与网格交界处很硬-质量差" data-toc="云与网格交界处很硬-质量差">云与网格交界处很硬、质量差</a></li>
             <li><a class="md-nav__link md-nav__link--lvl3" href="#透明材质没有被云挡住" data-toc="透明材质没有被云挡住">透明材质没有被云挡住</a></li>
-            <li><a class="md-nav__link md-nav__link--lvl3" href="#进入云层内部有噪点-条带-光照瑕疵" data-toc="进入云层内部有噪点-条带-光照瑕疵">进入云层内部有噪点/条带/光照瑕疵</a></li>
-            <li><a class="md-nav__link md-nav__link--lvl3" href="#云移动很快时发糊-有拖影" data-toc="云移动很快时发糊-有拖影">云移动很快时发糊、有拖影</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#进入云层内部有噪声-条带-光照瑕疵" data-toc="进入云层内部有噪声-条带-光照瑕疵">进入云层内部有噪声/条带/光照瑕疵</a></li>
+            <li><a class="md-nav__link md-nav__link--lvl3" href="#云层移动很快时发糊-有拖影" data-toc="云层移动很快时发糊-有拖影">云层移动很快时发糊、有拖影</a></li>
             <li><a class="md-nav__link md-nav__link--lvl3" href="#云异常发黑-发灰" data-toc="云异常发黑-发灰">云异常发黑 / 发灰</a></li>
             <li><a class="md-nav__link md-nav__link--lvl2" href="#rendering" data-toc="rendering">通用渲染</a></li>
             <li><a class="md-nav__link md-nav__link--lvl3" href="#某个距离上出现一条生硬的雾-大气分界线" data-toc="某个距离上出现一条生硬的雾-大气分界线">某个距离上出现一条生硬的雾/大气分界线</a></li>
