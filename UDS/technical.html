@@ -211,7 +211,7 @@
 <table>
   <thead><tr><th>函数</th><th>职责</th></tr></thead>
   <tbody>
-    <tr><td><code>启动天气系统（Start Weather System）</code></td><td>对应 UDS 的<code>启动天空（Startup Sky）</code>：创建天气设置对象等必要对象，启动随机天气等系统，并执行一遍更新（Update）。</td></tr>
+    <tr><td><code>启动天气系统（Start Weather System）</code></td><td>对应 UDS 的 <code>启动天空（Startup Sky）</code>：创建天气设置对象等必要对象，启动随机天气等系统，并执行一遍更新（Update）。</td></tr>
     <tr><td><code>更新全局局部天气状态（Update Current Global and Local Weather State）</code></td><td>每帧构造全局状态，以及（需要时）局部状态。</td></tr>
     <tr><td><code>监听本地天气变化（Monitor Local Weather Changes）</code></td><td>局部状态生成后检查各项是否越过阈值，越过的项会把相应函数绑定到
       <code>更新活动变量（Update Active Variables）</code> 里的分发器上，以驱动所有响应这些值的系统。</td></tr>

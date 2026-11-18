@@ -61,6 +61,7 @@
 
 /* ------------------------------ 纸张浅色 ------------------------------ */
 html[data-theme="paper"] {
+  color-scheme: light;
   --bg: #f2eee5;
   --bg-light: #f7f3ea;
   --bg-lighter: #faf7f0;
@@ -69,7 +70,7 @@ html[data-theme="paper"] {
   --surface-2: #ece5d6;
   --fg: #29251f;
   --fg-light: #6b6153;
-  --fg-lighter: #948977;
+  --fg-lighter: #7f7464;
   --fg-lightest: #ded5c3;
   --border: #ded5c3;
   --border-strong: #cabfa9;
@@ -89,6 +90,8 @@ html[data-theme="paper"] {
 
 /* ------------------------------ 石板深色 ------------------------------ */
 html[data-theme="slate"] {
+  /* 让滚动条、输入框等原生控件跟着主题走，避免深色页面里冒出白色滚动条 */
+  color-scheme: dark;
   --bg: #0e0f0b;
   --bg-light: #14160f;
   --bg-lighter: #191c13;
@@ -97,7 +100,7 @@ html[data-theme="slate"] {
   --surface-2: #1c1f14;
   --fg: rgba(230, 232, 224, 0.82);
   --fg-light: rgba(230, 232, 224, 0.56);
-  --fg-lighter: rgba(230, 232, 224, 0.32);
+  --fg-lighter: rgba(230, 232, 224, 0.46);
   --fg-lightest: rgba(230, 232, 224, 0.12);
   --border: rgba(230, 232, 224, 0.12);
   --border-strong: rgba(230, 232, 224, 0.24);
@@ -201,6 +204,18 @@ a:hover { color: var(--accent-light); text-decoration: underline; text-underline
   color: var(--accent);
   background: var(--accent-soft);
 }
+/* 滚动时给页头一层很淡的投影，避免正文与页头在视觉上粘在一起 */
+.md-header--shadow { box-shadow: 0 0.05rem 0 var(--border), 0 0.25rem 0.6rem -0.35rem rgba(45, 34, 18, 0.35); }
+
+/* 键盘焦点：所有可交互元素都要看得见 */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+.md-search-list a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.md-search-input:focus-visible { outline: none; }
 
 /* -------------------------------- 布局 -------------------------------- */
 .md-container {
@@ -371,7 +386,9 @@ a:hover { color: var(--accent-light); text-decoration: underline; text-underline
   color: var(--code-fg);
   border-radius: 0.1rem;
   padding: 0.1em 0.25em;
-  white-space: nowrap;
+  /* 行内代码允许换行：参数名往往很长，禁止换行会把窄屏页面撑出横向滚动 */
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 .md-typeset pre {
   background: var(--code-bg);
@@ -487,6 +504,9 @@ a:hover { color: var(--accent-light); text-decoration: underline; text-underline
 /* 表格 */
 .table-wrap {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
   margin: 0 0 1em;
   border: var(--md-line) solid var(--border);
   border-radius: var(--md-radius);
@@ -499,17 +519,24 @@ td {
   padding: 0.4rem 0.6rem;
   border-bottom: var(--md-line) solid var(--border);
   vertical-align: top;
+  /* 长参数名、长英文单词在必要时断行，而不是把表格撑出容器 */
+  overflow-wrap: break-word;
 }
 th {
   background: var(--bg-lightest);
   font-weight: 700;
   font-size: 0.66rem;
   color: var(--fg-light);
-  white-space: nowrap;
+  white-space: normal;
 }
 tr:last-child td { border-bottom: 0; }
 tbody tr:hover { background: var(--bg-lightest); }
-td code { white-space: nowrap; }
+/* 单元格里的代码允许换行，这是表格不再出现横向滚动条的关键 */
+.md-typeset td code,
+.md-typeset th code {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
 
 /* 图片 */
 figure { margin: 0 0 1.1em; }
@@ -786,7 +813,8 @@ figcaption b { color: var(--fg-light); font-weight: 700; }
   background: transparent;
   color: var(--fg);
   font-family: inherit;
-  font-size: 0.8rem;
+  /* 小于 16px 时 iOS Safari 会在聚焦时自动放大页面 */
+  font-size: max(0.8rem, 16px);
   outline: none;
   padding: 0;
 }
@@ -820,6 +848,12 @@ figcaption b { color: var(--fg-light); font-weight: 700; }
   border-left-color: var(--accent);
   text-decoration: none;
 }
+.md-search-list mark {
+  background: var(--mark);
+  color: inherit;
+  border-radius: 0.1rem;
+  padding: 0 0.05em;
+}
 .md-search-list .s-title { display: block; font-size: 0.7rem; font-weight: 500; }
 .md-search-list .s-page { display: block; font-size: 0.56rem; color: var(--fg-lighter); margin-top: 0.05rem; }
 .md-search-list .s-snippet {
@@ -846,6 +880,10 @@ figcaption b { color: var(--fg-light); font-weight: 700; }
 }
 
 /* 图片放大 */
+.md-typeset figure img:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 #lightbox {
   position: fixed;
   inset: 0;
@@ -863,6 +901,10 @@ figcaption b { color: var(--fg-light); font-weight: 700; }
 /* -------------------------------- 响应式 -------------------------------- */
 @media screen and (max-width: 1220px) {
   .md-sidebar--secondary { display: none; }
+}
+@media screen and (min-width: 961px) {
+  /* 宽屏下左侧导航本来就常驻，汉堡按钮点了只会盖上遮罩，直接隐藏 */
+  #menu-btn { display: none; }
 }
 @media screen and (max-width: 960px) {
   .md-main__inner { margin-top: 0.4rem; }
@@ -893,13 +935,18 @@ figcaption b { color: var(--fg-light); font-weight: 700; }
   .hero h1 { font-size: 1.8em; }
   .hero-top { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   .hero-logo { width: 3.4rem; }
-  table { min-width: 26rem; }
-  th { white-space: normal; }
-  figure svg { min-width: 32rem; }
-  figure:has(> svg) { overflow-x: auto; }
+  /* 窄屏不再强制最小宽度：单元格换行即可，避免整页横向滚动 */
+  table { font-size: 0.66rem; }
+  th,
+  td { padding: 0.35rem 0.45rem; }
   .md-footer__inner { flex-direction: column; }
   .md-footer__link { max-width: 100%; }
   .md-footer__link--next { margin-left: 0; text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .md-sidebar--primary { transition: none; }
 }
 
 @media print {
@@ -911,7 +958,13 @@ figcaption b { color: var(--fg-light); font-weight: 700; }
   .md-main__inner { display: block; margin: 0; }
   .md-content__inner { padding: 0; }
   body { background: #fff; color: #000; font-size: 11pt; }
+  .md-typeset { font-size: 10.5pt; line-height: 1.65; color: #000; }
+  .md-typeset code { background: none; padding: 0; border: 0; }
+  .table-wrap { border-color: #999; }
+  .md-typeset th { background: #eee; }
+  th,
+  td { border-color: #bbb; }
   a { color: #000; text-decoration: underline; }
   h2 { break-after: avoid; }
-  figure, table { break-inside: avoid; }
+  figure, table, .callout { break-inside: avoid; }
 }
